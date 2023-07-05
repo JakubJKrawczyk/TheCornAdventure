@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CornProjectile : Projectile
 {
-    [SerializeField] private float movementSpeed;
-
     protected override void Update()
     {
         base.Update();
@@ -14,6 +12,6 @@ public class CornProjectile : Projectile
 
     private void Move()
     {
-        transform.position += _direction.normalized * movementSpeed * Time.deltaTime;
+        transform.position += _direction.normalized * _projectileSO.ProjectileSpeed * Time.deltaTime;
     }
 }

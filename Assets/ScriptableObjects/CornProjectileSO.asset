@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 3261150153853852388, guid: a8b118db842fcd44788b9f9867939166, type: 3}
   <Sprite>k__BackingField: {fileID: 0}
-  <ProjectileSpeed>k__BackingField: 2
+  <ProjectileSpeed>k__BackingField: 5
   <TimeBetweenShots>k__BackingField: 1
   <Lifetime>k__BackingField: 5
