@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected ProjectileSO _projectileSO;
 
     private float _timeOnCreation;
+    protected Vector3 _direction = new Vector3(1f, 0f, 0f);
 
     private void Start()
     {
@@ -24,5 +25,10 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetDirection(Vector3 direction)
+    {
+        _direction = direction;
     }
 }

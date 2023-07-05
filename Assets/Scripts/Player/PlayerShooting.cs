@@ -27,7 +27,25 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Shoot()
     {
-        Instantiate(_projectileSO.Prefab, _shootingPoint.position, Quaternion.identity);
+        Transform projectileTransform =
+            Instantiate(_projectileSO.Prefab, _shootingPoint.position, Quaternion.identity);
+        
+        Projectile projectile = projectileTransform.GetComponent<Projectile>();
+
+        SetProjectileDirection(projectile);
+
         _timeOfLastShot = Time.time;
+    }
+
+    private void SetProjectileDirection(Projectile projectile)
+    {
+        if (transform.localScale.x < 0)
+        {
+            projectile.SetDirection(new Vector3(-1f, 0f, 0f));
+        }
+        else
+        {
+            projectile.SetDirection(new Vector3(1f, 0f, 0f));
+        }
     }
 }
