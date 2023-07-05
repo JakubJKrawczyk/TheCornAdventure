@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour
 
     private void CheckLifetime()
     {
-        if(Time.time > _timeOnCreation + _projectileSO.Lifetime)
+        if (Time.time > _timeOnCreation + _projectileSO.Lifetime)
         {
             Destroy(gameObject);
         }
@@ -30,5 +30,14 @@ public class Projectile : MonoBehaviour
     public void SetDirection(Vector3 direction)
     {
         _direction = direction;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (_projectileSO.CollidesWith ==
+            (_projectileSO.CollidesWith | (1 << collider.gameObject.layer)))
+        {
+            Destroy(gameObject);
+        }
     }
 }
