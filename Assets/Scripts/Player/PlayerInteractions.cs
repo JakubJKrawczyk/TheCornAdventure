@@ -9,7 +9,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKey(KeyCode.E))
         {
             Shoot();
         }
