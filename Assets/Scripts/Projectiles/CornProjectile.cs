@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CornProjectile : MonoBehaviour
+public class CornProjectile : Projectile
 {
     [SerializeField] private float movementSpeed;
 
     private Vector3 movementDirection = new Vector3(1f, 0f, 0f);
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         Move();
     }
 
