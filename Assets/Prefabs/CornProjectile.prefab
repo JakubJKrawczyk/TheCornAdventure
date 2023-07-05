@@ -129,5 +129,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90dd10789af5f5c4193c3e7187aae935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifetime: 3
+  _projectileSO: {fileID: 11400000, guid: e94075d3492bb6a4f9253a59e9efd8e3, type: 2}
   movementSpeed: 2

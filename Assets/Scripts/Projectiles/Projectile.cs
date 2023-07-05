@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] protected float _lifetime;
+    [SerializeField] protected ProjectileSO _projectileSO;
 
     private float _timeOnCreation;
 
@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour
 
     private void CheckLifetime()
     {
-        if(Time.time > _timeOnCreation + _lifetime)
+        if(Time.time > _timeOnCreation + _projectileSO.Lifetime)
         {
             Destroy(gameObject);
         }

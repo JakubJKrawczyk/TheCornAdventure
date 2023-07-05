@@ -16,3 +16,4 @@ MonoBehaviour:
   <Sprite>k__BackingField: {fileID: 0}
   <ProjectileSpeed>k__BackingField: 2
   <TimeBetweenShots>k__BackingField: 1
+  <Lifetime>k__BackingField: 5

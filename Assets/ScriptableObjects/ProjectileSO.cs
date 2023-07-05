@@ -9,4 +9,6 @@ public class ProjectileSO : ScriptableObject
     [field: SerializeField] public Sprite Sprite { get; private set; }
     [field: SerializeField] public float ProjectileSpeed { get; private set; }
     [field: SerializeField] public float TimeBetweenShots { get; private set; }
+    [field: SerializeField] public float Lifetime { get; private set; }
+
 }
