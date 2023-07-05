@@ -12,6 +12,8 @@ public class JumpableButton : MonoBehaviour
     [Range(0, 10)] public float minimumJumpVelocity = 2f;
     [Range(0, 25)] public float minimumMass = 0.75f;
 
+    public GameObject[] Recievers;
+
     [SerializeField] GameObject Button;
     [SerializeField] GameObject ButtonCover;
 
@@ -47,7 +49,6 @@ public class JumpableButton : MonoBehaviour
                 isPressed = 2;
                 //move down - visual
                 Button.transform.position = new Vector2(transform.position.x, transform.position.y - 0.125f);
-
                 if (Timer == 0)
                 {
                     Button.GetComponent<SpriteRenderer>().color = new Color(0, 1f, 0, 255);
@@ -60,6 +61,11 @@ public class JumpableButton : MonoBehaviour
                     float animationSpeed = 1f / Timer;
                     ButtonCover.GetComponent<Animator>().speed = animationSpeed - 0.0015f;
                 }
+                foreach (var reciever in Recievers)
+                {
+                    reciever.SendMessage("Switch");
+                }
+
             }
         }
     }
@@ -71,7 +77,10 @@ public class JumpableButton : MonoBehaviour
             Button.transform.position = new Vector2(transform.position.x, transform.position.y + 0.125f);
             isActive = false;
             ButtonCover.SetActive(false);
-
+            foreach (var reciever in Recievers)
+            {
+                reciever.SendMessage("Switch");
+            }
         }
         else
         {
