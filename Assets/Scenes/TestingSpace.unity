@@ -882,7 +882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f780b5d5b3d7b3b439b7272b3a395c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cornPrefab: {fileID: 3261150153853852388, guid: a8b118db842fcd44788b9f9867939166, type: 3}
+  _projectileSO: {fileID: 11400000, guid: e94075d3492bb6a4f9253a59e9efd8e3, type: 2}
   _shootingPoint: {fileID: 190366094}
 --- !u!1 &1489172731
 GameObject:

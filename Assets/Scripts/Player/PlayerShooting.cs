@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    [SerializeField] private Transform _cornPrefab;
+    [SerializeField] private ProjectileSO _projectileSO;
     [SerializeField] private Transform _shootingPoint;
 
     private void Update()
@@ -17,6 +17,6 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Shoot()
     {
-        Instantiate(_cornPrefab, _shootingPoint.position, Quaternion.identity);
+        Instantiate(_projectileSO.Prefab, _shootingPoint.position, Quaternion.identity);
     }
 }
