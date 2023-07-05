@@ -23,10 +23,6 @@ public class PlayerInteractions : MonoBehaviour
         {
             Shoot();
         }
-        else
-        {
-            Debug.Log("Nope");
-        }
     }
 
     private void Shoot()
