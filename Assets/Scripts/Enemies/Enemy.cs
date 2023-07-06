@@ -5,22 +5,22 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour
 {
     [Min(0)]
-    [field: SerializeField] protected float InitialHP;
+    [field: SerializeField] protected float _initialHP;
     [Min(0)]
-    [field: SerializeField] protected float DamageAmount;
+    [field: SerializeField] protected float _damageAmount;
 
-    protected float CurrentHP;
+    protected float _currentHP;
 
     protected void Start()
     {
-        CurrentHP = InitialHP;
+        _currentHP = _initialHP;
     }
 
     public void ReceiveDamage(float damageReceived)
     {
-        CurrentHP -= damageReceived;
+        _currentHP -= damageReceived;
 
-        if(CurrentHP <= 0)
+        if(_currentHP <= 0)
         {
             Destroy(gameObject);
         }
