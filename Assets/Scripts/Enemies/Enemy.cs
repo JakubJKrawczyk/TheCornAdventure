@@ -11,12 +11,12 @@ public abstract class Enemy : MonoBehaviour
 
     protected float _currentHP;
 
-    protected void Start()
+    protected virtual void Start()
     {
         _currentHP = _initialHP;
     }
 
-    public void ReceiveDamage(float damageReceived)
+    public virtual void ReceiveDamage(float damageReceived)
     {
         _currentHP -= damageReceived;
 
