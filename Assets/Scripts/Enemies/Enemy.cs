@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [field: SerializeField] public float InitialHP { get; private set; }
-    [field: SerializeField] public float DamageAmount { get; private set; }
+    [Min(0)]
+    [field: SerializeField] public float InitialHP;
+    [Min(0)]
+    [field: SerializeField] public float DamageAmount;
 
     private float CurrentHP;
 
