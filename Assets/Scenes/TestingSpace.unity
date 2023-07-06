@@ -875,6 +875,7 @@ Transform:
   - {fileID: 1489172732}
   - {fileID: 134721288}
   - {fileID: 683955154}
+
   m_Father: {fileID: 1014155907}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1027,7 +1028,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1433861118
+
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1041,6 +1042,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectileSO: {fileID: 11400000, guid: 394400bda32055d458047c54c10655f2, type: 2}
   _shootingPoint: {fileID: 683955154}
+
 --- !u!1 &1489172731
 GameObject:
   m_ObjectHideFlags: 0
