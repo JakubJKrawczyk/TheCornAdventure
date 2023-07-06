@@ -16,18 +16,18 @@ public class CharacterController2D : MonoBehaviour
     [Range(1f, 15f)][SerializeField] private float _characterSpeed = 5f;
     [Range(1f, 15f)][SerializeField] private int _jumpFallingModifier = 4;
     [SerializeField] private LayerMask _whatIsGround;
-    [SerializeField] private Transform _groundCheck;
-    [SerializeField] private Transform _ceilingCheck;
+    [SerializeField] private Collider2D _groundCheck;
+    [SerializeField] private Collider2D _ceilingCheck;
     [SerializeField] private Collider2D _standingCollider;
     [SerializeField] private float _rollSpeed = 10f;
-    [Range(0,2f)][SerializeField] private float _jumpWindow = 0.1f;
+    [Range(0,2f)][SerializeField] private float _jumpWindow = 0.07f;
     private bool _triedRolling = false;
     private bool _isRolling = false;
     private float _actualCharacterSpeed;
     private float _jumpWindowTimer = 0f;
     private Rigidbody2D _rigidbody2D;
     private bool _facingRight = true;
-    const float _groundedRadius = .2f;
+    const float _groundedRadius = .1f;
     private bool _grounded;
     const float _ceilingRadius = .2f;
     private Vector3 _velocity = Vector3.zero;
@@ -59,30 +59,25 @@ public class CharacterController2D : MonoBehaviour
         bool wasGrounded = _grounded;
         _grounded = false;
 
-        if (!IsWPressed && !_grounded && _jumpCount == 0)
+        if (!IsWPressed && _rigidbody2D.velocity.y > 4)
         {
-
-            _rigidbody2D.gravityScale = 8;
+            Debug.Log("Zmniejszanie prêdkoœci");
+            _rigidbody2D.velocity /= new Vector2(1f, 3f);
+            
         }
-        else if(IsWPressed && !_grounded && _jumpCount == 0)
-        {
+        
 
-            _rigidbody2D.gravityScale = 4;
-        }
-
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(_groundCheck.position, _groundedRadius, _whatIsGround);
          //obs³uga okienka skoku
-        if(colliders.Length == 0 ) {
+        if(!_groundCheck.IsTouchingLayers(_whatIsGround.value)) {
             _jumpWindowTimer -= Time.deltaTime;
         }
-        if(_jumpWindowTimer != _jumpWindow && colliders.Length > 0) _jumpWindowTimer = _jumpWindow;
+        if(_jumpWindowTimer != _jumpWindow && _groundCheck.IsTouchingLayers(_whatIsGround.value)) _jumpWindowTimer = _jumpWindow;
 
         if(_jumpWindowTimer < 0) _jumpCount = 0;
 
         //Sprawdzam czy jestem na ziemi
-        foreach (Collider2D collider in colliders)
-        {
-            if(collider.gameObject != gameObject)
+        
+            if(_groundCheck.IsTouchingLayers(_whatIsGround.value))
             {
                 _grounded = true;
                 if (!wasGrounded)
@@ -92,7 +87,7 @@ public class CharacterController2D : MonoBehaviour
                     
                 }
             }
-        }
+        
 
        
 
@@ -109,7 +104,7 @@ public class CharacterController2D : MonoBehaviour
         //sprawdzam czy nad g³ow¹ znajduje siê przeszkoda i nie pozwalam postaci wstaæ
         if(!crouch)
         {
-            if(Physics2D.OverlapCircle(_ceilingCheck.position,_ceilingRadius, _whatIsGround))
+            if(_ceilingCheck.IsTouchingLayers(_whatIsGround.value))
             {
                 crouch = true;
             }
