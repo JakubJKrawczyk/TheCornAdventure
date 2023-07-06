@@ -5,14 +5,15 @@ using UnityEngine.Events;
 
 public class Lever : MonoBehaviour
 {
+
+    [SerializeField] private GameObject player;
     public float activationDistance = 0.75f;
     private Animator leverAnimator;
 
-    private GameObject player;
     public GameObject InteractionHelpSquare;
 
     private bool Active = false;
-
+    
     public UnityEvent OnInteractionEnabled;
     public UnityEvent OnInteractionDisabled;
 
@@ -20,7 +21,6 @@ public class Lever : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         leverAnimator = GetComponent<Animator>();
 
 
