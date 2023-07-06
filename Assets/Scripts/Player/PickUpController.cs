@@ -9,13 +9,13 @@ public class PickupController : MonoBehaviour
     public float pickupDistance = 0.5f;
     public LayerMask itemLayer;
     public ItemHolder itemHolder;
-
+    [SerializeField] private SceneManager sceneManager;
     private Transform playerTransform;
    
 
     private void Start()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = sceneManager.Player.transform;
     }
 
     private void Update()
