@@ -16,7 +16,7 @@ public abstract class Enemy : MonoBehaviour
         CurrentHP = InitialHP;
     }
 
-    protected void ReceiveDamage(float damageReceived)
+    public void ReceiveDamage(float damageReceived)
     {
         CurrentHP -= damageReceived;
 
