@@ -8,13 +8,15 @@ public class CharacterController2D : MonoBehaviour
 {
     //props
     public bool IsWPressed { get; set; }
+    [Header("Character Information")]
+    [Range(0,100)] public float HP;
+    
 
     [Header("Basic Properties")]
     [SerializeField] private float _jumpForce = 400f;
     [Range(0, 1)][SerializeField] private float _crouchSpeed = .36f;
     [Range(0, .3f)][SerializeField] private float _movementSmoothing = .05f;
     [Range(1f, 15f)][SerializeField] private float _characterSpeed = 5f;
-    [Range(1f, 15f)][SerializeField] private int _jumpFallingModifier = 4;
     [SerializeField] private LayerMask _whatIsGround;
     [SerializeField] private Collider2D _groundCheck;
     [SerializeField] private Collider2D _ceilingCheck;
