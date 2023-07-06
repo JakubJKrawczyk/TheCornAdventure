@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
 using UnityEngine.Events;
 public class CharacterController2D : MonoBehaviour
@@ -24,16 +21,16 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private float _rollSpeed = 10f;
     [Range(0,2f)][SerializeField] private float _jumpWindow = 0.07f;
     private bool _triedRolling = false;
+    private Animator animator;
     private bool _isRolling = false;
     private float _actualCharacterSpeed;
     private float _jumpWindowTimer = 0f;
     private Rigidbody2D _rigidbody2D;
     private bool _facingRight = true;
-    const float _groundedRadius = .1f;
     private bool _grounded;
-    const float _ceilingRadius = .2f;
     private Vector3 _velocity = Vector3.zero;
-    private float _jumpCount = 1; 
+    private float _jumpCount = 1;
+    public bool isWalking = false;
     [Header("Events")]
     [Space]
 
@@ -55,6 +52,7 @@ public class CharacterController2D : MonoBehaviour
         if (OnLandEvent == null) OnLandEvent = new UnityEvent();
         if (OnCrouchEvent == null) OnCrouchEvent = new BoolEvent();
         _actualCharacterSpeed = _characterSpeed;
+        animator = GetComponent<Animator>();
     }
     private void FixedUpdate()
     {
@@ -63,14 +61,21 @@ public class CharacterController2D : MonoBehaviour
 
         if (!IsWPressed && _rigidbody2D.velocity.y > 4)
         {
-            Debug.Log("Zmniejszanie prêdkoœci");
             _rigidbody2D.velocity /= new Vector2(1f, 3f);
             
         }
-        
+        // Obs³uga animacji
+        if (IsWPressed && _rigidbody2D.velocity.y > 1) animator.Play("player_jump_up", 0);
+        else if (_jumpCount == 0 && _rigidbody2D.velocity.y < -1) animator.Play("player_jump_down", 0);
+        else if (isWalking)
+        {
+            animator.Play("player_walk", 0);
+            Debug.Log($"Chodze {_rigidbody2D.velocity.x}");
+        }
+        else animator.Play("Idle", 0);
 
-         //obs³uga okienka skoku
-        if(!_groundCheck.IsTouchingLayers(_whatIsGround.value)) {
+        //obs³uga okienka skoku
+        if (!_groundCheck.IsTouchingLayers(_whatIsGround.value)) {
             _jumpWindowTimer -= Time.deltaTime;
         }
         if(_jumpWindowTimer != _jumpWindow && _groundCheck.IsTouchingLayers(_whatIsGround.value)) _jumpWindowTimer = _jumpWindow;
@@ -186,7 +191,7 @@ public class CharacterController2D : MonoBehaviour
 
     public void CrouchAnimation(bool crouch)
     {
-        Animator animator = GetComponent<Animator>();
+        
         if(crouch)
         {
             animator.Play("PlayerCrouch", 0);

@@ -16,5 +16,8 @@ public class PlayerMovement2D : MonoBehaviour
         bool Fdown = Input.GetKeyDown(KeyCode.F);
         controller.Move(XInput, YInput == -1 ? true : false, YInput == 1 ? true : false);
         controller.IsWPressed = YInput == 1 ? true : false;
+
+        if (XInput != 0 && YInput <= 0) controller.isWalking = true;
+        else controller.isWalking = false;
     }
 }
