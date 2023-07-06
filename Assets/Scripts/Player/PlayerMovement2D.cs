@@ -14,8 +14,7 @@ public class PlayerMovement2D : MonoBehaviour
         float YInput = Input.GetAxisRaw("Vertical");
         bool Edown = Input.GetKeyDown(KeyCode.E);
         bool Fdown = Input.GetKeyDown(KeyCode.F);
-
         controller.Move(XInput, YInput == -1 ? true : false, YInput == 1 ? true : false);
-
+        controller.IsWPressed = YInput == 1 ? true : false;
     }
 }
