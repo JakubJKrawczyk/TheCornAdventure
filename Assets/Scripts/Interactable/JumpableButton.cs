@@ -2,15 +2,18 @@ using System.Collections;
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class JumpableButton : MonoBehaviour
 {
-    
-    public bool CheckForVelocity = false;        // false = check for mass
+
     [Range(0, 10)] public float Timer = 0f;     // 0 = pressed will hold    0 < will disable after time
 
     [Range(0, 10)] public float minimumJumpVelocity = 2f;
     [Range(0, 25)] public float minimumMass = 0.75f;
+
+    public UnityEvent OnInteractionEnabled;
+    public UnityEvent OnInteractionDisabled;
 
     [SerializeField] GameObject Button;
     [SerializeField] GameObject ButtonCover;
@@ -31,21 +34,31 @@ public class JumpableButton : MonoBehaviour
             DefaultColor = new Color(0.5f, 0.4f, 0, 255);
         }
         Button.GetComponent<SpriteRenderer>().color = DefaultColor;
+
+        if (OnInteractionEnabled == null)
+        {
+            Debug.Log("No interaction assigned!");
+        }
+        if (Timer != 0 && OnInteractionDisabled == null)
+        {
+            Debug.Log("No disabled interaction assigned!");
+        }
     }
 
-    private int isPressed = 0;
-    private void OnCollisionEnter2D(Collision2D collision)
+    private bool isPressed = false;
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the colliding object has Rigidbody2D and if button isn't already active/pressed
-        Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-        if (rb != null && !isActive && !ButtonCover.activeInHierarchy && isPressed == 0)
+        // Check if the triggering object has Rigidbody2D and if the button isn't already active/pressed
+        Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
+        if (rb != null && !isActive && !ButtonCover.activeInHierarchy && !isPressed)
         {
-            //what to check and if it's above mimimum
-            if ((CheckForVelocity && rb.velocity.y >= minimumJumpVelocity) || (!CheckForVelocity && rb.mass >= minimumMass))
+            // Check velocity or mass depending on the condition
+            if ((minimumJumpVelocity != 0 && rb.velocity.y >= minimumJumpVelocity) || (minimumMass != 0 && rb.mass >= minimumMass))
             {
                 isActive = true;
-                isPressed = 2;
-                //move down - visual
+                isPressed = true;
+
+                // Move down - visual
                 Button.transform.position = new Vector2(transform.position.x, transform.position.y - 0.125f);
 
                 if (Timer == 0)
@@ -56,22 +69,31 @@ public class JumpableButton : MonoBehaviour
                 {
                     Button.GetComponent<SpriteRenderer>().color = new Color(1, 0.6f, 0, 255);
 
-                    //set speed to timer
+                    // Set speed to timer
                     float animationSpeed = 1f / Timer;
                     ButtonCover.GetComponent<Animator>().speed = animationSpeed - 0.0015f;
+                }
+
+                if (OnInteractionEnabled != null)
+                {
+                    OnInteractionEnabled.Invoke();
                 }
             }
         }
     }
-    private void ResetButton()
-    {
-        if (isPressed == 0)
+
+    public void ResetButton()
+    {      
+        if (!isPressed && isActive)
         {
             Button.GetComponent<SpriteRenderer>().color = DefaultColor;
             Button.transform.position = new Vector2(transform.position.x, transform.position.y + 0.125f);
             isActive = false;
             ButtonCover.SetActive(false);
-
+            if (OnInteractionDisabled != null)
+            {
+                OnInteractionDisabled.Invoke();
+            }
         }
         else
         {
@@ -79,7 +101,7 @@ public class JumpableButton : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D()
     {
         if (Timer == 0)
         {
@@ -87,9 +109,9 @@ public class JumpableButton : MonoBehaviour
         }
         else
         {
-            isPressed--;
-            if (isPressed == 0)
+            if (isPressed)
             {
+                isPressed = false;
                 ButtonCover.SetActive(true);
                 Invoke("ResetButton", Timer);
             }
