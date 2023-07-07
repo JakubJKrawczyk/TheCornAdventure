@@ -6,12 +6,12 @@ public class PlayerInteractions : MonoBehaviour
 {
     [SerializeField] private ProjectileSO _projectileSO;
     [SerializeField] private Transform _shootingPoint;
-
+    [SerializeField] private CharacterController2D controller;
     private float _timeOfLastShot = 0f;
 
     private void Update()
     {
-        if(Input.GetKey(KeyCode.E))
+        if(Input.GetKey(KeyCode.E) && !controller._isRolling)
         {
             TryShoot();
         }

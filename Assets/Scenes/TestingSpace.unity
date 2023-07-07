@@ -565,6 +565,18 @@ PrefabInstance:
       propertyPath: sceneManager
       value: 
       objectReference: {fileID: 2299328727617793679}
+    - target: {fileID: 5180213846633720301, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180213846633720301, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140083439602977700, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
+      propertyPath: OnCrouchEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7290323292993523729, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
       propertyPath: m_RootOrder
       value: 0

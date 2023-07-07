@@ -22,15 +22,21 @@ public class CharacterController2D : MonoBehaviour
     [Range(0,2f)][SerializeField] private float _jumpWindow = 0.07f;
     private bool _triedRolling = false;
     private Animator animator;
-    private bool _isRolling = false;
+    private Rigidbody2D _rigidbody2D;
     private float _actualCharacterSpeed;
     private float _jumpWindowTimer = 0f;
-    private Rigidbody2D _rigidbody2D;
     private bool _facingRight = true;
     private bool _grounded;
     private Vector3 _velocity = Vector3.zero;
-    private float _jumpCount = 1;
-    public bool isWalking = false;
+    internal float _jumpCount = 1;
+
+    //stany postaci
+
+    internal bool _isRolling = false;
+    internal bool isWalking = false;
+    internal bool isCrouchWalking = false;
+    internal bool isCrouching = false;
+
     [Header("Events")]
     [Space]
 
@@ -48,31 +54,23 @@ public class CharacterController2D : MonoBehaviour
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         if (OnLandEvent == null) OnLandEvent = new UnityEvent();
         if (OnCrouchEvent == null) OnCrouchEvent = new BoolEvent();
         _actualCharacterSpeed = _characterSpeed;
-        animator = GetComponent<Animator>();
     }
     private void FixedUpdate()
     {
         bool wasGrounded = _grounded;
         _grounded = false;
-
+         //obs³uga przetrzymanego skoku
         if (!IsWPressed && _rigidbody2D.velocity.y > 4)
         {
             _rigidbody2D.velocity /= new Vector2(1f, 3f);
             
         }
-        // Obs³uga animacji
-        if (IsWPressed && _rigidbody2D.velocity.y > 1) animator.Play("player_jump_up", 0);
-        else if (_jumpCount == 0 && _rigidbody2D.velocity.y < -1) animator.Play("player_jump_down", 0);
-        else if (isWalking)
-        {
-            animator.Play("player_walk", 0);
-            Debug.Log($"Chodze {_rigidbody2D.velocity.x}");
-        }
-        else animator.Play("Idle", 0);
+        
 
         //obs³uga okienka skoku
         if (!_groundCheck.IsTouchingLayers(_whatIsGround.value)) {
@@ -95,7 +93,7 @@ public class CharacterController2D : MonoBehaviour
                 }
             }
         
-
+            
        
 
     }
@@ -125,7 +123,11 @@ public class CharacterController2D : MonoBehaviour
                 if (move != 0) _triedRolling = true; // je¿eli podczas ruchu zacz¹³ kucaæ
 
                 _wasCrouching = true;
+                isCrouching = true;
                 OnCrouchEvent.Invoke(true);
+
+
+                
             }
 
             if(!_isRolling) move *= _crouchSpeed;
@@ -135,6 +137,9 @@ public class CharacterController2D : MonoBehaviour
             {
                 _standingCollider.enabled = false;
             }
+
+            if (move != 0) isCrouchWalking = true;
+            else isCrouchWalking = false;
         }
         else
         {
@@ -146,9 +151,14 @@ public class CharacterController2D : MonoBehaviour
             if (_wasCrouching)
             {
                 _wasCrouching = false;
+                isCrouching = false;
                 OnCrouchEvent.Invoke(false);
                 _triedRolling = false;
+
+                
             }
+            if (move != 0) isWalking = true;
+            else isWalking = false;
         }
 
         // nadanie prêdkoœci postaci
@@ -178,29 +188,15 @@ public class CharacterController2D : MonoBehaviour
         {
             Roll(true);
         }
-        else
+        else if(move == 0 || (_rigidbody2D.velocity.x > -1 || _rigidbody2D.velocity.x < 1))
         {
             Roll(false);
         }
-        if(_velocity.x >-0.5 && _velocity.x < 0.5) 
-        {
-            Roll(false);
-        }
-
-    }
-
-    public void CrouchAnimation(bool crouch)
-    {
         
-        if(crouch)
-        {
-            animator.Play("PlayerCrouch", 0);
-        }
-        else
-        {
-            animator.Play("PlayerStandUp", 0);
-        }
+
     }
+
+    
     // funkcja pozwalaj¹ca na toczenie postaci
     private void Roll(bool isRolling)
     {
