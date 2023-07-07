@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PatrollingEnemy : Enemy
+public class EnemyPatrolMovement : MonoBehaviour
 {
     [Min(0)]
     [SerializeField] private float _speed;
@@ -16,9 +16,8 @@ public class PatrollingEnemy : Enemy
     private Rigidbody2D _rigidBody;
     private Vector3 _currentDestination;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
         _rigidBody = GetComponent<Rigidbody2D>();
         _currentDestination = _pointB.position;
         StartMovingTowardsDestination();
