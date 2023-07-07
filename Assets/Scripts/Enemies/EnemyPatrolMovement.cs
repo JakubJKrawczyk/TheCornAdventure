@@ -20,7 +20,6 @@ public class EnemyPatrolMovement : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _currentDestination = _pointB.position;
-        StartMovingTowardsDestination();
     }
 
     private void Update()
@@ -28,8 +27,9 @@ public class EnemyPatrolMovement : MonoBehaviour
         if (CheckIfDestinationReached() == true)
         {
             ChangeDestination();
-            StartMovingTowardsDestination();
         }
+
+        MoveTowardsDestination();
     }
 
     private bool CheckIfDestinationReached()
@@ -56,15 +56,16 @@ public class EnemyPatrolMovement : MonoBehaviour
         _currentDestination = _pointA.position;
     }
 
-    private void StartMovingTowardsDestination()
+    private void MoveTowardsDestination()
     {
         int xMovementDirection = -1;
 
-        if(transform.position.x < _currentDestination.x)
+        if (transform.position.x < _currentDestination.x)
         {
             xMovementDirection = 1;
         }
-        
-        _rigidBody.velocity = new Vector2(_speed * xMovementDirection, 0);
+
+        _rigidBody.velocity =
+            new Vector2(_speed * xMovementDirection, 0);
     }
 }
