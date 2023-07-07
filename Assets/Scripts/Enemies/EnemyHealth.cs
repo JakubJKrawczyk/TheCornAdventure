@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour
 {
     [Min(0)]
     [field: SerializeField] protected float _initialHP;
