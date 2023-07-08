@@ -14,22 +14,30 @@ public class HealthController : MonoBehaviour
         RefreshHealth();
     }
 
-    public void AddHealth(int health)
+    public bool AddHealth(int health)
     {
-        CurrentHealth += health;
-        if (CurrentHealth > 5)
+        if ((CurrentHealth == 5 && health > 0) || (CurrentHealth == 0 && health < 0))
         {
-            CurrentHealth = 5;
-        }
-        if (health > 0)
-        {
-            ScreenEffectAnimator.SetTrigger("Healing");
+            return false;
         }
         else
         {
-            ScreenEffectAnimator.SetTrigger("Damage");
+            CurrentHealth += health;
+            if (CurrentHealth > 5)
+            {
+                CurrentHealth = 5;
+            }
+            if (health > 0)
+            {
+                ScreenEffectAnimator.SetTrigger("Healing");
+            }
+            else
+            {
+                ScreenEffectAnimator.SetTrigger("Damage");
+            }
+            RefreshHealth();
+            return true;
         }
-        RefreshHealth();
     }
     public void RemoveHealth(int health)
     {

@@ -68,14 +68,20 @@ public class PickupController : MonoBehaviour
             int AmmoType = item.GetComponent<AmmoPickUp>().AmmoType;
             int AmmoAmount = item.GetComponent<AmmoPickUp>().AmmoAmount;
 
-            AmmoStorage.AddAmmo(AmmoType, AmmoAmount);
-            item.SetActive(false);
+            bool AmmoAdded = AmmoStorage.AddAmmo(AmmoType, AmmoAmount);
+            if (AmmoAdded)
+            {
+                item.SetActive(false);
+            }
         }
         else if (item.tag == "Health")
         {
             int HealingAmount = item.GetComponent<HealthPickUp>().HealingAmount;
-            HealthController.AddHealth(HealingAmount);
-            item.SetActive(false);
+            bool HealthAdded = HealthController.AddHealth(HealingAmount);
+            if (HealthAdded)
+            {
+                item.SetActive(false);
+            }
         }
         else
         {

@@ -13,6 +13,9 @@ public class AmmoStorage : MonoBehaviour
     public GameObject DefaultGrainPanel;
     public Sprite[] AmmoSprite;
 
+
+    public WeightController WeightController;
+
     public AmmoStorage()
     {
         ammoList = new List<Ammo>();
@@ -39,7 +42,6 @@ public class AmmoStorage : MonoBehaviour
             Ammo firstAmmo = ammoList[0];
             firstAmmo.amount--;
          
-
             if (firstAmmo.amount <= 0)
             {
                 // If the amount reaches zero, remove the ammo from the list
@@ -80,9 +82,9 @@ public class AmmoStorage : MonoBehaviour
         }
         else
         {
-            // Add a new ammo to the list
+            // Add a new ammo to the beginning of the list
             Ammo newAmmo = new Ammo(type, amount);
-            ammoList.Add(newAmmo);
+            ammoList.Insert(0, newAmmo);
             RefreshAmmo();
             return true; // Return true to PickUpController - destroy object
         }
