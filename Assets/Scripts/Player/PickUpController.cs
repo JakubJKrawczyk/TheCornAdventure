@@ -11,7 +11,9 @@ public class PickupController : MonoBehaviour
     public ItemHolder itemHolder;
     [SerializeField] private SceneManager sceneManager;
     private Transform playerTransform;
-   
+
+    public AmmoStorage AmmoStorage;
+    public HealthController HealthController;
 
     private void Start()
     {
@@ -61,7 +63,24 @@ public class PickupController : MonoBehaviour
 
     private void PickUpItem(GameObject item)
     {
-        itemHolder.AddItem(item);
+        if (item.tag == "Ammo")
+        {
+            int AmmoType = item.GetComponent<AmmoPickUp>().AmmoType;
+            int AmmoAmount = item.GetComponent<AmmoPickUp>().AmmoAmount;
+
+            AmmoStorage.AddAmmo(AmmoType, AmmoAmount);
+            item.SetActive(false);
+        }
+        else if (item.tag == "Health")
+        {
+            int HealingAmount = item.GetComponent<HealthPickUp>().HealingAmount;
+            HealthController.AddHealth(HealingAmount);
+            item.SetActive(false);
+        }
+        else
+        {
+            itemHolder.AddItem(item);
+        }
     }
 
     private void DropAllItems()

@@ -7,12 +7,10 @@ public class ItemHolder : MonoBehaviour
     private List<GameObject> items = new List<GameObject>();
     public float spacing = 3f; // Spacing between dropped items
 
-
     public void AddItem(GameObject item)
     {
         items.Add(item);
         item.transform.SetParent(transform); // Set the item's parent to the ItemHolder for organization.
-        item.SetActive(false);
     }
 
     public void DropAllItems(Transform dropPosition)
