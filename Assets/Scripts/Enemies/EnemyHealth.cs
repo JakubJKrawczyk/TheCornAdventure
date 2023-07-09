@@ -5,9 +5,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [Min(0)]
-    [field: SerializeField] protected float _initialHP;
-    [Min(0)]
-    [field: SerializeField] protected float _damageAmount;
+    [SerializeField] protected float _initialHP;
 
     protected float _currentHP;
 
@@ -19,9 +17,11 @@ public class EnemyHealth : MonoBehaviour
     public virtual void ReceiveDamage(float damageReceived)
     {
         _currentHP -= damageReceived;
+        Debug.Log("Player dealt " + damageReceived + " damage to the enemy.");
 
-        if(_currentHP <= 0)
+        if (_currentHP <= 0)
         {
+            Debug.Log("Enemy has been defeated.");
             Destroy(gameObject);
         }
     }
