@@ -7,7 +7,6 @@ public class HealthController : MonoBehaviour
     public int CurrentHealth = 5;
     public GameObject[] HealthPanel;
 
-    public Animator ScreenEffectAnimator;
 
     public void Start()
     {
@@ -29,14 +28,14 @@ public class HealthController : MonoBehaviour
             {
                 CurrentHealth = 5;  // because Health might be able to heal more than 1
             }
-            if (health > 0)
-            {
-                ScreenEffectAnimator.SetTrigger("Healing");
-            }
-            else
-            {
-                ScreenEffectAnimator.SetTrigger("Damage");
-            }
+            //if (health > 0)
+            //{
+            //    ScreenEffectAnimator.SetTrigger("Healing");
+            //}
+            //else
+            //{
+            //    ScreenEffectAnimator.SetTrigger("Damage");
+            //}
             RefreshHealth();
             return true;    // Remove Health
         }
@@ -46,7 +45,7 @@ public class HealthController : MonoBehaviour
     public void RemoveHealth(int health)
     {
         CurrentHealth -= health;
-        ScreenEffectAnimator.SetTrigger("Damage");
+        //ScreenEffectAnimator.SetTrigger("Damage");
         RefreshHealth();
     }
 
