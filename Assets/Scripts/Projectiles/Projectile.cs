@@ -34,9 +34,13 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if ((_projectileSO.CollidesWith ==
-            (_projectileSO.CollidesWith | (1 << collider.gameObject.layer))))
+        if (_projectileSO.CollidesWith == (_projectileSO.CollidesWith | (1 << collider.gameObject.layer)))
         {
+            if (collider.TryGetComponent(out EnemyHealth enemyHealth))
+            {
+                enemyHealth.ReceiveDamage(_projectileSO.Damage);
+            }
+
             Destroy(gameObject);
         }
 
