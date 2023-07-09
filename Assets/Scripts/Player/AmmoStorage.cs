@@ -52,9 +52,6 @@ public class AmmoStorage : MonoBehaviour
                     spawnedAmmoRB.mass = 0.5f + WeightController.CalculateAmmoWeight(discardedAmmo.type, discardedAmmo.amount);
                     spawnedAmmoRB.gravityScale = 1f;
 
-
-
-
                     spawnedAmmoRB.AddForce(new Vector2(1f, 1.5f), ForceMode2D.Impulse); // Apply force in a curved path
 
                     spawnedAmmo.GetComponent<PolygonCollider2D>().enabled = true;
