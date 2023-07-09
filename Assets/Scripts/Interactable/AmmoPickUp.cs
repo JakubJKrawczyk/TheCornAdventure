@@ -12,7 +12,7 @@ public class AmmoPickUp : MonoBehaviour
     private Rigidbody2D rb;
 
     public int AmmoType = 0;
-    [Range(0, 20)] public int AmmoAmount = 0;
+    [Range(0, 50)] public int AmmoAmount = 0;
 
 
     void Start()
