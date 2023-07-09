@@ -16,6 +16,8 @@ public class AmmoStorage : MonoBehaviour
 
     public WeightController WeightController;
 
+    public GameObject[] AmmoPrefabs;
+
     public AmmoStorage()
     {
         ammoList = new List<Ammo>();
@@ -29,9 +31,38 @@ public class AmmoStorage : MonoBehaviour
     {
         if (ammoList.Count > 0)
         {
+            Ammo discardedAmmo = ammoList[0];
             ammoList.RemoveAt(0);
+            RefreshAmmo();
+
+            if (AmmoPrefabs.Length > 0)
+            {
+                GameObject ammoPrefab = AmmoPrefabs[discardedAmmo.type];
+
+                GameObject spawnedAmmo = Instantiate(ammoPrefab, transform.position + new Vector3(0.75f, 0), Quaternion.identity);
+                AmmoPickUp ammoPickup = spawnedAmmo.GetComponent<AmmoPickUp>();
+                if (ammoPickup != null)
+                {
+                    ammoPickup.AmmoAmount = discardedAmmo.amount;
+                    ammoPickup.AmmoType = discardedAmmo.type;
+
+                    ammoPickup.ShouldFloat = false;
+
+                    Rigidbody2D spawnedAmmoRB = spawnedAmmo.GetComponent<Rigidbody2D>();
+                    spawnedAmmoRB.mass = 0.5f + WeightController.CalculateAmmoWeight(discardedAmmo.type, discardedAmmo.amount);
+                    spawnedAmmoRB.gravityScale = 1f;
+
+
+
+
+                    spawnedAmmoRB.AddForce(new Vector2(1f, 1.5f), ForceMode2D.Impulse); // Apply force in a curved path
+
+                    spawnedAmmo.GetComponent<PolygonCollider2D>().enabled = true;
+                }
+
+                WeightController.RemoveAmmoWeight(discardedAmmo.type, discardedAmmo.amount);
+            }
         }
-        RefreshAmmo();
     }
 
 
@@ -48,6 +79,7 @@ public class AmmoStorage : MonoBehaviour
                 ammoList.RemoveAt(0);
             }
             RefreshAmmo();
+            WeightController.RemoveAmmoWeight(firstAmmo.type, 1);
             return firstAmmo.type;
         }
         else
@@ -78,6 +110,7 @@ public class AmmoStorage : MonoBehaviour
                 existingAmmo.amount = 99;
             }
             RefreshAmmo();
+            WeightController.AddAmmoWeight(type, amount);
             return true; // Return true to PickUpController - destroy object
         }
         else
@@ -86,6 +119,7 @@ public class AmmoStorage : MonoBehaviour
             Ammo newAmmo = new Ammo(type, amount);
             ammoList.Insert(0, newAmmo);
             RefreshAmmo();
+            WeightController.AddAmmoWeight(type, amount);
             return true; // Return true to PickUpController - destroy object
         }
     }
@@ -101,6 +135,7 @@ public class AmmoStorage : MonoBehaviour
                 ammoList.Remove(existingAmmo);
             }
             RefreshAmmo();
+            WeightController.AddAmmoWeight(type, amount);
         }
     }
 

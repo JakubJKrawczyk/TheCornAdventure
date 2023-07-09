@@ -7,6 +7,8 @@ public class ItemHolder : MonoBehaviour
     private List<GameObject> items = new List<GameObject>();
     public float spacing = 3f; // Spacing between dropped items
 
+    public WeightController WeightController;
+
     public void AddItem(GameObject item)
     {
         items.Add(item);

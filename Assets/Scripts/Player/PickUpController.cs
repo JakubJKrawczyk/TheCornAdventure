@@ -68,7 +68,7 @@ public class PickupController : MonoBehaviour
             int AmmoType = item.GetComponent<AmmoPickUp>().AmmoType;
             int AmmoAmount = item.GetComponent<AmmoPickUp>().AmmoAmount;
 
-            bool AmmoAdded = AmmoStorage.AddAmmo(AmmoType, AmmoAmount);
+            bool AmmoAdded = AmmoStorage.AddAmmo(AmmoType, AmmoAmount); // Check if ammo can be added
             if (AmmoAdded)
             {
                 item.SetActive(false);
@@ -77,7 +77,7 @@ public class PickupController : MonoBehaviour
         else if (item.tag == "Health")
         {
             int HealingAmount = item.GetComponent<HealthPickUp>().HealingAmount;
-            bool HealthAdded = HealthController.AddHealth(HealingAmount);
+            bool HealthAdded = HealthController.AddHealth(HealingAmount);   // Check if health can be added/subtracted
             if (HealthAdded)
             {
                 item.SetActive(false);
@@ -92,5 +92,6 @@ public class PickupController : MonoBehaviour
     private void DropAllItems()
     {
         itemHolder.DropAllItems(playerTransform);
+        AmmoStorage.DiscardFirstAmmo(); 
     }
 }
