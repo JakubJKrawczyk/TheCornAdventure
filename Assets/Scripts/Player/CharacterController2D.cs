@@ -71,10 +71,8 @@ public class CharacterController2D : MonoBehaviour
     
         
           
-    
-private void FixedUpdate()
-  
         _actualCharacterSpeed = _characterSpeed;
+    
     }
     private void FixedUpdate()
     {
@@ -97,10 +95,7 @@ private void FixedUpdate()
     
         
           
-    
 
-         private void FixedUpdate()
-  
         if(_jumpWindowTimer < 0) _jumpCount = 0;
         //Sprawdzam czy jestem na ziemi
         
@@ -177,13 +172,6 @@ public void Move(float move, bool crouch, bool jump)
         }
         else
         {
-
-    
-        
-          
-    
-
-        public void Move(float move, bool crouch, bool jump)
   
             if (_standingCollider != null)
             {
@@ -206,10 +194,7 @@ public void Move(float move, bool crouch, bool jump)
 
     
           
-            
-    
-
-          public void Move(float move, bool crouch, bool jump)
+       
   
         Vector3 targetVelocity = new Vector2(move * _actualCharacterSpeed, _rigidbody2D.velocity.y);
         _rigidbody2D.velocity = Vector3.SmoothDamp(_rigidbody2D.velocity, targetVelocity, ref _velocity, _movementSmoothing);
