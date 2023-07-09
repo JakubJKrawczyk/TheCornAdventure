@@ -43,12 +43,5 @@ public class Projectile : MonoBehaviour
 
             Destroy(gameObject);
         }
-
-        /*EnemyHealth enemyHealth = collider.GetComponent<EnemyHealth>();
-        if (enemyHealth != null)
-        {
-            enemyHealth.ReceiveDamage(_projectileSO.Damage);
-            Destroy(gameObject);
-        }*/
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ProjectileSO : ScriptableObject
 {
-    [SerializeField] private int _damage;
+    [field: SerializeField] private int _damage;
     public int Damage => _damage;
 
     [field: SerializeField] public Transform Prefab { get; private set; }

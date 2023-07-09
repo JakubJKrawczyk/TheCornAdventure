@@ -26,32 +26,3 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 }
-
-/*public class EnemyHealth : MonoBehaviour
-{
-    [Min(0)]
-    [SerializeField] protected float _initialHP;
-    [Min(0)]
-    [SerializeField] protected float _damageAmount;
-
-    protected float _currentHP;
-
-    protected virtual void Start()
-    {
-        _currentHP = _initialHP;
-    }
-
-    public virtual void ReceiveDamage(float damageReceived)
-    {
-        float actualDamage = _damageAmount / damageReceived;
-        _currentHP -= actualDamage;
-
-        if (_currentHP <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-}
-
-
-*/
