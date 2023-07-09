@@ -34,10 +34,12 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (_projectileSO.CollidesWith ==
-            (_projectileSO.CollidesWith | (1 << collider.gameObject.layer)))
+        if ((_projectileSO.CollidesWith ==
+            (_projectileSO.CollidesWith | (1 << collider.gameObject.layer))))
         {
             Destroy(gameObject);
         }
+
+        if(collider.gameObject.layer == _projectileSO.EnemyMask) Destroy(gameObject);
     }
 }
