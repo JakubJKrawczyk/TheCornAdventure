@@ -64,4 +64,3 @@ public class PlayerInteractions : MonoBehaviour
             projectile.SetDirection(new Vector3(1f, 0f, 0f));
         }
     }
-}
