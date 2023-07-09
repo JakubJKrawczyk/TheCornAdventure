@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7709502701663059592}
   - component: {fileID: 8809342316260691311}
   - component: {fileID: 3336495271997065658}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 7777647039990574616}
   - component: {fileID: 991564091175673748}
   - component: {fileID: 572824613224975227}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 2217934909911413814}
   - component: {fileID: 29213060530999366}
   - component: {fileID: 3861683773018522581}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LeverHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,14 +357,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d92470cd64585b489c0091074c9af4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   activationDistance: 1
   InteractionHelpSquare: {fileID: 7078269569786600811}
   OnInteractionEnabled:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Gate, Assembly-CSharp
+        m_MethodName: OpenGate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnInteractionDisabled:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Gate, Assembly-CSharp
+        m_MethodName: CloseGate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7078269569786600811
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6824072848064796560}
   - component: {fileID: 3805173051941903949}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +486,7 @@ GameObject:
   - component: {fileID: 7650886217674173386}
   - component: {fileID: 7327298278762027360}
   - component: {fileID: 2543371086495513716}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LeverHold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +614,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7347197568521563882}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
