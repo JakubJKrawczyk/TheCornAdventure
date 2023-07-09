@@ -13,6 +13,4 @@ public class ProjectileSO : ScriptableObject
     [field: SerializeField] public float TimeBetweenShots { get; private set; }
     [field: SerializeField] public float Lifetime { get; private set; }
     [field: SerializeField] public LayerMask CollidesWith { get; private set; }
-
-
 }
