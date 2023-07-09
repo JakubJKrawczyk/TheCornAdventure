@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 public class CharacterController2D : MonoBehaviour
@@ -65,7 +64,7 @@ public class CharacterController2D : MonoBehaviour
     {
         bool wasGrounded = _grounded;
         _grounded = false;
-         //obsÅ‚uga przetrzymanego skoku
+         //obs³uga przetrzymanego skoku
         if (!IsWPressed && _rigidbody2D.velocity.y > 4)
         {
             _rigidbody2D.velocity /= new Vector2(1f, 3f);
@@ -73,7 +72,7 @@ public class CharacterController2D : MonoBehaviour
         }
         
 
-        //obsÅ‚uga okienka skoku
+        //obs³uga okienka skoku
         if (!_groundCheck.IsTouchingLayers(_whatIsGround.value)) {
             _jumpWindowTimer -= Time.deltaTime;
         }
@@ -100,14 +99,14 @@ public class CharacterController2D : MonoBehaviour
     }
 
     /// <summary>
-    /// Funkcja poruszajÄ…ca postaciÄ….
+    /// Funkcja poruszaj¹ca postaci¹.
     /// </summary>
-    /// <param name="move">Nadaje kierunek ruchu postaci; -1 w lewo; 1 w prawo; 0 stÃ³j</param>
-    /// <param name="crouch">Informuje kontroler, Å¼e postaÄ‡ chce kucnÄ…Ä‡</param>
-    /// <param name="jump">Informuje kontroler, Å¼e postaÄ‡ chce podskoczyÄ‡</param>
+    /// <param name="move">Nadaje kierunek ruchu postaci; -1 w lewo; 1 w prawo; 0 stój</param>
+    /// <param name="crouch">Informuje kontroler, ¿e postaæ chce kucn¹æ</param>
+    /// <param name="jump">Informuje kontroler, ¿e postaæ chce podskoczyæ</param>
     public void Move(float move, bool crouch, bool jump)
     {
-        //sprawdzam czy nad gÅ‚owÄ… znajduje siÄ™ przeszkoda i nie pozwalam postaci wstaÄ‡
+        //sprawdzam czy nad g³ow¹ znajduje siê przeszkoda i nie pozwalam postaci wstaæ
         if(!crouch)
         {
             if(_ceilingCheck.IsTouchingLayers(_whatIsGround.value))
@@ -116,12 +115,12 @@ public class CharacterController2D : MonoBehaviour
             }
         }
 
-        // obsÅ‚uga kucania   
+        // obs³uga kucania   
         if(crouch)
         {
             if (!_wasCrouching)
             {
-                if (move != 0) _triedRolling = true; // jeÅ¼eli podczas ruchu zaczÄ…Å‚ kucaÄ‡
+                if (move != 0) _triedRolling = true; // je¿eli podczas ruchu zacz¹³ kucaæ
 
                 _wasCrouching = true;
                 isCrouching = true;
@@ -162,7 +161,7 @@ public class CharacterController2D : MonoBehaviour
             else isWalking = false;
         }
 
-        // nadanie prÄ™dkoÅ›ci postaci
+        // nadanie prêdkoœci postaci
         Vector3 targetVelocity = new Vector2(move * _actualCharacterSpeed, _rigidbody2D.velocity.y);
 
         _rigidbody2D.velocity = Vector3.SmoothDamp(_rigidbody2D.velocity, targetVelocity, ref _velocity, _movementSmoothing);
@@ -174,7 +173,7 @@ public class CharacterController2D : MonoBehaviour
         {
             Flip();
         }
-         //ObsÅ‚uga skakania
+         //Obs³uga skakania
         if (jump && (_jumpCount > 0))
         {
             _grounded = false;
@@ -182,8 +181,8 @@ public class CharacterController2D : MonoBehaviour
             _jumpCount--;
         }
 
-        // ObsÅ‚uga toczenia siÄ™
-        if (_triedRolling && move == 0) _triedRolling = false; // jeÅ¼eli w czasie toczenia prÄ™dkoÅ›Ä‡ ruchu spadÅ‚a do 0
+        // Obs³uga toczenia siê
+        if (_triedRolling && move == 0) _triedRolling = false; // je¿eli w czasie toczenia prêdkoœæ ruchu spad³a do 0
 
         if(move != 0 && crouch && _triedRolling)
         {
@@ -193,12 +192,12 @@ public class CharacterController2D : MonoBehaviour
         {
             Roll(false);
         }
-
         
+
     }
 
     
-    // funkcja pozwalajÄ…ca na toczenie postaci
+    // funkcja pozwalaj¹ca na toczenie postaci
     private void Roll(bool isRolling)
     {
         if (isRolling)
