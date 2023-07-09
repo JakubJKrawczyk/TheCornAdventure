@@ -7,7 +7,6 @@ public class HealthController : MonoBehaviour
     public int CurrentHealth = 5;
     public GameObject[] HealthPanel;
 
-    public Animator ScreenEffectAnimator;
 
     public void Start()
     {
@@ -29,14 +28,14 @@ public class HealthController : MonoBehaviour
             {
                 CurrentHealth = 5;  // because Health might be able to heal more than 1
             }
-            if (health > 0)
-            {
-                ScreenEffectAnimator.SetTrigger("Healing");
-            }
-            else
-            {
-                ScreenEffectAnimator.SetTrigger("Damage");
-            }
+            //if (health > 0)
+            //{
+            //    ScreenEffectAnimator.SetTrigger("Healing");
+            //}
+            //else
+            //{
+            //    ScreenEffectAnimator.SetTrigger("Damage");
+            //}
             RefreshHealth();
             return true;    // Remove Health
         }
@@ -46,7 +45,7 @@ public class HealthController : MonoBehaviour
     public void RemoveHealth(int health)
     {
         CurrentHealth -= health;
-        ScreenEffectAnimator.SetTrigger("Damage");
+        //ScreenEffectAnimator.SetTrigger("Damage");
         RefreshHealth();
     }
 
@@ -76,82 +75,5 @@ public class HealthController : MonoBehaviour
     {
         Debug.Log("Health = 0 GAME OVER");
        // Time.timeScale = 0.1f;
-    }
-}
-=======
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class HealthController : MonoBehaviour
-{
-    public int CurrentHealth = 5;
-    public GameObject[] HealthPanel;
-
-   // public Animator ScreenEffectAnimator;
-
-    public void Start()
-    {
-        RefreshHealth();
-    }
-
-    public bool AddHealth(int health)
-    {
-        if ((CurrentHealth == 5 && health > 0) || (CurrentHealth == 0 && health < 0))
-        {
-            return false;
-        }
-        else
-        {
-            CurrentHealth += health;
-            if (CurrentHealth > 5)
-            {
-                CurrentHealth = 5;
-            }
-           /* if (health > 0)
-            {
-                ScreenEffectAnimator.SetTrigger("Healing");
-            }
-            else
-            {
-                ScreenEffectAnimator.SetTrigger("Damage");
-            }*/
-            RefreshHealth();
-            return true;
-        }
-    }
-    public void RemoveHealth(int health)
-    {
-        CurrentHealth -= health;
-        Debug.Log("Player took " + health + " damage.");
-        // ScreenEffectAnimator.SetTrigger("Damage");
-        if (CurrentHealth <= 0)
-        {
-            CurrentHealth = 0;
-            GameOver();
-            Debug.Log("Player has Died.");
-        }
-        RefreshHealth();
-    }
-
-    public void RefreshHealth()
-    {
-        for (int i = 0; i < HealthPanel.Length; i++)
-        {
-            if (i < CurrentHealth)
-            {
-                HealthPanel[i].SetActive(true);
-            }
-            else
-            {
-                HealthPanel[i].SetActive(false);
-            }
-        }
-    }
-
-
-    public void GameOver()
-    {
-
     }
 }

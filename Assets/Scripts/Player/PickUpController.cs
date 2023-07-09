@@ -57,6 +57,7 @@ public class PickupController : MonoBehaviour
             if (closestItem != null)
             {
                 PickUpItem(closestItem.gameObject);
+                Debug.Log("Item Picked up!");
             }
         }
     }
