@@ -347,7 +347,7 @@ Transform:
   - {fileID: 6342442339496582270}
   - {fileID: 1209889904201426212}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1771975558692181840
 Rigidbody2D:
@@ -532,6 +532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectileSO: {fileID: 11400000, guid: 394400bda32055d458047c54c10655f2, type: 2}
   _shootingPoint: {fileID: 1209889904201426212}
+  controller: {fileID: 7140083439602977700}
 --- !u!212 &1475682704880704781
 SpriteRenderer:
   m_ObjectHideFlags: 0
