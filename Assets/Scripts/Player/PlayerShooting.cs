@@ -29,7 +29,6 @@ public class PlayerInteractions : MonoBehaviour
     {
         Transform projectileTransform =
             Instantiate(_projectileSO.Prefab, _shootingPoint.position, Quaternion.identity);
-
         Projectile projectile = projectileTransform.GetComponent<Projectile>();
 
         SetProjectileDirection(projectile);

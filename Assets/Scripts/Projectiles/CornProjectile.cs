@@ -14,4 +14,5 @@ public class CornProjectile : Projectile
     {
         transform.position += _direction.normalized * _projectileSO.ProjectileSpeed * Time.deltaTime;
     }
+
 }
