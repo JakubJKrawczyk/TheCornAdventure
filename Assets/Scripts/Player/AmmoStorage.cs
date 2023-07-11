@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AmmoStorage : MonoBehaviour
 {
+    public int MaxAmmoPerSlot = 10;
+
     private List<Ammo> ammoList;
 
     public GameObject[] AmmoPanel;
@@ -93,33 +96,18 @@ public class AmmoStorage : MonoBehaviour
 
     public bool AddAmmo(int type, int amount)
     {
-        Ammo existingAmmo = GetAmmo(type);
-        if (existingAmmo != null)
+        if (ammoList.Count >= 5)
         {
-            // Ammo exists, check if it can be added
-            if (existingAmmo.amount >= 99)
-            {
-                return false; // Cannot be added, return false to PickUpController, so object won't be destroyed
-            }
-            existingAmmo.amount += amount;
-            if (existingAmmo.amount > 99)
-            {
-                existingAmmo.amount = 99;
-            }
-            RefreshAmmo();
-            WeightController.AddAmmoWeight(type, amount);
-            return true; // Return true to PickUpController - destroy object
+            return false; // All slots are full, return false to PickUpController, so object won't be destroyed
         }
-        else
-        {
-            // Add a new ammo to the beginning of the list
-            Ammo newAmmo = new Ammo(type, amount);
-            ammoList.Insert(0, newAmmo);
-            RefreshAmmo();
-            WeightController.AddAmmoWeight(type, amount);
-            return true; // Return true to PickUpController - destroy object
-        }
+
+        Ammo newAmmo = new Ammo(type, amount);
+        ammoList.Insert(0, newAmmo);
+        RefreshAmmo();
+        WeightController.AddAmmoWeight(type, amount);
+        return true; // Return true to PickUpController - destroy object
     }
+
 
     public void RemoveAmmo(int type, int amount)
     {
@@ -176,13 +164,23 @@ public class AmmoStorage : MonoBehaviour
             if (i < ammoList.Count)
             {
                 Ammo ammo = ammoList[i];
-                int amount = ammo.amount;
+                float amount = ammo.amount;
 
                 if (amount > 0)
                 {
                     amountText.text = amount.ToString();
-                    ammoImage.sprite = AmmoSprite[(int)ammo.type];
+                    ammoImage.sprite = AmmoSprite[ammo.type];
 
+                    if (amount / MaxAmmoPerSlot == 1)
+                    {
+                        ammoImage.fillAmount = amount / MaxAmmoPerSlot;
+                    }
+                    else
+                    {
+                        int fillAmountSteps = Mathf.RoundToInt(amount / MaxAmmoPerSlot * 10f);
+                        float newFillAmount = fillAmountSteps / 10f;
+                        ammoImage.fillAmount = newFillAmount + 0.05f;
+                    }
                     panel.SetActive(true);
                 }
                 else

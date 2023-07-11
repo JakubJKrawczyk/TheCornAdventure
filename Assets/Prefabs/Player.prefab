@@ -176,8 +176,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 198382431388171459}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.84, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.009525, y: -0.84, z: 0}
+  m_LocalScale: {x: 1.3518366, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7290323292993523729}
@@ -226,7 +226,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.46717066, y: 0.3}
+  m_Size: {x: 0.56, y: 0.3}
   m_EdgeRadius: 0
 --- !u!1 &1679454220150944858
 GameObject:
@@ -321,8 +321,9 @@ GameObject:
   - component: {fileID: 5180213846633720301}
   - component: {fileID: 3616403469045376175}
   - component: {fileID: 4256657238963705804}
-  - component: {fileID: 1475682704880704781}
   - component: {fileID: 7386767421123471690}
+  - component: {fileID: 8558927684308871758}
+  - component: {fileID: 4328678617360873020}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -338,7 +339,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106260398155233916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: -1.382, z: 0}
+  m_LocalPosition: {x: -30.8, y: -12.07, z: 0}
   m_LocalScale: {x: 1, y: 0.7978125, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -348,7 +349,7 @@ Transform:
   - {fileID: 6342442339496582270}
   - {fileID: 1209889904201426212}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1771975558692181840
 Rigidbody2D:
@@ -361,7 +362,7 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
+  m_UseAutoMass: 0
   m_Mass: 1.7754593
   m_LinearDrag: 0
   m_AngularDrag: 0.05
@@ -420,7 +421,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.93656015, y: 1.7649797}
+  m_Size: {x: 1, y: 1.75}
   m_EdgeRadius: 0
 --- !u!114 &5598706532313058006
 MonoBehaviour:
@@ -507,6 +508,8 @@ MonoBehaviour:
     m_Bits: 2048
   itemHolder: {fileID: 0}
   sceneManager: {fileID: 0}
+  AmmoStorage: {fileID: 8558927684308871758}
+  HealthController: {fileID: 7386767421123471690}
 --- !u!114 &4256657238963705804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,60 +523,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSO: {fileID: 11400000, guid: 394400bda32055d458047c54c10655f2, type: 2}
+  _projectileSO2: {fileID: 11400000, guid: 594d17012191fb74dac382092e02617f, type: 2}
   _shootingPoint: {fileID: 1209889904201426212}
-  controller: {fileID: 7140083439602977700}
---- !u!212 &1475682704880704781
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2106260398155233916}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  AmmoStorage: {fileID: 8558927684308871758}
 --- !u!114 &7386767421123471690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,8 +538,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54596c3f244767d4abc3edd89c1d9ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentHealth: 100
-  HealthPanel: []
+  CurrentHealth: 4
+  HealthPanel:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ScreenEffectAnimator: {fileID: 0}
+--- !u!114 &8558927684308871758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106260398155233916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b982355cfbad51444a97bd60bcc2fd7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxAmmoPerSlot: 20
+  AmmoPanel:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  DefaultGrainPanel: {fileID: 0}
+  AmmoSprite:
+  - {fileID: -1313652811, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
+  - {fileID: -240731465, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
+  - {fileID: -1706727895, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
+  - {fileID: -665539013, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
+  - {fileID: 2140166152, guid: 69f422ef862d2984989de52c4c0060e9, type: 3}
+  WeightController: {fileID: 4328678617360873020}
+  AmmoPrefabs:
+  - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
+  - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
+  - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
+  - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
+--- !u!114 &4328678617360873020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106260398155233916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6f9ea3cb7a9f634eaa3fd191c613206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentWeight: 1.75
+  MinWeight: 1.75
+  MaxWeight: 3
+  GrainsWeight:
+  - 0.01
+  - 0.015
+  - 0.02
+  - 0.02
+  - 0.02
 --- !u!1 &8829366091127956401
 GameObject:
   m_ObjectHideFlags: 0
