@@ -1564,6 +1564,14 @@ PrefabInstance:
       propertyPath: HealthController
       value: 
       objectReference: {fileID: 930237244}
+    - target: {fileID: 3919322801831170800, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919322801831170800, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
+      propertyPath: m_Size.y
+      value: 1.75
+      objectReference: {fileID: 0}
     - target: {fileID: 4256657238963705804, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
       propertyPath: AmmoStorage
       value: 
@@ -1572,6 +1580,14 @@ PrefabInstance:
       propertyPath: _projectileSO2
       value: 
       objectReference: {fileID: 11400000, guid: 594d17012191fb74dac382092e02617f, type: 2}
+    - target: {fileID: 4839020027420189653, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3518366
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839020027420189653, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.009525
+      objectReference: {fileID: 0}
     - target: {fileID: 7290323292993523729, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1621,6 +1637,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7386767421123471690, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
+      propertyPath: ScreenEffectAnimator
+      value: 
+      objectReference: {fileID: 1667571454}
+    - target: {fileID: 7386767421123471690, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
       propertyPath: HealthPanel.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -1644,6 +1664,10 @@ PrefabInstance:
       propertyPath: HealthPanel.Array.data[4]
       value: 
       objectReference: {fileID: 841617054}
+    - target: {fileID: 8028895573199399503, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
+      propertyPath: m_Size.x
+      value: 0.56
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1475682704880704781, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
     m_RemovedGameObjects: []
@@ -9716,6 +9740,11 @@ Transform:
 TilemapCollider2D:
   m_CorrespondingSourceObject: {fileID: 7471958641676056730, guid: b7760b3b471673a419b34703e5da0ee9, type: 3}
   m_PrefabInstance: {fileID: 1168032267}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1667571454 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1463889913864145225, guid: b0969a4416ef63548b67091209e9d7e1, type: 3}
+  m_PrefabInstance: {fileID: 841617052}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1677018077
 GameObject:
