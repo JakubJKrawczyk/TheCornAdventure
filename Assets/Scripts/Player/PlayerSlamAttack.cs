@@ -15,9 +15,9 @@ public class PlayerSlamAttack : MonoBehaviour
         _characterController = GetComponent<CharacterController2D>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collision.gameObject.TryGetComponent(out EnemyStompWeakPoint enemyStompWeakPoint))
+        if(collider.gameObject.TryGetComponent(out EnemyStompWeakPoint enemyStompWeakPoint))
         {
             enemyStompWeakPoint.ReceiveDamage(_damage);
         }
