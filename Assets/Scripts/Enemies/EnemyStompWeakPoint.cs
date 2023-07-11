@@ -6,8 +6,8 @@ public class EnemyStompWeakPoint : MonoBehaviour
 {
     [SerializeField] private EnemyHealth _enemyHealth;
 
-    public void RelayDamage(float damageReceived)
+    public void RelayDamage(float damageToReceive)
     {
-        _enemyHealth.ReceiveDamage(damageReceived);
+        _enemyHealth.ReceiveDamage(damageToReceive);
     }
 }
