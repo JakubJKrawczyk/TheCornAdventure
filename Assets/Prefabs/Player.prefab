@@ -325,6 +325,7 @@ GameObject:
   - component: {fileID: 7386767421123471690}
   - component: {fileID: 7888429719871939157}
   - component: {fileID: 2432898267288307915}
+  - component: {fileID: 5385434894537209473}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -638,6 +639,18 @@ MonoBehaviour:
   WeightController: {fileID: 7888429719871939157}
   AmmoPrefabs:
   - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
+--- !u!114 &5385434894537209473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106260398155233916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b0167b4d041b1439996518de4bf093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8829366091127956401
 GameObject:
   m_ObjectHideFlags: 0
