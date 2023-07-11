@@ -19,7 +19,7 @@ public class PlayerSlamAttack : MonoBehaviour
     {
         if(collider.gameObject.TryGetComponent(out EnemyStompWeakPoint enemyStompWeakPoint))
         {
-            enemyStompWeakPoint.ReceiveDamage(_damage);
+            enemyStompWeakPoint.RelayDamage(_damage);
         }
     }
 }
