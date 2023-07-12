@@ -26,7 +26,6 @@ public class EnemyAttack : MonoBehaviour
             if (collision.gameObject.TryGetComponent<HealthController>(out var playerHealth))
             {
                 playerHealth.RemoveHealth(_damageAmount);
-                Debug.Log("Damage dealt to the player");
             }
         }
     }
