@@ -6,15 +6,16 @@ public class EnemyAttack : MonoBehaviour
 {
     public int damageAmount = 10; // Amount of damage the enemy deals
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collider.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            HealthController playerHealth = collider.gameObject.GetComponent<HealthController>();
+            HealthController playerHealth = collision.gameObject.GetComponent<HealthController>();
 
             if (playerHealth != null)
             {
                 playerHealth.RemoveHealth(damageAmount);
+                Debug.Log("Damage dealt to the player");
             }
         }
     }
