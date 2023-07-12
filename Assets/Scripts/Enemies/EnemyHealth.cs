@@ -7,6 +7,8 @@ public class EnemyHealth : MonoBehaviour
     [Min(0)]
     [SerializeField] protected float _initialHP;
 
+    public bool IsAlive { get; private set; } = true;
+
     protected float _currentHP;
 
     protected virtual void Start()
@@ -22,6 +24,7 @@ public class EnemyHealth : MonoBehaviour
         if (_currentHP <= 0)
         {
             Debug.Log("Enemy has been defeated.");
+            IsAlive = false;
             Destroy(gameObject);
         }
     }
