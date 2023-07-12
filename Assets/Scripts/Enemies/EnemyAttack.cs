@@ -27,7 +27,6 @@ public class EnemyAttack : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.RemoveHealth(_damageAmount);
-                Debug.Log("Damage dealt to the player");
             }
         }
     }
