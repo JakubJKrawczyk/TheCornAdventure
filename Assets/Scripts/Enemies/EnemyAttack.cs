@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
+    [SerializeField] private EnemyHealth _enemyHealth;
+
     public int damageAmount = 10; // Amount of damage the enemy deals
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(_enemyHealth.IsAlive == false)
+        {
+            return;
+        }
+
         if (collision.gameObject.CompareTag("Player"))
         {
             
