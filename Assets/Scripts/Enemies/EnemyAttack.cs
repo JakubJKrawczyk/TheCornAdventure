@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    private EnemyHealth _enemyHealth;
-
     [SerializeField] private int _damageAmount = 10; // Amount of damage the enemy deals
+
+    private EnemyHealth _enemyHealth;
 
     private void Start()
     {
