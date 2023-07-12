@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSlamAttack : MonoBehaviour
+public class PlayerStompAttack : MonoBehaviour
 {
     [SerializeField] private float _damage;
 
