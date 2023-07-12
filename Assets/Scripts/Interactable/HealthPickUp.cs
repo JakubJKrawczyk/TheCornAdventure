@@ -12,6 +12,7 @@ public class HealthPickUp : MonoBehaviour
     public bool ShouldFloat = true;
     private Rigidbody2D rb;
 
+    private bool isPickedUp = false;
 
     void Start()
     {
@@ -25,6 +26,25 @@ public class HealthPickUp : MonoBehaviour
             rb.velocity = new Vector2(0, speed);
         }
     }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            HealthController playerHealth = collision.gameObject.GetComponent<HealthController>();
+
+            if (playerHealth != null)
+            {
+                bool healthAdded = playerHealth.AddHealth(HealingAmount); // Try to add health
+                if (healthAdded)
+                {
+                    isPickedUp = true;
+                    gameObject.SetActive(false); // Deactivate the health pickup object
+                    Destroy(gameObject); // Destroy the health pickup object
+                }
+            }
+        }
+    }
+
     private void Update()
     {
         if (ShouldFloat)
@@ -53,5 +73,4 @@ public class HealthPickUp : MonoBehaviour
     {
         rb.velocity = new Vector2(0, -speed);
     }
-
 }

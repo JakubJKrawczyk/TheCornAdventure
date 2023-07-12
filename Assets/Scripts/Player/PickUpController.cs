@@ -84,10 +84,7 @@ public class PickupController : MonoBehaviour
                 item.SetActive(false);
             }
         }
-        else
-        {
-            itemHolder.AddItem(item);
-        }
+
     }
 
     private void DropAllItems()
