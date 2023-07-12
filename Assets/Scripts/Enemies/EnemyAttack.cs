@@ -6,7 +6,7 @@ public class EnemyAttack : MonoBehaviour
 {
     private EnemyHealth _enemyHealth;
 
-    public int damageAmount = 10; // Amount of damage the enemy deals
+    [SerializeField] private int _damageAmount = 10; // Amount of damage the enemy deals
 
     private void Start()
     {
@@ -26,7 +26,7 @@ public class EnemyAttack : MonoBehaviour
 
             if (playerHealth != null)
             {
-                playerHealth.RemoveHealth(damageAmount);
+                playerHealth.RemoveHealth(_damageAmount);
                 Debug.Log("Damage dealt to the player");
             }
         }
