@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 7386767421123471690}
   - component: {fileID: 8558927684308871758}
   - component: {fileID: 4328678617360873020}
+
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -510,6 +511,7 @@ MonoBehaviour:
   sceneManager: {fileID: 0}
   AmmoStorage: {fileID: 8558927684308871758}
   HealthController: {fileID: 7386767421123471690}
+
 --- !u!114 &4256657238963705804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,6 +530,7 @@ MonoBehaviour:
   AmmoStorage: {fileID: 8558927684308871758}
 --- !u!114 &7386767421123471690
 MonoBehaviour:
+
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -590,16 +593,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f9ea3cb7a9f634eaa3fd191c613206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentHealth: 100
+  HealthPanel:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ScreenEffectAnimator: {fileID: 0}
+--- !u!114 &7888429719871939157
+
   CurrentWeight: 1.75
   MinWeight: 1.75
   MaxWeight: 3
   GrainsWeight:
-  - 0.01
-  - 0.015
-  - 0.02
-  - 0.02
-  - 0.02
---- !u!1 &8829366091127956401
+
+
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
