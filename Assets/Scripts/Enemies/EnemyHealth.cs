@@ -19,11 +19,9 @@ public class EnemyHealth : MonoBehaviour
     public virtual void ReceiveDamage(float damageReceived)
     {
         _currentHP -= damageReceived;
-        Debug.Log("Player dealt " + damageReceived + " damage to the enemy.");
 
         if (_currentHP <= 0)
         {
-            Debug.Log("Enemy has been defeated.");
             IsAlive = false;
             Destroy(gameObject);
         }
