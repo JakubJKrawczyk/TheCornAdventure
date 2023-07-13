@@ -76,7 +76,7 @@ public class EnemyPatrolMovement : MonoBehaviour
 
         _currentDestination = _pointA.position;
         _animationState = EnemyAnimationState.Moving;
-        ChangeEnemyFacing();
+        FlipVisual();
     }
 
     private void MoveTowardsDestination()
@@ -101,6 +101,8 @@ public class EnemyPatrolMovement : MonoBehaviour
     {
         _animationState = EnemyAnimationState.Standing;
         RunAnimation();
+        _rigidBody.velocity = Vector2.zero;
+
         Debug.Log("Standing for " + seconds);
 
         yield return new WaitForSeconds(seconds);
@@ -108,6 +110,8 @@ public class EnemyPatrolMovement : MonoBehaviour
         Debug.Log("Finished standing");
 
         _animationState = EnemyAnimationState.Moving;
+        ChangeDestination();
+        FlipVisual();
         RunAnimation();
         MoveTowardsDestination();
     }
@@ -128,7 +132,7 @@ public class EnemyPatrolMovement : MonoBehaviour
         }
     }
 
-    private void ChangeEnemyFacing()
+    private void FlipVisual()
     {
         float x = transform.GetChild(0).transform.localScale.x;
         float y = transform.GetChild(0).transform.localScale.y;
