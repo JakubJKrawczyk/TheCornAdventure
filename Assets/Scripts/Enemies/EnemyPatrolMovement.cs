@@ -80,7 +80,7 @@ public class EnemyPatrolMovement : MonoBehaviour
     private void MoveTowardsDestination()
     {
         int xMovementDirection = -1;
-        Debug.Log("Poruszam siê");
+
         if (transform.position.x < _currentDestination.x)
         {
             xMovementDirection = 1;
@@ -103,8 +103,6 @@ public class EnemyPatrolMovement : MonoBehaviour
     private void OnTimeElapsed(object source, ElapsedEventArgs args)
     {
         ChangeDestination();
-
-        Debug.Log("Timer Elapsed");
         timer.Enabled = false;
     }
 
