@@ -10,9 +10,8 @@ public class EnemyAttack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            HealthController playerHealth = collision.gameObject.GetComponent<HealthController>();
-
-            if (playerHealth != null)
+            
+            if (collision.gameObject.TryGetComponent<HealthController>(out var playerHealth))
             {
                 playerHealth.RemoveHealth(damageAmount);
                 Debug.Log("Damage dealt to the player");

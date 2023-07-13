@@ -5,11 +5,11 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [Min(0)]
-    [SerializeField] protected float _initialHP;
+    [SerializeField] private float _initialHP;
 
-    protected float _currentHP;
+    public float _currentHP;
 
-    protected virtual void Start()
+    private void Start()
     {
         _currentHP = _initialHP;
     }

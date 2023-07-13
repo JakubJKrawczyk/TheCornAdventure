@@ -1,25 +1,45 @@
-﻿using System;
+﻿using Assets.Scripts.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AmmoStorage : MonoBehaviour
 {
+    
     public int MaxAmmoPerSlot = 10;
 
-    private List<Ammo> ammoList;
+    [Header("Dependencies")]
+    [SerializeField] private Sprite[] AmmoSprite;
+    [SerializeField] private GameObject[] AmmoPrefabs;
+    [SerializeField] private GameObject UI;
 
-    public GameObject[] AmmoPanel;
-    public GameObject DefaultGrainPanel;
-    public Sprite[] AmmoSprite;
+    //private script variables
+    private Stack<Ammo> ammoList;
+    private List<GameObject> AmmoPanelSlots;
+    private GameObject DefaultGrainPanel;
+    private WeightController WeightController;
 
+    //TODO: Zamienić Listę na Stos i pozmieniać funkcję pod stos
+    public void Start()
+    {
+        ammoList = new Stack<Ammo>();
+        AmmoPanelSlots = new List<GameObject>();
+        GameObject ammoPanel = UI.transform.GetChild(1).gameObject;
+        Debug.Log(ammoPanel.transform.childCount);
+        foreach (Transform ammo in ammoPanel.transform)
+        {
+            AmmoPanelSlots.Add(ammo.gameObject);
+        }
 
-    public WeightController WeightController;
-
-    public GameObject[] AmmoPrefabs;
+        DefaultGrainPanel = AmmoPanelSlots[^1];
+        Debug.Log(DefaultGrainPanel.name);
+        AmmoPanelSlots.RemoveAt(AmmoPanelSlots.Count-1);
+        Debug.Log(AmmoPanelSlots.Count);
+        WeightController = GetComponent<WeightController>();
 
     public AmmoStorage()
     {
@@ -34,8 +54,7 @@ public class AmmoStorage : MonoBehaviour
     {
         if (ammoList.Count > 0)
         {
-            Ammo discardedAmmo = ammoList[0];
-            ammoList.RemoveAt(0);
+            Ammo discardedAmmo = ammoList.Pop();
             RefreshAmmo();
 
             if (AmmoPrefabs.Length > 0)
@@ -43,8 +62,7 @@ public class AmmoStorage : MonoBehaviour
                 GameObject ammoPrefab = AmmoPrefabs[discardedAmmo.type];
 
                 GameObject spawnedAmmo = Instantiate(ammoPrefab, transform.position + new Vector3(0.75f, 0), Quaternion.identity);
-                AmmoPickUp ammoPickup = spawnedAmmo.GetComponent<AmmoPickUp>();
-                if (ammoPickup != null)
+                if (spawnedAmmo.TryGetComponent<AmmoPickUp>(out var ammoPickup))
                 {
                     ammoPickup.AmmoAmount = discardedAmmo.amount;
                     ammoPickup.AmmoType = discardedAmmo.type;
@@ -70,13 +88,13 @@ public class AmmoStorage : MonoBehaviour
     {
         if (ammoList.Count > 0)
         {
-            Ammo firstAmmo = ammoList[0];
+            Ammo firstAmmo = ammoList.Peek();
             firstAmmo.amount--;
          
             if (firstAmmo.amount <= 0)
             {
                 // If the amount reaches zero, remove the ammo from the list
-                ammoList.RemoveAt(0);
+                ammoList.Pop();
             }
             RefreshAmmo();
             WeightController.RemoveAmmoWeight(firstAmmo.type, 1);
@@ -88,9 +106,9 @@ public class AmmoStorage : MonoBehaviour
         }
     }
 
-    public Ammo GetAmmo(int type)
+    internal Ammo GetAmmo(int type)
     {
-        return ammoList.Find(ammo => ammo.type == type);
+        return ammoList.ToList().Find(ammo => ammo.type == type);
     }
 
 
@@ -100,14 +118,16 @@ public class AmmoStorage : MonoBehaviour
         {
             return false; // All slots are full, return false to PickUpController, so object won't be destroyed
         }
-
-        Ammo newAmmo = new Ammo(type, amount);
-        ammoList.Insert(0, newAmmo);
-        RefreshAmmo();
-        WeightController.AddAmmoWeight(type, amount);
-        return true; // Return true to PickUpController - destroy object
+        else
+        {
+            // Add a new ammo to the beginning of the list
+            Ammo newAmmo = new(type, amount);
+            ammoList.Push(newAmmo);
+            RefreshAmmo();
+            WeightController.AddAmmoWeight(type, amount);
+            return true; // Return true to PickUpController - destroy object
+        }
     }
-
 
     public void RemoveAmmo(int type, int amount)
     {
@@ -117,59 +137,32 @@ public class AmmoStorage : MonoBehaviour
             existingAmmo.amount -= amount;
             if (existingAmmo.amount <= 0)
             {
-                ammoList.Remove(existingAmmo);
+                ammoList.ToList().Remove(existingAmmo);
             }
             RefreshAmmo();
             WeightController.AddAmmoWeight(type, amount);
         }
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            AddAmmo(0, 10);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            AddAmmo(1, 10);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            AddAmmo(2, 10);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            RemoveAmmo(0, 10);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            RemoveAmmo(1, 10);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            RemoveAmmo(2, 10);
-        }
-    }
+   
 
     public void RefreshAmmo()
     {
-        for (int i = 0; i < AmmoPanel.Length; i++)
+        for (int i = 0; i < AmmoPanelSlots.Count; i++)
         {
-            GameObject panel = AmmoPanel[i];
+            GameObject panel = AmmoPanelSlots[i];
             TextMeshProUGUI amountText = panel.transform.Find("Amount").GetComponent<TextMeshProUGUI>();
             Image ammoImage = panel.transform.Find("Image").GetComponent<Image>();
 
             if (i < ammoList.Count)
             {
-                Ammo ammo = ammoList[i];
-                float amount = ammo.amount;
+                Ammo ammo = ammoList.ToList()[i];
+                int amount = ammo.amount;
 
                 if (amount > 0)
                 {
                     amountText.text = amount.ToString();
-                    ammoImage.sprite = AmmoSprite[ammo.type];
+                    ammoImage.sprite = AmmoSprite[(int)ammo.type];
 
                     if (amount / MaxAmmoPerSlot == 1)
                     {
@@ -210,16 +203,5 @@ public class Ammo
     public int type;
     public int amount;
 
-    public Ammo(int type, int amount)
-    {
-        this.type = type;
-        this.amount = amount;
-    }
-}
-public enum AmmoType
-{
-    Type0,
-    Type1,
-    Type2,
-}
+
 

@@ -4,11 +4,15 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class liftPlatform : MonoBehaviour
+public class LiftPlatform : MonoBehaviour
 {
-    private Animator m_Animator;
-    public bool isUp = true;
+    [Header("Properties")]
+    [SerializeField] private bool isUp = true;
+    [Header("Dependencies")]
     [SerializeField] private GameObject Player;
+
+    //private script variables
+    private Animator m_Animator;
     private void Awake()
     {
         m_Animator = GetComponent<Animator>();

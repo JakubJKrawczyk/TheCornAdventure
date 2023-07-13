@@ -6,23 +6,29 @@ using UnityEngine.Events;
 
 public class JumpableButton : MonoBehaviour
 {
+    [Header("Main Properties")]
+    [SerializeField][Range(0, 10)] private float Timer = 0f;     // 0 = pressed will hold    0 < will disable after time
+    [SerializeField][Range(0, 25)] private float minimumMass = 0.75f;
+    [SerializeField][Range(0, 10)] private float minimumJumpVelocity = 2f;
 
-    [Range(0, 10)] public float Timer = 0f;     // 0 = pressed will hold    0 < will disable after time
+    [Header("Events")]
+    [SerializeField] private UnityEvent OnInteractionEnabled;
+    [SerializeField] private UnityEvent OnInteractionDisabled;
 
-    [Range(0, 10)] public float minimumJumpVelocity = 2f;
-    [Range(0, 25)] public float minimumMass = 0.75f;
-
-    public UnityEvent OnInteractionEnabled;
-    public UnityEvent OnInteractionDisabled;
-
-    [SerializeField] GameObject Button;
-    [SerializeField] GameObject ButtonCover;
-
-
+    //Not serialized Props
+    GameObject Button;
+    GameObject ButtonTimeCover;
     private bool isActive = false;
     private Color DefaultColor = new Color(0, 0, 0, 255);
+    private bool isPressed = false;
+
     private void Start()
     {
+
+        //Set props
+        Button = gameObject.transform.parent.gameObject;
+        ButtonTimeCover = Button.transform.Find("TimerCover").gameObject;
+
         //set default color depending on button type
         if (Timer == 0)
         {
@@ -35,6 +41,7 @@ public class JumpableButton : MonoBehaviour
         }
         Button.GetComponent<SpriteRenderer>().color = DefaultColor;
 
+        //Check if Events are assigned
         if (OnInteractionEnabled == null)
         {
             Debug.Log("No interaction assigned!");
@@ -45,12 +52,12 @@ public class JumpableButton : MonoBehaviour
         }
     }
 
-    private bool isPressed = false;
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the triggering object has Rigidbody2D and if the button isn't already active/pressed
         Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
-        if (rb != null && !isActive && !ButtonCover.activeInHierarchy && !isPressed)
+        if (rb != null && !isActive && !ButtonTimeCover.activeInHierarchy && !isPressed)
         {
             // Check velocity or mass depending on the condition
             if ((minimumJumpVelocity != 0 && rb.velocity.y >= minimumJumpVelocity) || (minimumMass != 0 && rb.mass >= minimumMass))
@@ -71,7 +78,7 @@ public class JumpableButton : MonoBehaviour
 
                     // Set speed to timer
                     float animationSpeed = 1f / Timer;
-                    ButtonCover.GetComponent<Animator>().speed = animationSpeed - 0.0015f;
+                    ButtonTimeCover.GetComponent<Animator>().speed = animationSpeed - 0.0015f;
                 }
 
                 if (OnInteractionEnabled != null)
@@ -89,7 +96,7 @@ public class JumpableButton : MonoBehaviour
             Button.GetComponent<SpriteRenderer>().color = DefaultColor;
             Button.transform.position = new Vector2(transform.position.x, transform.position.y + 0.125f);
             isActive = false;
-            ButtonCover.SetActive(false);
+            ButtonTimeCover.SetActive(false);
             if (OnInteractionDisabled != null)
             {
                 OnInteractionDisabled.Invoke();
@@ -112,7 +119,7 @@ public class JumpableButton : MonoBehaviour
             if (isPressed)
             {
                 isPressed = false;
-                ButtonCover.SetActive(true);
+                ButtonTimeCover.SetActive(true);
                 Invoke("ResetButton", Timer);
             }
         }

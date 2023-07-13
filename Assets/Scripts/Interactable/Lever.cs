@@ -5,25 +5,32 @@ using UnityEngine.Events;
 
 public class Lever : MonoBehaviour
 {
-
-    [SerializeField] private GameObject player;
-    public float activationDistance = 0.75f;
-    private Animator leverAnimator;
-
-    public GameObject InteractionHelpSquare;
-
-    private bool Active = false;
+    [Header("Main Properties")]
+    [SerializeField] private float activationDistance = 0.75f;
     
+    [Header("Dependencies")]
+    [SerializeField] private GameObject player;
+    
+    [Header("Events")]
     public UnityEvent OnInteractionEnabled;
     public UnityEvent OnInteractionDisabled;
-
+    
+    //private script variables
+    private Animator leverAnimator;
+    private bool Active = false;
     private bool isLeverUp = true;
+    private GameObject InteractionHelpSquare;
+
+
+    
+
 
     private void Start()
     {
         leverAnimator = GetComponent<Animator>();
+        InteractionHelpSquare = transform.parent.Find("Square").gameObject;
 
-
+        //check if events are null
         if (OnInteractionEnabled == null)
         {
             Debug.Log("No enabled interaction assigned!");

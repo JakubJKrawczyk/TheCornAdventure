@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    [SerializeField] private ProjectileSO _projectileSO;
-    [SerializeField] private ProjectileSO _projectileSO2;
-    [SerializeField] private Transform _shootingPoint;
+    [Header("Dependencies")]
+    [SerializeField] private ProjectileSO projectileSO;
+    [SerializeField] private ProjectileSO projectileSO2;
+    [SerializeField] private Transform shootingPoint;
 
-    [SerializeField] private AmmoStorage AmmoStorage;
-
+    //private script variables
+    private AmmoStorage ammoStorage;
     private float _timeOfLastShot = 0f;
-    private bool ShootingProgress = false;
+    private bool _shootingProgress = false;
+
+    private void Start()
+    {
+        ammoStorage = GetComponent<AmmoStorage>();
+    }
 
     private void Update()
     {
@@ -23,34 +29,34 @@ public class PlayerInteractions : MonoBehaviour
 
     private void TryShoot()
     {
-        if ((Time.time > _timeOfLastShot + _projectileSO.TimeBetweenShots) || (Time.time > _timeOfLastShot + _projectileSO2.TimeBetweenShots) && !ShootingProgress)
+        if ((Time.time > _timeOfLastShot + projectileSO.TimeBetweenShots) || (Time.time > _timeOfLastShot + projectileSO2.TimeBetweenShots) && !_shootingProgress)
         {
-            ShootingProgress = true;
+            _shootingProgress = true;
             Shoot();
         }
     }
 
     private void Shoot()
     {
-        int UsedAmmo = AmmoStorage.UseFirstAmmo();
+        int UsedAmmo = ammoStorage.UseFirstAmmo();
 
-        Transform projectileTransform = null;
+        Transform projectileTransform;
         if (UsedAmmo == -1)
         {
-            projectileTransform = Instantiate(_projectileSO.Prefab, _shootingPoint.position, Quaternion.identity);
+            projectileTransform = Instantiate(projectileSO.Prefab, shootingPoint.position, Quaternion.identity);
 
 
         }
         else
         {
-            projectileTransform = Instantiate(_projectileSO2.Prefab, _shootingPoint.position, Quaternion.identity);
+            projectileTransform = Instantiate(projectileSO2.Prefab, shootingPoint.position, Quaternion.identity);
         }
         Projectile projectile = projectileTransform.GetComponent<Projectile>();
 
         SetProjectileDirection(projectile);
 
         _timeOfLastShot = Time.time;
-        ShootingProgress = false;
+        _shootingProgress = false;
     }
 
     private void SetProjectileDirection(Projectile projectile)
