@@ -95,17 +95,21 @@ public class EnemyPatrolMovement : MonoBehaviour
 
     private void IdleStand(float time)
     {
+        _animationState = EnemyAnimationState.Standing;
+        RunAnimation();
+        _rigidBody.velocity = Vector2.zero;
+
         StartCoroutine(Wait(time));
     }
 
     IEnumerator Wait(float seconds)
     {
-        _animationState = EnemyAnimationState.Standing;
-        RunAnimation();
-        _rigidBody.velocity = Vector2.zero;
-
         yield return new WaitForSeconds(seconds);
+        ResumeMovementAfterWait();
+    }
 
+    private void ResumeMovementAfterWait()
+    {
         _animationState = EnemyAnimationState.Moving;
         ChangeDestination();
         RunAnimation();
