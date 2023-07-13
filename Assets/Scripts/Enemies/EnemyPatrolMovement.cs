@@ -32,7 +32,7 @@ public class EnemyPatrolMovement : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
         _currentDestination = _pointB.position;
         animator = GetComponent<Animator>();
-        FlipVisual();
+        FlipToFaceDirection();
         IdleStand(RandomTime());
     }
 
@@ -71,12 +71,12 @@ public class EnemyPatrolMovement : MonoBehaviour
         if (_currentDestination == _pointA.position)
         {
             _currentDestination = _pointB.position;
-            FlipVisual();
+            FlipToFaceDirection();
             return;
         }
 
         _currentDestination = _pointA.position;
-        FlipVisual();
+        FlipToFaceDirection();
     }
 
     private void MoveTowardsDestination()
@@ -132,7 +132,7 @@ public class EnemyPatrolMovement : MonoBehaviour
         }
     }
 
-    private void FlipVisual()
+    private void FlipToFaceDirection()
     {
         Vector3 visualScale = _visual.localScale;
         float xScaleSign = Mathf.Sign(visualScale.x);
