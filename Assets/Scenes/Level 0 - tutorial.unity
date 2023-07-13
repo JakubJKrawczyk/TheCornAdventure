@@ -1107,6 +1107,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 791457570429545636, guid: b0969a4416ef63548b67091209e9d7e1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 791457570429545636, guid: b0969a4416ef63548b67091209e9d7e1, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 791457570429545636, guid: b0969a4416ef63548b67091209e9d7e1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 791457570429545636, guid: b0969a4416ef63548b67091209e9d7e1, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 791457570429545636, guid: b0969a4416ef63548b67091209e9d7e1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 791457570429545636, guid: b0969a4416ef63548b67091209e9d7e1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 868138211498890520, guid: b0969a4416ef63548b67091209e9d7e1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1358,6 +1382,10 @@ PrefabInstance:
     - target: {fileID: 5023698463836812061, guid: b0969a4416ef63548b67091209e9d7e1, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5145069195558328043, guid: b0969a4416ef63548b67091209e9d7e1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5251199408563644189, guid: b0969a4416ef63548b67091209e9d7e1, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1796,9 +1824,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 495753810}
     - target: {fileID: 8558927684308871758, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
+      propertyPath: shootingPoint
+      value: 
+      objectReference: {fileID: 930237242}
+    - target: {fileID: 8558927684308871758, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
       propertyPath: DefaultGrainPanel
       value: 
       objectReference: {fileID: 841617053}
+    - target: {fileID: 8558927684308871758, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 8558927684308871758, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
       propertyPath: AmmoSprite.Array.size
       value: 1

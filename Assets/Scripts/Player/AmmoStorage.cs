@@ -16,6 +16,7 @@ public class AmmoStorage : MonoBehaviour
     [SerializeField] private Sprite[] AmmoSprite;
     [SerializeField] private GameObject[] AmmoPrefabs;
     [SerializeField] private GameObject UI;
+    public LayerMask groundLayer;
 
     //private script variables
     private Stack<Ammo> ammoList;
@@ -46,7 +47,21 @@ public class AmmoStorage : MonoBehaviour
 
     public void DiscardFirstAmmo()
     {
-        if (ammoList.Count > 0)
+
+        float Direction = 1f; // so ammo will spawn from correct side
+        float raycastDistance = 1f;
+        Vector2 raycastDirection = Vector2.right;
+
+        if (transform.localScale.x < 0)
+        {
+            Direction = -1;
+            raycastDirection = Vector2.left;
+        }
+
+        Debug.DrawRay(transform.position, raycastDirection * raycastDistance, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, raycastDirection, raycastDistance, groundLayer); // check if there's ground
+
+        if (ammoList.Count > 0 && hit.collider == null) //if there's no ground in front of player
         {
             Ammo discardedAmmo = ammoList.Pop();
             RefreshAmmo();
@@ -54,8 +69,7 @@ public class AmmoStorage : MonoBehaviour
             if (AmmoPrefabs.Length > 0)
             {
                 GameObject ammoPrefab = AmmoPrefabs[discardedAmmo.type];
-
-                GameObject spawnedAmmo = Instantiate(ammoPrefab, transform.position + new Vector3(0.75f, 0), Quaternion.identity);
+                GameObject spawnedAmmo = Instantiate(ammoPrefab, transform.position + new Vector3(Direction * 0.75f, 0), Quaternion.identity);
                 AmmoPickUp ammoPickup = spawnedAmmo.GetComponent<AmmoPickUp>();
                 if (ammoPickup != null)
                 {
@@ -65,15 +79,17 @@ public class AmmoStorage : MonoBehaviour
                     ammoPickup.ShouldFloat = false;
 
                     Rigidbody2D spawnedAmmoRB = spawnedAmmo.GetComponent<Rigidbody2D>();
-                    spawnedAmmoRB.mass = 0.5f + WeightController.CalculateAmmoWeight(discardedAmmo.type, discardedAmmo.amount);
+                    spawnedAmmoRB.mass = 0.5f + (WeightController.CalculateAmmoWeight(discardedAmmo.type, discardedAmmo.amount) * 3);
                     spawnedAmmoRB.gravityScale = 1f;
 
-                    spawnedAmmoRB.AddForce(new Vector2(1f, 1.5f), ForceMode2D.Impulse); // Apply force in a curved path
+                    spawnedAmmoRB.AddForce(new Vector2(Direction * 1, 1.5f), ForceMode2D.Impulse); // Apply force in a curved path
 
                     spawnedAmmo.GetComponent<PolygonCollider2D>().enabled = true;
                 }
 
                 WeightController.RemoveAmmoWeight(discardedAmmo.type, discardedAmmo.amount);
+
+
             }
         }
     }
