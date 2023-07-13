@@ -18,8 +18,6 @@ public class EnemyPatrolMovement : MonoBehaviour
     private Animator animator;
     private Timer timer;
 
-    //Stany przeciwnika
-
     private bool _isMoving = false;
     private bool _isStanding = false;
     private bool _isAttacking = false;
@@ -35,7 +33,6 @@ public class EnemyPatrolMovement : MonoBehaviour
 
     private void Start()
     {
-        
         _rigidBody = GetComponent<Rigidbody2D>();
         _currentDestination = _pointB.position;
         animator = GetComponent<Animator>();
@@ -43,16 +40,14 @@ public class EnemyPatrolMovement : MonoBehaviour
     }
 
     private double RandomTime() => Random.Range(1500, 3000);
+
     private void Update()
     {
-        
-
         if (CheckIfDestinationReached() == true && !timer.Enabled)
         {
-            
-                SetTimer(RandomTime()) ;
-        
+            SetTimer(RandomTime());
         }
+
         if (!timer.Enabled) MoveTowardsDestination();
     }
 
@@ -80,7 +75,6 @@ public class EnemyPatrolMovement : MonoBehaviour
         _currentDestination = _pointA.position;
         _animationState = EnemyAnimationState.Moving;
         ChangeEnemyFacing();
-
     }
 
     private void MoveTowardsDestination()
@@ -108,18 +102,15 @@ public class EnemyPatrolMovement : MonoBehaviour
 
     private void OnTimeElapsed(object source, ElapsedEventArgs args)
     {
-        
         ChangeDestination();
 
         Debug.Log("Timer Elapsed");
         timer.Enabled = false;
-        
-        
     }
 
     private void RunAnimation()
     {
-        switch(_animationState)
+        switch (_animationState)
         {
             case EnemyAnimationState.Attacking:
                 animator.SetTrigger("Attack");
@@ -135,11 +126,11 @@ public class EnemyPatrolMovement : MonoBehaviour
 
     private void ChangeEnemyFacing()
     {
-            float x = transform.GetChild(0).transform.localScale.x;
-            float y = transform.GetChild(0).transform.localScale.y;
-            float z = transform.GetChild(0).transform.localScale.z;
+        float x = transform.GetChild(0).transform.localScale.x;
+        float y = transform.GetChild(0).transform.localScale.y;
+        float z = transform.GetChild(0).transform.localScale.z;
 
-            x *= -1;
-            transform.GetChild(0).transform.localScale.Set(x, y, z);
+        x *= -1;
+        transform.GetChild(0).transform.localScale.Set(x, y, z);
     }
 }
