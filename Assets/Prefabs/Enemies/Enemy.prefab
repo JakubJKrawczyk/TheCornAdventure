@@ -148,6 +148,8 @@ MonoBehaviour:
   StablePosition: 0
   _destinationDistanceTreshold: 0.1
   _visual: {fileID: 6894308627443224513}
+  _minWaitTime: 5
+  _maxWaitTime: 7
 --- !u!50 &6535956213504399901
 Rigidbody2D:
   serializedVersion: 4
