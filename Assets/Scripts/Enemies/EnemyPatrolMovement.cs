@@ -11,9 +11,9 @@ public class EnemyPatrolMovement : MonoBehaviour
     [SerializeField] private Transform _pointB;
     [Min(0)]
     [SerializeField] private float _destinationDistanceTreshold;
-    [SerializeField] private Transform _visual;
     [SerializeField] private float _minWaitTime;
     [SerializeField] private float _maxWaitTime;
+    [SerializeField] private Transform _visual;
 
     private Rigidbody2D _rigidBody;
     private Vector3 _currentDestination;
