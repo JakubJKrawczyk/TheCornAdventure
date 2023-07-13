@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LeverMoveDown
+  m_Name: LeverMoveRight
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,11 +21,11 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -977663456, guid: a4cced46c50cf634f8ecd2a30e0b8d8a, type: 3}
+      value: {fileID: 1741921213, guid: 402021465bc90e74b9abb1babe9e05e7, type: 3}
     - time: 0.16666667
-      value: {fileID: -606902858, guid: a4cced46c50cf634f8ecd2a30e0b8d8a, type: 3}
+      value: {fileID: -2001743524, guid: 402021465bc90e74b9abb1babe9e05e7, type: 3}
     - time: 0.33333334
-      value: {fileID: -1298551834, guid: a4cced46c50cf634f8ecd2a30e0b8d8a, type: 3}
+      value: {fileID: 1330913253, guid: 402021465bc90e74b9abb1babe9e05e7, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,9 +48,9 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -977663456, guid: a4cced46c50cf634f8ecd2a30e0b8d8a, type: 3}
-    - {fileID: -606902858, guid: a4cced46c50cf634f8ecd2a30e0b8d8a, type: 3}
-    - {fileID: -1298551834, guid: a4cced46c50cf634f8ecd2a30e0b8d8a, type: 3}
+    - {fileID: 1741921213, guid: 402021465bc90e74b9abb1babe9e05e7, type: 3}
+    - {fileID: -2001743524, guid: 402021465bc90e74b9abb1babe9e05e7, type: 3}
+    - {fileID: 1330913253, guid: 402021465bc90e74b9abb1babe9e05e7, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

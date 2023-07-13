@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField] protected ProjectileSO _projectileSO;
+    [SerializeField] private Transform HitPrefab;
 
     private float _timeOnCreation;
     protected Vector3 _direction = new(1f, 0f, 0f);
@@ -12,6 +14,7 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         _timeOnCreation = Time.time;
+        
     }
 
     protected virtual void Update()
@@ -45,5 +48,9 @@ public class Projectile : MonoBehaviour
         }
 
         if(collider.gameObject.layer == _projectileSO.EnemyMask) Destroy(gameObject);
+
+        Transform hit = Instantiate(HitPrefab, transform.position, Quaternion.identity);
+        hit.GetComponent<Animator>().Play("GrainHitEffect");
+        Destroy(hit, 0.35f);
     }
 }
