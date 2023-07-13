@@ -12,6 +12,7 @@ public class EnemyPatrolMovement : MonoBehaviour
     [SerializeField] private bool StablePosition = true;
     [Min(0)]
     [SerializeField] private float _destinationDistanceTreshold;
+    [SerializeField] private Transform _visual;
 
     private Rigidbody2D _rigidBody;
     private Vector3 _currentDestination;
@@ -66,6 +67,8 @@ public class EnemyPatrolMovement : MonoBehaviour
 
     private void ChangeDestination()
     {
+        FlipVisual();
+
         if (_currentDestination == _pointA.position)
         {
             _currentDestination = _pointB.position;
@@ -73,8 +76,6 @@ public class EnemyPatrolMovement : MonoBehaviour
         }
 
         _currentDestination = _pointA.position;
-        _animationState = EnemyAnimationState.Moving;
-        FlipVisual();
     }
 
     private void MoveTowardsDestination()
@@ -105,7 +106,6 @@ public class EnemyPatrolMovement : MonoBehaviour
 
         _animationState = EnemyAnimationState.Moving;
         ChangeDestination();
-        FlipVisual();
         RunAnimation();
         MoveTowardsDestination();
     }
@@ -133,11 +133,8 @@ public class EnemyPatrolMovement : MonoBehaviour
 
     private void FlipVisual()
     {
-        float x = transform.GetChild(0).transform.localScale.x;
-        float y = transform.GetChild(0).transform.localScale.y;
-        float z = transform.GetChild(0).transform.localScale.z;
-
-        x *= -1;
-        transform.GetChild(0).transform.localScale.Set(x, y, z);
+        Vector3 visualScale = _visual.localScale;
+        visualScale.x *= -1;
+        _visual.localScale = visualScale;
     }
 }
