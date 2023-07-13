@@ -113,8 +113,8 @@ Transform:
   m_GameObject: {fileID: 5791987233530521641}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2226628445216057854}
   m_Father: {fileID: 0}
@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSO: {fileID: 11400000, guid: 394400bda32055d458047c54c10655f2, type: 2}
+  HitPrefab: {fileID: 8682312673050620828, guid: d229298a957a9604188e1913478d3569, type: 3}
 --- !u!50 &1834508931639962080
 Rigidbody2D:
   serializedVersion: 4
