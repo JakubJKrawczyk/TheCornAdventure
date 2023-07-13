@@ -13,6 +13,8 @@ public class EnemyPatrolMovement : MonoBehaviour
     [Min(0)]
     [SerializeField] private float _destinationDistanceTreshold;
     [SerializeField] private Transform _visual;
+    [SerializeField] private float _minWaitTime;
+    [SerializeField] private float _maxWaitTime;
 
     private Rigidbody2D _rigidBody;
     private Vector3 _currentDestination;
@@ -36,7 +38,7 @@ public class EnemyPatrolMovement : MonoBehaviour
         IdleStand(RandomTime());
     }
 
-    private float RandomTime() => Random.Range(5, 7);
+    private float RandomTime() => Random.Range(_minWaitTime, _maxWaitTime);
 
     private void Update()
     {
