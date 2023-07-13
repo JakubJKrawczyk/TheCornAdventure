@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement2D : MonoBehaviour
 {
 
-    public CharacterController2D controller;
+    [SerializeField] private CharacterController2D controller;
     private Animator animator;
     private Rigidbody2D _rigidbody2D;
 
@@ -21,10 +21,10 @@ public class PlayerMovement2D : MonoBehaviour
     {
         float XInput = Input.GetAxisRaw("Horizontal");
         float YInput = Input.GetAxisRaw("Vertical");
-        bool Edown = Input.GetKeyDown(KeyCode.E);
-        bool Fdown = Input.GetKeyDown(KeyCode.F);
-        controller.Move(XInput, YInput == -1 ? true : false, YInput == 1 ? true : false);
-        controller.IsWPressed = YInput == 1 ? true : false;
+
+        controller.Move(XInput, YInput == -1, YInput == 1);
+        
+        controller.IsWPressed = YInput == 1;
 
         if (XInput != 0 && YInput <= 0) controller.isWalking = true;
         else controller.isWalking = false;

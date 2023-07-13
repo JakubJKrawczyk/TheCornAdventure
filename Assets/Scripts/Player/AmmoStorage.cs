@@ -21,7 +21,7 @@ public class AmmoStorage : MonoBehaviour
     private GameObject DefaultGrainPanel;
     private WeightController WeightController;
 
-    
+    //TODO: Zamienić Listę na Stos i pozmieniać funkcję pod stos
     public void Start()
     {
         ammoList = new Stack<Ammo>();
@@ -33,8 +33,8 @@ public class AmmoStorage : MonoBehaviour
             AmmoPanelSlots.Add(ammo.gameObject);
         }
 
-        DefaultGrainPanel = AmmoPanelSlots[AmmoPanelSlots.Count-1];
-        Debug.Log(DefaultGrainPanel.gameObject.name);
+        DefaultGrainPanel = AmmoPanelSlots[^1];
+        Debug.Log(DefaultGrainPanel.name);
         AmmoPanelSlots.RemoveAt(AmmoPanelSlots.Count-1);
         Debug.Log(AmmoPanelSlots.Count);
         WeightController = GetComponent<WeightController>();
@@ -54,8 +54,7 @@ public class AmmoStorage : MonoBehaviour
                 GameObject ammoPrefab = AmmoPrefabs[discardedAmmo.type];
 
                 GameObject spawnedAmmo = Instantiate(ammoPrefab, transform.position + new Vector3(0.75f, 0), Quaternion.identity);
-                AmmoPickUp ammoPickup = spawnedAmmo.GetComponent<AmmoPickUp>();
-                if (ammoPickup != null)
+                if (spawnedAmmo.TryGetComponent<AmmoPickUp>(out var ammoPickup))
                 {
                     ammoPickup.AmmoAmount = discardedAmmo.amount;
                     ammoPickup.AmmoType = discardedAmmo.type;
@@ -127,7 +126,7 @@ public class AmmoStorage : MonoBehaviour
         else
         {
             // Add a new ammo to the beginning of the list
-            Ammo newAmmo = new Ammo(type, amount);
+            Ammo newAmmo = new(type, amount);
             ammoList.Push(newAmmo);
             RefreshAmmo();
             WeightController.AddAmmoWeight(type, amount);

@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class PickupController : MonoBehaviour
 {
-    public KeyCode pickupKey = KeyCode.F;
-    public KeyCode dropKey = KeyCode.G;
-    public float pickupDistance = 0.5f;
-    public LayerMask itemLayer;
-    public ItemHolder itemHolder;
+    [Header("Properties")]
+    [SerializeField] private KeyCode pickupKey = KeyCode.F;
+    [SerializeField] private KeyCode dropKey = KeyCode.G;
+    [SerializeField] private float pickupDistance = 0.5f;
+    [SerializeField] private LayerMask itemLayer;
+    [Header("Dependencies")]
     [SerializeField] private SceneManager sceneManager;
-    private Transform playerTransform;
 
-    public AmmoStorage AmmoStorage;
-    public HealthController HealthController;
+    //private script variables
+    private Transform _playerTransform;
+
+    private ItemHolder _itemHolder;
+    private AmmoStorage _ammoStorage;
+    private HealthController _healthController;
 
     private void Start()
     {
-        playerTransform = sceneManager.Player.transform;
+        _playerTransform = sceneManager.Player.transform;
+        _ammoStorage = GetComponent<AmmoStorage>();
+        _healthController = GetComponent<HealthController>();
+        _itemHolder = sceneManager.GetComponent<ItemHolder>();
     }
 
     private void Update()
@@ -35,7 +42,7 @@ public class PickupController : MonoBehaviour
 
     private void CheckForPickup()
     {
-        Collider2D[] itemsInRange = Physics2D.OverlapCircleAll(playerTransform.position, pickupDistance, itemLayer);
+        Collider2D[] itemsInRange = Physics2D.OverlapCircleAll(_playerTransform.position, pickupDistance, itemLayer);
 
         if (itemsInRange.Length > 0)
         {
@@ -45,7 +52,7 @@ public class PickupController : MonoBehaviour
 
             foreach (Collider2D item in itemsInRange)
             {
-                float distance = Vector2.Distance(playerTransform.position, item.transform.position);
+                float distance = Vector2.Distance(_playerTransform.position, item.transform.position);
                 if (distance < minDistance)
                 {
                     minDistance = distance;
@@ -64,21 +71,21 @@ public class PickupController : MonoBehaviour
 
     private void PickUpItem(GameObject item)
     {
-        if (item.tag == "Ammo")
+        if (item.CompareTag("Ammo"))
         {
             int AmmoType = item.GetComponent<AmmoPickUp>().AmmoType;
             int AmmoAmount = item.GetComponent<AmmoPickUp>().AmmoAmount;
 
-            bool AmmoAdded = AmmoStorage.AddAmmo(AmmoType, AmmoAmount); // Check if ammo can be added
+            bool AmmoAdded = _ammoStorage.AddAmmo(AmmoType, AmmoAmount); // Check if ammo can be added
             if (AmmoAdded)
             {
                 item.SetActive(false);
             }
         }
-        else if (item.tag == "Health")
+        else if (item.CompareTag("Health"))
         {
             int HealingAmount = item.GetComponent<HealthPickUp>().HealingAmount;
-            bool HealthAdded = HealthController.AddHealth(HealingAmount);   // Check if health can be added/subtracted
+            bool HealthAdded = _healthController.AddHealth(HealingAmount);   // Check if health can be added/subtracted
             if (HealthAdded)
             {
                 item.SetActive(false);
@@ -86,13 +93,13 @@ public class PickupController : MonoBehaviour
         }
         else
         {
-            itemHolder.AddItem(item);
+            _itemHolder.AddItem(item);
         }
     }
 
     private void DropAllItems()
     {
-        itemHolder.DropAllItems(playerTransform);
-        AmmoStorage.DiscardFirstAmmo(); 
+        _itemHolder.DropAllItems(_playerTransform);
+        _ammoStorage.DiscardFirstAmmo(); 
     }
 }

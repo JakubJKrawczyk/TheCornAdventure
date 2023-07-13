@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class WeightController : MonoBehaviour
 {
-    public float CurrentWeight = 1.0f;
-    public float MinWeight = 1.75f;
-    public float MaxWeight = 3f;
-    private Rigidbody2D rb;
+    [Header("Properties")]
+    [SerializeField] private float MinWeight = 1.75f;
+    [SerializeField] private float MaxWeight = 3f;
+    [SerializeField] private float[] GrainsWeight;
 
-    public float[] GrainsWeight;
+    //private script variables
+    private Rigidbody2D rb;
+    private float CurrentWeight;
+
 
     private void Start()
     {
+        CurrentWeight = MinWeight;
         rb = GetComponent<Rigidbody2D>();
         rb.mass = CurrentWeight;
     }
@@ -22,22 +27,22 @@ public class WeightController : MonoBehaviour
         CurrentWeight += weight;
         RefreshWeight();
     }
-    public void AddAmmoWeight(int ammoType, int ammoamount)
+    public void AddAmmoWeight(int ammoType, int ammo_amount)
     {
-        CurrentWeight += (GrainsWeight[ammoType] * ammoamount);
+        CurrentWeight += (GrainsWeight[ammoType] * ammo_amount);
         Debug.Log(CurrentWeight);
         RefreshWeight();
     }
 
-    public void RemoveAmmoWeight(int ammoType, int ammoamount)
+    public void RemoveAmmoWeight(int ammoType, int ammo_amount)
     {
-        CurrentWeight -= (GrainsWeight[ammoType] * ammoamount);
+        CurrentWeight -= (GrainsWeight[ammoType] * ammo_amount);
         RefreshWeight();
     }
 
-    public float CalculateAmmoWeight(int ammoType, int ammoamount)
+    public float CalculateAmmoWeight(int ammoType, int ammo_amount)
     {
-        return GrainsWeight[ammoType] * ammoamount;
+        return GrainsWeight[ammoType] * ammo_amount;
     }
 
     public void RefreshWeight()

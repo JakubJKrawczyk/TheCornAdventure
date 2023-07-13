@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected ProjectileSO _projectileSO;
 
     private float _timeOnCreation;
-    protected Vector3 _direction = new Vector3(1f, 0f, 0f);
+    protected Vector3 _direction = new(1f, 0f, 0f);
 
     private void Start()
     {

@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class ItemHolder : MonoBehaviour
 {
-    private List<GameObject> items = new List<GameObject>();
-    public float spacing = 3f; // Spacing between dropped items
+    [Header("Properties")]
+    [SerializeField] private readonly float spacing = 3f; // Spacing between dropped items
+    [Header("Dependencies")]
+    [SerializeField] private readonly WeightController WeightController;
 
-    public WeightController WeightController;
+
+    //private script Variables
+    private List<GameObject> items = new();
 
     public void AddItem(GameObject item)
     {

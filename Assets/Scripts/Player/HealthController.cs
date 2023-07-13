@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    public int CurrentHealth = 5;
-    public GameObject[] HealthPanel;
+    [Header("Properties")]
+    [SerializeField] private int CurrentHealth = 5;
+    [Header("Dependencies")]
+    [SerializeField] private GameObject HealthPanel;
+    [SerializeField] private Animator ScreenEffectAnimator;
 
-    public Animator ScreenEffectAnimator;
+    //private script variables
+    private List<GameObject> HealthIcons;
 
     public void Start()
     {
+        
+        HealthIcons = new List<GameObject>();
         RefreshHealth();
+
+        foreach (Transform icon in HealthPanel.transform)
+        {
+            HealthIcons.Add(icon.gameObject);
+        }
     }
 
     public bool AddHealth(int health)
@@ -55,15 +66,15 @@ public class HealthController : MonoBehaviour
 
     public void RefreshHealth()
     {
-        for (int i = 0; i < HealthPanel.Length; i++)
+        for (int i = 0; i < HealthIcons.Count; i++)
         {
             if (i < CurrentHealth)
             {
-                HealthPanel[i].SetActive(true);
+                HealthIcons[i].SetActive(true);
             }
             else
             {
-                HealthPanel[i].SetActive(false);
+                HealthIcons[i].SetActive(false);
             }
         }
     }

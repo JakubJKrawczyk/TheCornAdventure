@@ -12,7 +12,7 @@ public class CornProjectile : Projectile
 
     private void Move()
     {
-        transform.position += _direction.normalized * _projectileSO.ProjectileSpeed * Time.deltaTime;
+        transform.position += _projectileSO.ProjectileSpeed * Time.deltaTime * _direction.normalized;
     }
 
 }

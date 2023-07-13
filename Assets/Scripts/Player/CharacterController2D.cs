@@ -5,9 +5,6 @@ using UnityEngine.Events;
 public class CharacterController2D : MonoBehaviour
 {
     //props
-    public bool IsWPressed { get; set; }
-    [Header("Character Information")]
-    [Range(0,100)] public float HP;
     
 
     [Header("Basic Properties")]
@@ -21,8 +18,9 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private Collider2D _standingCollider;
     [SerializeField] private float _rollSpeed = 10f;
     [Range(0,2f)][SerializeField] private float _jumpWindow = 0.07f;
+
+    //private script variables
     private bool _triedRolling = false;
-    private Animator animator;
     private Rigidbody2D _rigidbody2D;
     private float _actualCharacterSpeed;
     private float _jumpWindowTimer = 0f;
@@ -30,7 +28,9 @@ public class CharacterController2D : MonoBehaviour
     private bool _grounded;
     private Vector3 _velocity = Vector3.zero;
     internal float _jumpCount = 1;
-
+    private bool _wasCrouching = false;
+    //public script variables
+    public bool IsWPressed { get; set; }
     //stany postaci
 
     internal bool _isRolling = false;
@@ -48,52 +48,27 @@ public class CharacterController2D : MonoBehaviour
     public class BoolEvent : UnityEvent<bool> { }
 
     public BoolEvent OnCrouchEvent;
-    private bool _wasCrouching = false;
 
 
 
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
 
-        if (OnLandEvent == null) OnLandEvent = new UnityEvent();
-        if (OnCrouchEvent == null) OnCrouchEvent = new BoolEvent();
+        OnLandEvent ??= new UnityEvent();
+        OnCrouchEvent ??= new BoolEvent();
         _actualCharacterSpeed = _characterSpeed;
     }
     private void FixedUpdate()
     {
         bool wasGrounded = _grounded;
         _grounded = false;
-         //obsługa przetrzymanego skoku
-        if (!IsWPressed && _rigidbody2D.velocity.y > 4)
-        {
-            _rigidbody2D.velocity /= new Vector2(1f, 3f);
-            
-        }
-        
-
-        //obsługa okienka skoku
-        if (!_groundCheck.IsTouchingLayers(_whatIsGround.value)) {
-            _jumpWindowTimer -= Time.deltaTime;
-        }
-        if(_jumpWindowTimer != _jumpWindow && _groundCheck.IsTouchingLayers(_whatIsGround.value)) _jumpWindowTimer = _jumpWindow;
-
-        if(_jumpWindowTimer < 0) _jumpCount = 0;
 
         //Sprawdzam czy jestem na ziemi
-        
-            if(_groundCheck.IsTouchingLayers(_whatIsGround.value))
-            {
-                _grounded = true;
-                if (!wasGrounded)
-                {
-                    _jumpCount = 1;
-                    OnLandEvent.Invoke();
-                    
-                }
-            }
-        
+        CheckIfOnGround(wasGrounded);
+       
+        //Sprawdź czy jest w trakcie skoku
+        CheckForJump();
             
        
 
@@ -174,12 +149,11 @@ public class CharacterController2D : MonoBehaviour
         {
             Flip();
         }
-         //Obsługa skakania
-        if (jump && (_jumpCount > 0))
+
+        //Obsługa skakania
+        if (!_ceilingCheck.IsTouchingLayers(_whatIsGround.value))
         {
-            _grounded = false;
-            _rigidbody2D.AddForce(new Vector2(0f, _jumpForce));
-            _jumpCount--;
+            Make_jump(jump);
         }
 
         // Obsługa toczenia się
@@ -223,5 +197,49 @@ public class CharacterController2D : MonoBehaviour
         transform.localScale = theScale;
     }
 
+    private void CheckForJump()
+    {
+        
+        //obsługa przetrzymanego skoku
+        if (!IsWPressed && _rigidbody2D.velocity.y > 4)
+        {
+            _rigidbody2D.velocity /= new Vector2(1f, 3f);
 
+        }
+
+
+        //obsługa okienka skoku
+        if (!_groundCheck.IsTouchingLayers(_whatIsGround.value))
+        {
+            _jumpWindowTimer -= Time.deltaTime;
+        }
+        if (_jumpWindowTimer != _jumpWindow && _groundCheck.IsTouchingLayers(_whatIsGround.value)) _jumpWindowTimer = _jumpWindow;
+
+        if (_jumpWindowTimer < 0) _jumpCount = 0;
+    }
+
+    private void Make_jump(bool jump)
+    {
+        //Obsługa skakania
+        if (jump && (_jumpCount > 0))
+        {
+            _grounded = false;
+            _rigidbody2D.AddForce(new Vector2(0f, _jumpForce));
+            _jumpCount--;
+        }
+    }
+
+    private void CheckIfOnGround(bool wasGrounded)
+    {
+        if (_groundCheck.IsTouchingLayers(_whatIsGround.value))
+        {
+            _grounded = true;
+            if (!wasGrounded)
+            {
+                _jumpCount = 1;
+                OnLandEvent.Invoke();
+
+            }
+        }
+    }
 }
