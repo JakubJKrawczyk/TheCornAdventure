@@ -9,44 +9,50 @@ public class EnemyPatrolMovement : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private Transform _pointA;
     [SerializeField] private Transform _pointB;
-    [SerializeField] private bool StablePosition = true;
     [Min(0)]
     [SerializeField] private float _destinationDistanceTreshold;
+    [SerializeField] private float _minWaitTime;
+    [SerializeField] private float _maxWaitTime;
+    [SerializeField] private Transform _visual;
 
     private Rigidbody2D _rigidBody;
     private Vector3 _currentDestination;
     private Animator animator;
-    private Timer timer;
 
-    //Stany przeciwnika
+    private EnemyAnimationState _animationState;
 
-    private bool _isMoving = false;
-    private bool _isStanding = false;
-    private bool _isAttacking = false;
-
+    private enum EnemyAnimationState
+    {
+        Moving,
+        Standing,
+        Attacking
+    }
 
     private void Start()
     {
-        
         _rigidBody = GetComponent<Rigidbody2D>();
         _currentDestination = _pointB.position;
         animator = GetComponent<Animator>();
-        SetTimer(500);
+        FlipToFaceDirection();
+        IdleStand(RandomTime());
     }
 
-    private double RandomTime() => Random.Range(1500, 3000);
     private void Update()
     {
-        
-
-        if (CheckIfDestinationReached() == true && !timer.Enabled)
+        if (_animationState == EnemyAnimationState.Moving)
         {
-            
-                SetTimer(RandomTime()) ;
-        
+            if (CheckIfDestinationReached())
+            {
+                IdleStand(RandomTime());
+            }
+            else
+            {
+                MoveTowardsDestination();
+            }
         }
-        if (!timer.Enabled) MoveTowardsDestination();
     }
+
+    private float RandomTime() => Random.Range(_minWaitTime, _maxWaitTime);
 
     private bool CheckIfDestinationReached()
     {
@@ -66,19 +72,18 @@ public class EnemyPatrolMovement : MonoBehaviour
         if (_currentDestination == _pointA.position)
         {
             _currentDestination = _pointB.position;
+            FlipToFaceDirection();
             return;
         }
 
         _currentDestination = _pointA.position;
-        ChangeEnemyStance(2);
-        ChangeEnemyFacing();
-
+        FlipToFaceDirection();
     }
 
     private void MoveTowardsDestination()
     {
         int xMovementDirection = -1;
-        Debug.Log("Poruszam siê");
+
         if (transform.position.x < _currentDestination.x)
         {
             xMovementDirection = 1;
@@ -88,78 +93,61 @@ public class EnemyPatrolMovement : MonoBehaviour
             new Vector2(_speed * xMovementDirection, 0);
     }
 
-    private void ChangeEnemyStance(int stance = 1)
+    private void IdleStand(float time)
     {
-        switch(stance)
-        {
-            case 1:
-                _isStanding = true;
-                _isMoving = false;
-                _isAttacking = false;
-                break;
-            case 2:
-                _isStanding = false;
-                _isMoving = true;
-                _isAttacking = false;
-                break;
-            case 3:
-                _isStanding = false;
-                _isMoving = false;
-                _isAttacking = true;
-                break;
-        }
+        _animationState = EnemyAnimationState.Standing;
         RunAnimation();
+        _rigidBody.velocity = Vector2.zero;
+
+        StartCoroutine(Wait(time));
     }
 
-    private void SetTimer(double time)
+    IEnumerator Wait(float seconds)
     {
-        timer = new Timer(time);
-        timer.Elapsed += OnTimeElapsed;
-        timer.AutoReset = true;
-        timer.Enabled = true;
-        ChangeEnemyStance(1);
+        yield return new WaitForSeconds(seconds);
+        ResumeMovementAfterWait();
     }
 
-    private void OnTimeElapsed(object source, ElapsedEventArgs args)
+    private void ResumeMovementAfterWait()
     {
-        
+        _animationState = EnemyAnimationState.Moving;
         ChangeDestination();
-
-        Debug.Log("Timer Elapsed");
-        timer.Enabled = false;
-        
-        
+        RunAnimation();
+        MoveTowardsDestination();
     }
 
     private void RunAnimation()
     {
-        if (_isStanding)
+        animator.SetBool("IsAttacking", false);
+        animator.SetBool("IsIdle", false);
+        animator.SetBool("IsWalking", false);
+
+        switch (_animationState)
         {
-            animator.SetTrigger("Idle");
-            Debug.Log("Stojê");
+            case EnemyAnimationState.Attacking:
+                animator.SetBool("IsAttacking", true);
+                break;
+            case EnemyAnimationState.Standing:
+                animator.SetBool("IsIdle", true);
+
+                break;
+            case EnemyAnimationState.Moving:
+                animator.SetBool("IsWalking", true);
+                break;
         }
-        else if(_isMoving)
-        {
-            animator.SetTrigger("Walk");
-            Debug.Log("Idê po ciebie");
-        }
-        else if (_isAttacking)
-        {
-            animator.SetTrigger("Attack");
-            Debug.Log("Atakujê");
-        }
-        
     }
 
-    private void ChangeEnemyFacing()
+    private void FlipToFaceDirection()
     {
-        
-            float x = transform.GetChild(0).transform.localScale.x;
-            float y = transform.GetChild(0).transform.localScale.y;
-            float z = transform.GetChild(0).transform.localScale.z;
+        Vector3 visualScale = _visual.localScale;
+        float xScaleSign = Mathf.Sign(visualScale.x);
 
-            x *= -1;
-            transform.GetChild(0).transform.localScale.Set(x, y, z);
-        
+        float xDifference = _currentDestination.x - transform.position.x;
+        float xDifferenceSign = Mathf.Sign(xDifference);
+
+        if (xDifferenceSign == xScaleSign) return;
+
+        visualScale.x *= -1;
+        _visual.localScale = visualScale;
     }
 }
