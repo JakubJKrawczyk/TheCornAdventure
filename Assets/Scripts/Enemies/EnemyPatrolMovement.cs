@@ -37,8 +37,6 @@ public class EnemyPatrolMovement : MonoBehaviour
         IdleStand(RandomTime());
     }
 
-    private float RandomTime() => Random.Range(_minWaitTime, _maxWaitTime);
-
     private void Update()
     {
         if (_animationState == EnemyAnimationState.Moving)
@@ -53,6 +51,8 @@ public class EnemyPatrolMovement : MonoBehaviour
             }
         }
     }
+
+    private float RandomTime() => Random.Range(_minWaitTime, _maxWaitTime);
 
     private bool CheckIfDestinationReached()
     {
