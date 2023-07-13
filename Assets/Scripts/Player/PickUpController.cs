@@ -65,7 +65,6 @@ public class PickupController : MonoBehaviour
             if (closestItem != null)
             {
                 PickUpItem(closestItem.gameObject);
-                Debug.Log("Item Picked up!");
             }
         }
     }
@@ -80,7 +79,7 @@ public class PickupController : MonoBehaviour
             bool AmmoAdded = _ammoStorage.AddAmmo(AmmoType, AmmoAmount); // Check if ammo can be added
             if (AmmoAdded)
             {
-                item.SetActive(false);
+                Destroy(item);
             }
         }
         else if (item.CompareTag("Health"))
