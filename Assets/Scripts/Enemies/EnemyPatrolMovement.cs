@@ -16,11 +16,6 @@ public class EnemyPatrolMovement : MonoBehaviour
     private Rigidbody2D _rigidBody;
     private Vector3 _currentDestination;
     private Animator animator;
-    private Timer timer;
-
-    private bool _isMoving = false;
-    private bool _isStanding = false;
-    private bool _isAttacking = false;
 
     private EnemyAnimationState _animationState;
 
@@ -36,19 +31,24 @@ public class EnemyPatrolMovement : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
         _currentDestination = _pointB.position;
         animator = GetComponent<Animator>();
-        SetTimer(500);
+        IdleStand(RandomTime());
     }
 
-    private double RandomTime() => Random.Range(1500, 3000);
+    private float RandomTime() => Random.Range(5, 7);
 
     private void Update()
     {
-        if (CheckIfDestinationReached() == true && !timer.Enabled)
+        if (_animationState == EnemyAnimationState.Moving)
         {
-            SetTimer(RandomTime());
+            if(CheckIfDestinationReached())
+            {
+                IdleStand(RandomTime());
+            }
+            else
+            {
+                MoveTowardsDestination();
+            }
         }
-
-        if (!timer.Enabled) MoveTowardsDestination();
     }
 
     private bool CheckIfDestinationReached()
@@ -58,9 +58,11 @@ public class EnemyPatrolMovement : MonoBehaviour
 
         if (xDistanceToDestination <= _destinationDistanceTreshold)
         {
+            Debug.Log("Destination reached.");
             return true;
         }
 
+        Debug.Log("Destination not reached  Distance = " + xDistanceToDestination);
         return false;
     }
 
@@ -90,20 +92,24 @@ public class EnemyPatrolMovement : MonoBehaviour
             new Vector2(_speed * xMovementDirection, 0);
     }
 
-    private void SetTimer(double time)
+    private void IdleStand(float time)
     {
-        timer = new Timer(time);
-        timer.Elapsed += OnTimeElapsed;
-        timer.AutoReset = true;
-        timer.Enabled = true;
-        _animationState = EnemyAnimationState.Standing;
-        RunAnimation();
+        StartCoroutine(Wait(time));
     }
 
-    private void OnTimeElapsed(object source, ElapsedEventArgs args)
+    IEnumerator Wait(float seconds)
     {
-        ChangeDestination();
-        timer.Enabled = false;
+        _animationState = EnemyAnimationState.Standing;
+        RunAnimation();
+        Debug.Log("Standing for " + seconds);
+
+        yield return new WaitForSeconds(seconds);
+
+        Debug.Log("Finished standing");
+
+        _animationState = EnemyAnimationState.Moving;
+        RunAnimation();
+        MoveTowardsDestination();
     }
 
     private void RunAnimation()
