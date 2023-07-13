@@ -24,6 +24,14 @@ public class EnemyPatrolMovement : MonoBehaviour
     private bool _isStanding = false;
     private bool _isAttacking = false;
 
+    private EnemyAnimationState _animationState;
+
+    private enum EnemyAnimationState
+    {
+        Moving,
+        Standing,
+        Attacking
+    }
 
     private void Start()
     {
@@ -70,7 +78,7 @@ public class EnemyPatrolMovement : MonoBehaviour
         }
 
         _currentDestination = _pointA.position;
-        ChangeEnemyStance(2);
+        _animationState = EnemyAnimationState.Moving;
         ChangeEnemyFacing();
 
     }
@@ -88,36 +96,14 @@ public class EnemyPatrolMovement : MonoBehaviour
             new Vector2(_speed * xMovementDirection, 0);
     }
 
-    private void ChangeEnemyStance(int stance = 1)
-    {
-        switch(stance)
-        {
-            case 1:
-                _isStanding = true;
-                _isMoving = false;
-                _isAttacking = false;
-                break;
-            case 2:
-                _isStanding = false;
-                _isMoving = true;
-                _isAttacking = false;
-                break;
-            case 3:
-                _isStanding = false;
-                _isMoving = false;
-                _isAttacking = true;
-                break;
-        }
-        RunAnimation();
-    }
-
     private void SetTimer(double time)
     {
         timer = new Timer(time);
         timer.Elapsed += OnTimeElapsed;
         timer.AutoReset = true;
         timer.Enabled = true;
-        ChangeEnemyStance(1);
+        _animationState = EnemyAnimationState.Standing;
+        RunAnimation();
     }
 
     private void OnTimeElapsed(object source, ElapsedEventArgs args)
@@ -133,33 +119,27 @@ public class EnemyPatrolMovement : MonoBehaviour
 
     private void RunAnimation()
     {
-        if (_isStanding)
+        switch(_animationState)
         {
-            animator.SetTrigger("Idle");
-            Debug.Log("Stojê");
+            case EnemyAnimationState.Attacking:
+                animator.SetTrigger("Attack");
+                break;
+            case EnemyAnimationState.Standing:
+                animator.SetTrigger("Idle");
+                break;
+            case EnemyAnimationState.Moving:
+                animator.SetTrigger("Walk");
+                break;
         }
-        else if(_isMoving)
-        {
-            animator.SetTrigger("Walk");
-            Debug.Log("Idê po ciebie");
-        }
-        else if (_isAttacking)
-        {
-            animator.SetTrigger("Attack");
-            Debug.Log("Atakujê");
-        }
-        
     }
 
     private void ChangeEnemyFacing()
     {
-        
             float x = transform.GetChild(0).transform.localScale.x;
             float y = transform.GetChild(0).transform.localScale.y;
             float z = transform.GetChild(0).transform.localScale.z;
 
             x *= -1;
             transform.GetChild(0).transform.localScale.Set(x, y, z);
-        
     }
 }
