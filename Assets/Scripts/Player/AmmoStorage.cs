@@ -29,16 +29,13 @@ public class AmmoStorage : MonoBehaviour
         ammoList = new Stack<Ammo>();
         AmmoPanelSlots = new List<GameObject>();
         GameObject ammoPanel = UI.transform.GetChild(1).gameObject;
-        Debug.Log(ammoPanel.transform.childCount);
         foreach (Transform ammo in ammoPanel.transform)
         {
             AmmoPanelSlots.Add(ammo.gameObject);
         }
 
         DefaultGrainPanel = AmmoPanelSlots[^1];
-        Debug.Log(DefaultGrainPanel.name);
         AmmoPanelSlots.RemoveAt(AmmoPanelSlots.Count - 1);
-        Debug.Log(AmmoPanelSlots.Count);
         WeightController = GetComponent<WeightController>();
     }
 

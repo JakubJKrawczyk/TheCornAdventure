@@ -95,12 +95,27 @@ public class Lever : MonoBehaviour
 
     private void LeverUp()
     {
+        if(transform.parent.name == "LeverFloor")
+        {
+            leverAnimator.SetTrigger("LeverMoveRight");
+        }
+        else
+        {
+
         leverAnimator.SetTrigger("LeverMoveUp");
+        }
         isLeverUp= true;
     }
     private void LeverDown()
     {
-        leverAnimator.SetTrigger("LeverMoveDown");
+        if (transform.parent.name == "LeverFloor")
+        {
+            leverAnimator.SetTrigger("LeverMoveLeft");
+        }
+        else
+        {
+            leverAnimator.SetTrigger("LeverMoveDown");
+        }
         isLeverUp= false;
     }
 }

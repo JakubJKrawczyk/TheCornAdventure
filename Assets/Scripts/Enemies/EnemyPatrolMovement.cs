@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Timers;
 
 public class EnemyPatrolMovement : MonoBehaviour
 {
@@ -9,27 +9,43 @@ public class EnemyPatrolMovement : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private Transform _pointA;
     [SerializeField] private Transform _pointB;
-
+    [SerializeField] private bool StablePosition = true;
     [Min(0)]
     [SerializeField] private float _destinationDistanceTreshold;
 
     private Rigidbody2D _rigidBody;
     private Vector3 _currentDestination;
+    private Animator animator;
+    private Timer timer;
+
+    //Stany przeciwnika
+
+    private bool _isMoving = false;
+    private bool _isStanding = false;
+    private bool _isAttacking = false;
+
 
     private void Start()
     {
+        
         _rigidBody = GetComponent<Rigidbody2D>();
         _currentDestination = _pointB.position;
+        animator = GetComponent<Animator>();
+        SetTimer(500);
     }
 
+    private double RandomTime() => Random.Range(1500, 3000);
     private void Update()
     {
-        if (CheckIfDestinationReached() == true)
-        {
-            ChangeDestination();
-        }
+        
 
-        MoveTowardsDestination();
+        if (CheckIfDestinationReached() == true && !timer.Enabled)
+        {
+            
+                SetTimer(RandomTime()) ;
+        
+        }
+        if (!timer.Enabled) MoveTowardsDestination();
     }
 
     private bool CheckIfDestinationReached()
@@ -54,12 +70,15 @@ public class EnemyPatrolMovement : MonoBehaviour
         }
 
         _currentDestination = _pointA.position;
+        ChangeEnemyStance(2);
+        ChangeEnemyFacing();
+
     }
 
     private void MoveTowardsDestination()
     {
         int xMovementDirection = -1;
-
+        Debug.Log("Poruszam siê");
         if (transform.position.x < _currentDestination.x)
         {
             xMovementDirection = 1;
@@ -67,5 +86,80 @@ public class EnemyPatrolMovement : MonoBehaviour
 
         _rigidBody.velocity =
             new Vector2(_speed * xMovementDirection, 0);
+    }
+
+    private void ChangeEnemyStance(int stance = 1)
+    {
+        switch(stance)
+        {
+            case 1:
+                _isStanding = true;
+                _isMoving = false;
+                _isAttacking = false;
+                break;
+            case 2:
+                _isStanding = false;
+                _isMoving = true;
+                _isAttacking = false;
+                break;
+            case 3:
+                _isStanding = false;
+                _isMoving = false;
+                _isAttacking = true;
+                break;
+        }
+        RunAnimation();
+    }
+
+    private void SetTimer(double time)
+    {
+        timer = new Timer(time);
+        timer.Elapsed += OnTimeElapsed;
+        timer.AutoReset = true;
+        timer.Enabled = true;
+        ChangeEnemyStance(1);
+    }
+
+    private void OnTimeElapsed(object source, ElapsedEventArgs args)
+    {
+        
+        ChangeDestination();
+
+        Debug.Log("Timer Elapsed");
+        timer.Enabled = false;
+        
+        
+    }
+
+    private void RunAnimation()
+    {
+        if (_isStanding)
+        {
+            animator.SetTrigger("Idle");
+            Debug.Log("Stojê");
+        }
+        else if(_isMoving)
+        {
+            animator.SetTrigger("Walk");
+            Debug.Log("Idê po ciebie");
+        }
+        else if (_isAttacking)
+        {
+            animator.SetTrigger("Attack");
+            Debug.Log("Atakujê");
+        }
+        
+    }
+
+    private void ChangeEnemyFacing()
+    {
+        
+            float x = transform.GetChild(0).transform.localScale.x;
+            float y = transform.GetChild(0).transform.localScale.y;
+            float z = transform.GetChild(0).transform.localScale.z;
+
+            x *= -1;
+            transform.GetChild(0).transform.localScale.Set(x, y, z);
+        
     }
 }
