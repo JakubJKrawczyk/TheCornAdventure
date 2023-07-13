@@ -9,7 +9,6 @@ public class EnemyPatrolMovement : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private Transform _pointA;
     [SerializeField] private Transform _pointB;
-    [SerializeField] private bool StablePosition = true;
     [Min(0)]
     [SerializeField] private float _destinationDistanceTreshold;
     [SerializeField] private Transform _visual;
