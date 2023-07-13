@@ -40,7 +40,7 @@ public class EnemyPatrolMovement : MonoBehaviour
     {
         if (_animationState == EnemyAnimationState.Moving)
         {
-            if(CheckIfDestinationReached())
+            if (CheckIfDestinationReached())
             {
                 IdleStand(RandomTime());
             }
@@ -118,16 +118,21 @@ public class EnemyPatrolMovement : MonoBehaviour
 
     private void RunAnimation()
     {
+        animator.SetBool("IsAttacking", false);
+        animator.SetBool("IsIdle", false);
+        animator.SetBool("IsWalking", false);
+
         switch (_animationState)
         {
             case EnemyAnimationState.Attacking:
-                animator.SetTrigger("Attack");
+                animator.SetBool("IsAttacking", true);
                 break;
             case EnemyAnimationState.Standing:
-                animator.SetTrigger("Idle");
+                animator.SetBool("IsIdle", true);
+
                 break;
             case EnemyAnimationState.Moving:
-                animator.SetTrigger("Walk");
+                animator.SetBool("IsWalking", true);
                 break;
         }
     }
