@@ -58,11 +58,9 @@ public class EnemyPatrolMovement : MonoBehaviour
 
         if (xDistanceToDestination <= _destinationDistanceTreshold)
         {
-            Debug.Log("Destination reached.");
             return true;
         }
 
-        Debug.Log("Destination not reached  Distance = " + xDistanceToDestination);
         return false;
     }
 
@@ -103,11 +101,7 @@ public class EnemyPatrolMovement : MonoBehaviour
         RunAnimation();
         _rigidBody.velocity = Vector2.zero;
 
-        Debug.Log("Standing for " + seconds);
-
         yield return new WaitForSeconds(seconds);
-
-        Debug.Log("Finished standing");
 
         _animationState = EnemyAnimationState.Moving;
         ChangeDestination();
