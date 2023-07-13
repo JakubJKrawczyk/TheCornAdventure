@@ -37,18 +37,12 @@ public class AmmoStorage : MonoBehaviour
 
         DefaultGrainPanel = AmmoPanelSlots[^1];
         Debug.Log(DefaultGrainPanel.name);
-        AmmoPanelSlots.RemoveAt(AmmoPanelSlots.Count-1);
+        AmmoPanelSlots.RemoveAt(AmmoPanelSlots.Count - 1);
         Debug.Log(AmmoPanelSlots.Count);
         WeightController = GetComponent<WeightController>();
+    }
 
-    public AmmoStorage()
-    {
-        ammoList = new List<Ammo>();
-    }
-    public void Start()
-    {
-        RefreshAmmo();
-    }
+
 
     public void DiscardFirstAmmo()
     {
@@ -62,7 +56,8 @@ public class AmmoStorage : MonoBehaviour
                 GameObject ammoPrefab = AmmoPrefabs[discardedAmmo.type];
 
                 GameObject spawnedAmmo = Instantiate(ammoPrefab, transform.position + new Vector3(0.75f, 0), Quaternion.identity);
-                if (spawnedAmmo.TryGetComponent<AmmoPickUp>(out var ammoPickup))
+                AmmoPickUp ammoPickup = spawnedAmmo.GetComponent<AmmoPickUp>();
+                if (ammoPickup != null)
                 {
                     ammoPickup.AmmoAmount = discardedAmmo.amount;
                     ammoPickup.AmmoType = discardedAmmo.type;
@@ -90,7 +85,7 @@ public class AmmoStorage : MonoBehaviour
         {
             Ammo firstAmmo = ammoList.Peek();
             firstAmmo.amount--;
-         
+
             if (firstAmmo.amount <= 0)
             {
                 // If the amount reaches zero, remove the ammo from the list
@@ -118,16 +113,14 @@ public class AmmoStorage : MonoBehaviour
         {
             return false; // All slots are full, return false to PickUpController, so object won't be destroyed
         }
-        else
-        {
-            // Add a new ammo to the beginning of the list
-            Ammo newAmmo = new(type, amount);
-            ammoList.Push(newAmmo);
-            RefreshAmmo();
-            WeightController.AddAmmoWeight(type, amount);
-            return true; // Return true to PickUpController - destroy object
-        }
+
+        Ammo newAmmo = new Ammo(type, amount);
+        ammoList.Push(newAmmo);
+        RefreshAmmo();
+        WeightController.AddAmmoWeight(type, amount);
+        return true; // Return true to PickUpController - destroy object
     }
+
 
     public void RemoveAmmo(int type, int amount)
     {
@@ -144,8 +137,7 @@ public class AmmoStorage : MonoBehaviour
         }
     }
 
-   
-
+    
     public void RefreshAmmo()
     {
         for (int i = 0; i < AmmoPanelSlots.Count; i++)
@@ -157,12 +149,12 @@ public class AmmoStorage : MonoBehaviour
             if (i < ammoList.Count)
             {
                 Ammo ammo = ammoList.ToList()[i];
-                int amount = ammo.amount;
+                float amount = ammo.amount;
 
                 if (amount > 0)
                 {
                     amountText.text = amount.ToString();
-                    ammoImage.sprite = AmmoSprite[(int)ammo.type];
+                    ammoImage.sprite = AmmoSprite[ammo.type];
 
                     if (amount / MaxAmmoPerSlot == 1)
                     {
@@ -189,7 +181,7 @@ public class AmmoStorage : MonoBehaviour
 
         if (ammoList.Count == 0)
         {
-           DefaultGrainPanel.SetActive(true);
+            DefaultGrainPanel.SetActive(true);
         }
         else
         {
@@ -198,10 +190,9 @@ public class AmmoStorage : MonoBehaviour
     }
 
 }
-public class Ammo
-{
-    public int type;
-    public int amount;
+
+
+
 
 
 

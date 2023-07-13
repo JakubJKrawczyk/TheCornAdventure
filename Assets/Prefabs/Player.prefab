@@ -228,6 +228,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.56, y: 0.3}
   m_EdgeRadius: 0
+--- !u!1 &325317166726197666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4797015253521744129}
+  m_Layer: 8
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4797015253521744129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325317166726197666}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7290323292993523729}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1679454220150944858
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +355,6 @@ GameObject:
   - component: {fileID: 7386767421123471690}
   - component: {fileID: 8558927684308871758}
   - component: {fileID: 4328678617360873020}
-
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -348,7 +378,7 @@ Transform:
   - {fileID: 4839020027420189653}
   - {fileID: 1085196323041589822}
   - {fileID: 6342442339496582270}
-  - {fileID: 1209889904201426212}
+  - {fileID: 4797015253521744129}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -449,7 +479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 565de048d0b915c44b322d2e0440306e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 100
   _jumpForce: 1500
   _crouchSpeed: 0.36
   _movementSmoothing: 0.05
@@ -507,11 +536,7 @@ MonoBehaviour:
   itemLayer:
     serializedVersion: 2
     m_Bits: 2048
-  itemHolder: {fileID: 0}
   sceneManager: {fileID: 0}
-  AmmoStorage: {fileID: 8558927684308871758}
-  HealthController: {fileID: 7386767421123471690}
-
 --- !u!114 &4256657238963705804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,13 +549,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf58fab48755a5e4cb0f244c3795a3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSO: {fileID: 11400000, guid: 394400bda32055d458047c54c10655f2, type: 2}
-  _projectileSO2: {fileID: 11400000, guid: 594d17012191fb74dac382092e02617f, type: 2}
-  _shootingPoint: {fileID: 1209889904201426212}
-  AmmoStorage: {fileID: 8558927684308871758}
+  projectileSO: {fileID: 0}
+  projectileSO2: {fileID: 0}
+  shootingPoint: {fileID: 0}
 --- !u!114 &7386767421123471690
 MonoBehaviour:
-
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -541,13 +564,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54596c3f244767d4abc3edd89c1d9ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentHealth: 4
-  HealthPanel:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  CurrentHealth: 5
+  HealthPanel: {fileID: 0}
   ScreenEffectAnimator: {fileID: 0}
 --- !u!114 &8558927684308871758
 MonoBehaviour:
@@ -562,25 +580,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxAmmoPerSlot: 20
-  AmmoPanel:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  DefaultGrainPanel: {fileID: 0}
   AmmoSprite:
   - {fileID: -1313652811, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
   - {fileID: -240731465, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
   - {fileID: -1706727895, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
   - {fileID: -665539013, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
   - {fileID: 2140166152, guid: 69f422ef862d2984989de52c4c0060e9, type: 3}
-  WeightController: {fileID: 4328678617360873020}
   AmmoPrefabs:
   - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
   - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
   - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
   - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
+  UI: {fileID: 0}
 --- !u!114 &4328678617360873020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,49 +604,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f9ea3cb7a9f634eaa3fd191c613206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentHealth: 100
-  HealthPanel:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  ScreenEffectAnimator: {fileID: 0}
---- !u!114 &7888429719871939157
-
-  CurrentWeight: 1.75
   MinWeight: 1.75
   MaxWeight: 3
-  GrainsWeight:
-
-
-GameObject:
+  GrainsWeight: []
+--- !u!114 &7888429719871939157
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1209889904201426212}
-  m_Layer: 8
-  m_Name: ShootingPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1209889904201426212
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8829366091127956401}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.48, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7290323292993523729}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
