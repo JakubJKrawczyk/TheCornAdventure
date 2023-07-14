@@ -44,13 +44,15 @@ public class Projectile : MonoBehaviour
                 enemyHealth.ReceiveDamage(_projectileSO.Damage);
             }
 
+            Transform hit = Instantiate(HitPrefab, transform.position, Quaternion.identity);
+            hit.GetComponent<Animator>().Play("GrainHitEffect");
+            Destroy(hit.gameObject, 0.35f);
+
             Destroy(gameObject);
         }
 
         if(collider.gameObject.layer == _projectileSO.EnemyMask) Destroy(gameObject);
 
-        Transform hit = Instantiate(HitPrefab, transform.position, Quaternion.identity);
-        hit.GetComponent<Animator>().Play("GrainHitEffect");
-        Destroy(hit, 0.35f);
+        
     }
 }
