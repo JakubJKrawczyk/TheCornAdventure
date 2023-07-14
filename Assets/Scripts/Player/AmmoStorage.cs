@@ -158,7 +158,7 @@ public class AmmoStorage : MonoBehaviour
             GameObject panel = AmmoPanelSlots[i];
             TextMeshProUGUI amountText = panel.transform.Find("Amount").GetComponent<TextMeshProUGUI>();
             Image ammoImage = panel.transform.Find("Image").GetComponent<Image>();
-
+            Image ammoImageBG = panel.transform.Find("ImageBG").GetComponent<Image>();
             if (i < ammoList.Count)
             {
                 Ammo ammo = ammoList.ToList()[i];
@@ -168,7 +168,8 @@ public class AmmoStorage : MonoBehaviour
                 {
                     amountText.text = amount.ToString();
                     ammoImage.sprite = AmmoSprite[ammo.type];
-
+                    ammoImageBG.sprite = AmmoSprite[ammo.type];
+                    
                     if (amount / MaxAmmoPerSlot == 1)
                     {
                         ammoImage.fillAmount = amount / MaxAmmoPerSlot;

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1df8204d486607949ba545dcfe0c56c8, type: 3}
-  m_Name: CornProjectileSO2
+  m_Name: RiceProjectileSO
   m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 0
-  <Prefab>k__BackingField: {fileID: 3261150153853852388, guid: e33b10f91079f3345a1a48028186d130, type: 3}
+  <Damage>k__BackingField: 5
+  <Prefab>k__BackingField: {fileID: 3261150153853852388, guid: 84ba33d2f59ecab42ac972d0e030278a, type: 3}
   <Sprite>k__BackingField: {fileID: 0}
-  <ProjectileSpeed>k__BackingField: 15
-  <TimeBetweenShots>k__BackingField: 0.5
+  <ProjectileSpeed>k__BackingField: 25
+  <TimeBetweenShots>k__BackingField: 0.2
   <Lifetime>k__BackingField: 30
   <CollidesWith>k__BackingField:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 640
   <EnemyMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 512

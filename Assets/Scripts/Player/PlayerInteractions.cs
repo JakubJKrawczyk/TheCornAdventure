@@ -6,7 +6,7 @@ public class PlayerInteractions : MonoBehaviour
 {
     [Header("Dependencies")]
     [SerializeField] private ProjectileSO projectileSO;
-    [SerializeField] private ProjectileSO projectileSO2;
+    [SerializeField] private ProjectileSO riceProjectileSO;
     [SerializeField] private Transform shootingPoint;
 
     //private script variables
@@ -29,7 +29,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private void TryShoot()
     {
-        if ((Time.time > _timeOfLastShot + projectileSO.TimeBetweenShots) || (Time.time > _timeOfLastShot + projectileSO2.TimeBetweenShots) && !_shootingProgress)
+        if ((Time.time > _timeOfLastShot + projectileSO.TimeBetweenShots) || (Time.time > _timeOfLastShot + riceProjectileSO.TimeBetweenShots) && !_shootingProgress)
         {
             _shootingProgress = true;
             Shoot();
@@ -40,20 +40,23 @@ public class PlayerInteractions : MonoBehaviour
     {
         int UsedAmmo = ammoStorage.UseFirstAmmo();
 
-        Transform projectileTransform;
-        if (UsedAmmo == -1)
+        Transform projectileTransform = null;
+        Projectile projectile = null;
+        if (UsedAmmo == -1 || UsedAmmo == 0)
         {
             projectileTransform = Instantiate(projectileSO.Prefab, shootingPoint.position, Quaternion.identity);
 
 
         }
-        else
+        else if (UsedAmmo == 1)
         {
-            projectileTransform = Instantiate(projectileSO2.Prefab, shootingPoint.position, Quaternion.identity);
+            projectileTransform = Instantiate(riceProjectileSO.Prefab, shootingPoint.position, Quaternion.identity);
         }
-        Projectile projectile = projectileTransform.GetComponent<Projectile>();
-
-        SetProjectileDirection(projectile);
+        if (projectileTransform is not null)
+        {
+            projectile = projectileTransform.GetComponent<Projectile>();
+        }
+        if (projectile is not null) SetProjectileDirection(projectile);
 
         _timeOfLastShot = Time.time;
         _shootingProgress = false;

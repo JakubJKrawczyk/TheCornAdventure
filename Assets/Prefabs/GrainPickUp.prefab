@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3938629128777942787}
   - component: {fileID: 2481280983807485601}
   m_Layer: 11
-  m_Name: AmmoPickUp
+  m_Name: GrainPickUp
   m_TagString: Ammo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
