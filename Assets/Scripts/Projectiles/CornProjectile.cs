@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class CornProjectile : Projectile
 {
+
+    
     protected override void Update()
     {
         base.Update();
         Move();
+
     }
 
     private void Move()

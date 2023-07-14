@@ -21,3 +21,6 @@ MonoBehaviour:
   <CollidesWith>k__BackingField:
     serializedVersion: 2
     m_Bits: 640
+  <EnemyMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 512

@@ -30,7 +30,6 @@ public class WeightController : MonoBehaviour
     public void AddAmmoWeight(int ammoType, int ammo_amount)
     {
         CurrentWeight += (GrainsWeight[ammoType] * ammo_amount);
-        Debug.Log(CurrentWeight);
         RefreshWeight();
     }
 

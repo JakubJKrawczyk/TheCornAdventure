@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df8204d486607949ba545dcfe0c56c8, type: 3}
   m_Name: CornProjectileSO2
   m_EditorClassIdentifier: 
+  <Damage>k__BackingField: 0
   <Prefab>k__BackingField: {fileID: 3261150153853852388, guid: e33b10f91079f3345a1a48028186d130, type: 3}
   <Sprite>k__BackingField: {fileID: 0}
   <ProjectileSpeed>k__BackingField: 15
@@ -20,3 +21,6 @@ MonoBehaviour:
   <CollidesWith>k__BackingField:
     serializedVersion: 2
     m_Bits: 128
+  <EnemyMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 512
