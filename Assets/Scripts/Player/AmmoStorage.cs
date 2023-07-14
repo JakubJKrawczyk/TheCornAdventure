@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class AmmoStorage : MonoBehaviour
 {
     
-    public int MaxAmmoPerSlot = 10;
 
     [Header("Dependencies")]
     [SerializeField] private Sprite[] AmmoSprite;
@@ -127,7 +126,7 @@ public class AmmoStorage : MonoBehaviour
             return false; // All slots are full, return false to PickUpController, so object won't be destroyed
         }
 
-        Ammo newAmmo = new Ammo(type, amount);
+        Ammo newAmmo = new Ammo(type, amount, amount);
         ammoList.Push(newAmmo);
         RefreshAmmo();
         WeightController.AddAmmoWeight(type, amount);
@@ -170,13 +169,13 @@ public class AmmoStorage : MonoBehaviour
                     ammoImage.sprite = AmmoSprite[ammo.type];
                     ammoImageBG.sprite = AmmoSprite[ammo.type];
                     
-                    if (amount / MaxAmmoPerSlot == 1)
+                    if (amount / ammo.Maxamount == 1)
                     {
-                        ammoImage.fillAmount = amount / MaxAmmoPerSlot;
+                        ammoImage.fillAmount = amount / ammo.Maxamount;
                     }
                     else
                     {
-                        int fillAmountSteps = Mathf.RoundToInt(amount / MaxAmmoPerSlot * 10f);
+                        int fillAmountSteps = Mathf.RoundToInt(amount / ammo.Maxamount * 10f);
                         float newFillAmount = fillAmountSteps / 10f;
                         ammoImage.fillAmount = newFillAmount + 0.05f;
                     }

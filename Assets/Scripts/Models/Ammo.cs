@@ -10,11 +10,13 @@ namespace Assets.Scripts.Models
     {
         public int type;
         public int amount;
+        public int Maxamount;
 
-        public Ammo(int type, int amount)
+        public Ammo(int type, int amount, int maxamount)
         {
             this.type = type;
             this.amount = amount;
+            this.Maxamount = maxamount;
         }
     }
 }

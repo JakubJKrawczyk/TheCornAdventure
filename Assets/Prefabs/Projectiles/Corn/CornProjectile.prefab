@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -626928940, guid: 2402e127dce77dd48b8e68c158a7743f, type: 3}
+  m_Sprite: {fileID: -887505406, guid: 7e3e2197e95747a49a6e1d4fb14bdd36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 25097772080226008}
   - component: {fileID: 7831375097245055871}
   m_Layer: 0
-  m_Name: GrainProjectile
+  m_Name: CornProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 5791987233530521641}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2226628445216057854}
@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea9080b35cc616f45936b3154641a98f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSO: {fileID: 11400000, guid: 394400bda32055d458047c54c10655f2, type: 2}
-  HitPrefab: {fileID: 8682312673050620828, guid: d229298a957a9604188e1913478d3569, type: 3}
+  _projectileSO: {fileID: 11400000, guid: 15b164c6b942c0940b7d5d19ebdb95d9, type: 2}
+  HitPrefab: {fileID: 8682312673050620828, guid: a85c595c0d4a69f44b69c9f2a50a3f13, type: 3}
 --- !u!50 &1834508931639962080
 Rigidbody2D:
   serializedVersion: 4
@@ -193,7 +193,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00031606853, y: 0.00010485202}
+  m_Offset: {x: 0.0011526197, y: -0.0011532083}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -204,7 +204,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.10184565, y: 0.10292557}
+  m_Size: {x: 0.085887715, y: 0.082523465}
   m_EdgeRadius: 0
 --- !u!95 &7831375097245055871
 Animator:
@@ -216,7 +216,7 @@ Animator:
   m_GameObject: {fileID: 5791987233530521641}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 21aa06b76b53e8b41be3867e165e18b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: fdf011bef4d39114da73bf3a79b72deb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -134,7 +134,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Grain_03_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b2655afac6b77e4da653b207b22b422
+      internalID: 1495408537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grain_03_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50a359cccef6e69468212184fe0a2638
+      internalID: -414279828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grain_03_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 564658524220b9948b104ee967dd4b18
+      internalID: 1653987923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grain_03_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a65a050e5a06bf429ddcea709f702d3
+      internalID: 40278161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +229,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Grain_03_0: 1495408537
+      Grain_03_1: -414279828
+      Grain_03_2: 1653987923
+      Grain_03_3: 40278161
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
