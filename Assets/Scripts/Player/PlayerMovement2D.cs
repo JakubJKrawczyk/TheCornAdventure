@@ -20,10 +20,18 @@ public class PlayerMovement2D : MonoBehaviour
     }
     private bool slamming = false;
 
-    public void SlamAnimation()
+    public bool SlamAnimation()
     {
-        slamming = true;
-        animator.Play("player_slam", 0);
+        if (slamming)
+        {
+            return false;
+        }
+        else
+        {
+            slamming = true;
+            animator.Play("player_slam", 0);
+            return true;
+        }
     }
 
     public void ResetSlamming()

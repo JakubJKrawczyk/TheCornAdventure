@@ -36,8 +36,7 @@ public class CharacterController2D : MonoBehaviour
     public bool IsWPressed { get; set; }
     public bool fallThrough;
 
-    private PlayerMovement2D _PlayerMovement2D;
-    [Range(15, 30)] public int SlamThreshold = 20;
+     public PlayerStompAttack PlayerStompAttack;
 
     //stany postaci
 
@@ -63,7 +62,7 @@ public class CharacterController2D : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        _PlayerMovement2D = GetComponent<PlayerMovement2D>();
+      //  PlayerStompAttack = GetComponent<PlayerStompAttack>();
 
         OnLandEvent ??= new UnityEvent();
         OnCrouchEvent ??= new BoolEvent();
@@ -290,11 +289,10 @@ public class CharacterController2D : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check the collision velocity
         Debug.Log(collision.relativeVelocity.y);
-        if (collision.relativeVelocity.y >= SlamThreshold)
-        {
-            _PlayerMovement2D.SlamAnimation();
-        }
+
+        //passing velocity for Threshold
+        //and collided object - can be later used for enemies or blocks to be destroyed
+        PlayerStompAttack.Slam(collision.relativeVelocity.y, collision.gameObject);
     }
 }
