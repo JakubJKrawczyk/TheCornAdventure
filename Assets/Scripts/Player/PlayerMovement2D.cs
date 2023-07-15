@@ -16,6 +16,19 @@ public class PlayerMovement2D : MonoBehaviour
         animator = GetComponent<Animator>();
 
     }
+    private bool slamming = false;
+
+    public void SlamAnimation()
+    {
+        slamming = true;
+        animator.Play("player_slam", 0);
+    }
+
+    public void ResetSlamming()
+    {
+        slamming = false;
+    }
+
 
     private void FixedUpdate()
     {
@@ -32,14 +45,14 @@ public class PlayerMovement2D : MonoBehaviour
        
         // Obs³uga animacji
         if (controller.IsWPressed && _rigidbody2D.velocity.y > 1) animator.Play("player_jump_up", 0);
-        else if (controller._jumpCount == 0 && _rigidbody2D.velocity.y < -1) animator.Play("player_jump_down", 0);
+        else if (controller._jumpCount == 0 && _rigidbody2D.velocity.y < -1 && !slamming) animator.Play("player_jump_down", 0);
         else if (controller.isWalking && !controller._isRolling && !controller.isCrouching && !Input.GetKey(KeyCode.E)) animator.Play("player_walk", 0);
         else if (controller._isRolling) animator.Play("player_roll", 0);
         else if (Input.GetKey(KeyCode.E) && !controller.isCrouching) animator.Play("player_shoot", 0);
         else if (Input.GetKey(KeyCode.E) && controller.isCrouching) animator.Play("player_crouch_shoot", 0);
         else if (controller.isCrouching && !controller.isWalking && !controller._isRolling) animator.Play("player_crouch", 0);
         else if (controller.isCrouchWalking && controller.isWalking) animator.Play("player_crawl", 0);
-        else animator.Play("Idle", 0);
+        else if (!slamming) animator.Play("Idle", 0);
         // koniec obsÅugi animacji
 
     }
