@@ -6,36 +6,50 @@ public class EnemyShooter : MonoBehaviour
 {
     public GameObject Projectile;
     public Transform ProjectilePos;
+    public Animator animator;
 
-    private float timer;
     private GameObject player;
+    private bool isAttacking;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        isAttacking = false;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
         float distance = Vector2.Distance(transform.position, player.transform.position);
         Debug.Log(distance);
+
         if (distance < 10)
         {
-            timer += Time.deltaTime;
-            if (timer>2)
+            if (!isAttacking)
             {
-                timer = 0;
-                shoot();
+                StartCoroutine(AttackCoroutine());
             }
         }
-        
     }
 
-    void shoot()
+    IEnumerator AttackCoroutine()
     {
-        Instantiate(Projectile, ProjectilePos.position,Quaternion.identity );
+        isAttacking = true;
+        animator.SetTrigger("IsAttacking");
+
+        yield return new WaitForSeconds(1f); 
+
+        ThrowProjectile();
+
+        yield return new WaitForSeconds(0.5f); 
+
+        animator.ResetTrigger("IsAttacking");
+        isAttacking = false;
+    }
+
+    void ThrowProjectile()
+    {
+        Instantiate(Projectile, ProjectilePos.position, Quaternion.identity);
     }
 }

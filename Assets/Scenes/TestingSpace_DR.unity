@@ -1943,7 +1943,7 @@ PrefabInstance:
     - target: {fileID: 2432898267288307915, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
       propertyPath: UI
       value: 
-      objectReference: {fileID: 1970739854}
+      objectReference: {fileID: 1970739854, guid: 2f231537bb807d44494a568593d80fb8, type: 2}
     - target: {fileID: 3616403469045376175, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
       propertyPath: itemHolder
       value: 
@@ -1991,7 +1991,7 @@ PrefabInstance:
     - target: {fileID: 4256657238963705804, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
       propertyPath: _shootingPoint
       value: 
-      objectReference: {fileID: 1989935404}
+      objectReference: {fileID: 1989935404, guid: 2f231537bb807d44494a568593d80fb8, type: 2}
     - target: {fileID: 4328678617360873020, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
       propertyPath: CurrentWeight
       value: 1.75
@@ -2143,7 +2143,7 @@ PrefabInstance:
     - target: {fileID: 8558927684308871758, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
       propertyPath: AmmoPanel.Array.data[4]
       value: 
-      objectReference: {fileID: 1416353533}
+      objectReference: {fileID: 1416353533, guid: 2f231537bb807d44494a568593d80fb8, type: 2}
     m_RemovedComponents:
     - {fileID: 1475682704880704781, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
     m_RemovedGameObjects: []

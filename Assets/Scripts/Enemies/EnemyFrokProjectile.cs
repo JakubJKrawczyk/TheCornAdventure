@@ -8,8 +8,8 @@ public class EnemyForkProjectile : MonoBehaviour
      private Rigidbody2D rb;
      public float force;
     private float timer;
+    public int damageAmount = 1;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,7 +24,6 @@ public class EnemyForkProjectile : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rot + 180);
     }
 
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
@@ -40,7 +39,8 @@ public class EnemyForkProjectile : MonoBehaviour
             HealthController healthController = other.gameObject.GetComponent<HealthController>();
             if (healthController != null)
             {
-                healthController.CurrentHealth -= 1;
+                healthController.RemoveHealth(damageAmount);
+                Debug.Log("Damage dealt to the player");
             }
             Destroy(gameObject);
         }
