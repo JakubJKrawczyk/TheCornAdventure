@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class HealthController : MonoBehaviour
 
     //private script variables
     private List<GameObject> HealthIcons;
+    private float _dmgCooldown = 1f;
 
     public void Start()
     {
@@ -21,7 +23,7 @@ public class HealthController : MonoBehaviour
 
         foreach (Transform icon in HealthPanel.transform)
         {
-            HealthIcons.Add(icon.gameObject);
+            HealthIcons.Add(icon.transform.GetChild(0).gameObject);
         }
     }
 
@@ -82,6 +84,7 @@ public class HealthController : MonoBehaviour
 
     public void GameOver()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
     }
 }

@@ -10,7 +10,7 @@ public class PickupController : MonoBehaviour
     [SerializeField] private float pickupDistance = 0.5f;
     [SerializeField] private LayerMask itemLayer;
     [Header("Dependencies")]
-    [SerializeField] private SceneManager sceneManager;
+    [SerializeField] private InGameSceneManager sceneManager;
     private Transform playerTransform;
 
     //private script variables

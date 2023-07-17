@@ -12,12 +12,12 @@ public class CharacterController2D : MonoBehaviour
     [Range(0, 1)][SerializeField] private float _crouchSpeed = .36f;
     [Range(0, .3f)][SerializeField] private float _movementSmoothing = .05f;
     [Range(1f, 15f)][SerializeField] private float _characterSpeed = 5f;
+    [SerializeField] private float _rollSpeed = 10f;
     [SerializeField] private LayerMask _whatIsGround;
     [SerializeField] private Collider2D _groundCheck;
     [SerializeField] private Collider2D _ceilingCheck;
     [SerializeField] private Collider2D _standingCollider;
-    [SerializeField] private float _rollSpeed = 10f;
-    [Range(0,2f)][SerializeField] private float _jumpWindow = 0.07f;
+    [Range(0,2f)][SerializeField] private float _jumpWindow = 0.025f;
 
     //private script variables
     private bool _triedRolling = false;
@@ -85,7 +85,7 @@ public class CharacterController2D : MonoBehaviour
         //sprawdzam czy nad głową znajduje się przeszkoda i nie pozwalam postaci wstać
         if(!crouch)
         {
-            if(_ceilingCheck.IsTouchingLayers(_whatIsGround.value))
+            if(_ceilingCheck.IsTouchingLayers(_whatIsGround.value) && _jumpCount != 0)
             {
                 crouch = true;
             }
