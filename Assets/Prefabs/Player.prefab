@@ -252,7 +252,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325317166726197666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -549,9 +549,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf58fab48755a5e4cb0f244c3795a3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSO: {fileID: 0}
-  projectileSO2: {fileID: 0}
-  shootingPoint: {fileID: 0}
+  projectileSO: {fileID: 11400000, guid: 394400bda32055d458047c54c10655f2, type: 2}
+  riceProjectileSO: {fileID: 11400000, guid: 73b51e3ab52b7e24aaa4294410554523, type: 2}
+  cornProjectileSO: {fileID: 11400000, guid: 15b164c6b942c0940b7d5d19ebdb95d9, type: 2}
+  shootingPoint: {fileID: 4797015253521744129}
 --- !u!114 &7386767421123471690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,19 +580,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b982355cfbad51444a97bd60bcc2fd7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxAmmoPerSlot: 20
   AmmoSprite:
   - {fileID: -1313652811, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
-  - {fileID: -240731465, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
-  - {fileID: -1706727895, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
-  - {fileID: -665539013, guid: f38df5c1beeb49d4ebc7f87102345cf8, type: 3}
-  - {fileID: 2140166152, guid: 69f422ef862d2984989de52c4c0060e9, type: 3}
+  - {fileID: -582614482, guid: fc307c152af57db4e96b895d67dde979, type: 3}
+  - {fileID: 1495408537, guid: 8c19bd15b3f80d04d8702b0af5ef70e0, type: 3}
   AmmoPrefabs:
   - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
-  - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
-  - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
-  - {fileID: 7580623166555808534, guid: d8f8d0a305681c84aaa603fdf22c5b88, type: 3}
+  - {fileID: 7580623166555808534, guid: 9a067f6408481bf409a5564fcb515f61, type: 3}
+  - {fileID: 7580623166555808534, guid: 24df9fdae125d4843bb64f69cd3d0788, type: 3}
   UI: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &4328678617360873020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,7 +606,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinWeight: 1.75
   MaxWeight: 3
-  GrainsWeight: []
+  GrainsWeight:
+  - 0.005
+  - 0.0005
+  - 0.02
 --- !u!114 &7888429719871939157
 MonoBehaviour:
   m_ObjectHideFlags: 0
