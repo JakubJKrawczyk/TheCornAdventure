@@ -32,6 +32,7 @@ public class PlayerMovement2D : MonoBehaviour
         else controller.isWalking = false;
 
        
+
         // Obs³uga animacji
         if (controller.IsWPressed && _rigidbody2D.velocity.y > 1) animator.Play("player_jump_up", 0);
         else if (controller._jumpCount == 0 && _rigidbody2D.velocity.y < -1) animator.Play("player_jump_down", 0);
