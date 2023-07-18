@@ -3766,13 +3766,13 @@ RectTransform:
   m_Children:
   - {fileID: 634631635}
   - {fileID: 703889628}
-  m_Father: {fileID: 1674475607}
+  m_Father: {fileID: 1118920845}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 2}
-  m_SizeDelta: {x: 0, y: 65}
+  m_AnchoredPosition: {x: 0, y: 5}
+  m_SizeDelta: {x: 10, y: 65}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &610039461
 MonoBehaviour:
@@ -6833,6 +6833,7 @@ RectTransform:
   m_Children:
   - {fileID: 1706890547}
   - {fileID: 514463404}
+  - {fileID: 610039460}
   m_Father: {fileID: 1674475607}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8081,7 +8082,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1118920845}
-  - {fileID: 610039460}
   m_Father: {fileID: 68070634}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9880,7 +9880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6d262f14fe691b41b3bcd6b8414a721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelsUnlocked: 3
+  LevelsUnlocked: 0
   LastLevel: 0
   LevelNames:
   - Level 0 - tutorial
