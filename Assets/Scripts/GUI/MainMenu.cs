@@ -11,6 +11,27 @@ public class MainMenu : MonoBehaviour
 
     public string[] LevelNames;
 
+    [SerializeField] private GameObject LevelsPanel;
+
+    private Button[] LevelbuttonsList;
+
+
+    private void Start()
+    {
+
+        LevelbuttonsList = LevelsPanel.GetComponentsInChildren<Button>();
+
+        foreach (var button in LevelbuttonsList)
+        {
+            button.interactable= false;
+        }
+
+        for (int i = 0; i <= LevelsUnlocked; i++)
+        {
+            LevelbuttonsList[i].interactable = true;
+        }
+    }
+
     public void Continue()
     {
         LevelSelected(LastLevel);
