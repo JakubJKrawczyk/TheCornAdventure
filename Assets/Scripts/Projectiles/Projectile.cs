@@ -12,10 +12,12 @@ public class Projectile : MonoBehaviour
     private float _timeOnCreation;
     protected Vector3 _direction = new(1f, 0f, 0f);
 
+    public float Damage;
+
     private void Start()
     {
         _timeOnCreation = Time.time;
-        
+        Damage = _projectileSO.Damage;
     }
 
     protected virtual void Update()
