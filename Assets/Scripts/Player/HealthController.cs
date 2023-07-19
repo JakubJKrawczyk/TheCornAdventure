@@ -10,6 +10,7 @@ public class HealthController : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] private GameObject HealthPanel;
     [SerializeField] private Animator ScreenEffectAnimator;
+    [SerializeField] private GameObject GameOverPanel;
 
     //private script variables
     private List<GameObject> HealthIcons;
@@ -61,7 +62,6 @@ public class HealthController : MonoBehaviour
         {
             CurrentHealth = 0;
             GameOver();
-            Debug.Log("Player has Died.");
         }
         RefreshHealth();
     }
@@ -84,7 +84,6 @@ public class HealthController : MonoBehaviour
 
     public void GameOver()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
+        GameOverPanel.SetActive(true);
     }
 }
