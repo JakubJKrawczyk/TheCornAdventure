@@ -4,8 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ammo
   - Health
+  - Ammo
+  - Projectile
+  - Fragile
   layers:
   - Default
   - TransparentFX
