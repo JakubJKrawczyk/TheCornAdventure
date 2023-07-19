@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class PlayerOneWayPlatform : MonoBehaviour
 {
-    [SerializeField] private CharacterController2D playerController;
-    [SerializeField] private PlatformEffector2D platformEffector;
+    private CharacterController2D playerController;
+
+
+    private PlatformEffector2D platformEffector;
 
     
     private Collider2D platformCollider;
