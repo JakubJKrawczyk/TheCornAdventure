@@ -4995,7 +4995,7 @@ GameObject:
   - component: {fileID: 889260950}
   - component: {fileID: 889260949}
   m_Layer: 5
-  m_Name: ExitPanelOptions
+  m_Name: PanelOptions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6088,7 +6088,7 @@ GameObject:
   - component: {fileID: 1118920847}
   - component: {fileID: 1118920846}
   m_Layer: 5
-  m_Name: PlayPanelOptions
+  m_Name: PanelOptions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9826,7 +9826,7 @@ GameObject:
   - component: {fileID: 1878632394}
   - component: {fileID: 1878632393}
   m_Layer: 5
-  m_Name: OptionPanelOptions
+  m_Name: PanelOptions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

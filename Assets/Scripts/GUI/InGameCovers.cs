@@ -77,17 +77,18 @@ public class InGameCovers : MonoBehaviour
     public void LastCheckPoint()
     {
         //todo: checkpoints
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
     public void RestartLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 }
