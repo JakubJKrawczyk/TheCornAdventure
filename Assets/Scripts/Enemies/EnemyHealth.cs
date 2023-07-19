@@ -9,7 +9,7 @@ public class EnemyHealth : MonoBehaviour
 
     public bool IsAlive { get; private set; } = true;
 
-    protected float _currentHP;
+    internal float _currentHP;
 
     private void Start()
     {

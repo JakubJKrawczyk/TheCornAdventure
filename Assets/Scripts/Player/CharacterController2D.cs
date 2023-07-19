@@ -61,7 +61,6 @@ public class CharacterController2D : MonoBehaviour
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
       //  PlayerStompAttack = GetComponent<PlayerStompAttack>();
 
         OnLandEvent ??= new UnityEvent();
