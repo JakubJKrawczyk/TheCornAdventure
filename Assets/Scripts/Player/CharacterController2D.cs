@@ -18,6 +18,8 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private Collider2D _ceilingCheck;
     [SerializeField] private Collider2D _standingCollider;
     [Range(0,2f)][SerializeField] private float _jumpWindow = 0.025f;
+    [SerializeField] private PlayerOneWayPlatform playerOneWayPlatform;
+
 
     //private script variables
     private bool _triedRolling = false;
@@ -31,6 +33,7 @@ public class CharacterController2D : MonoBehaviour
     private bool _wasCrouching = false;
     //public script variables
     public bool IsWPressed { get; set; }
+    public bool fallThrough;
     //stany postaci
 
     internal bool _isRolling = false;
@@ -73,7 +76,19 @@ public class CharacterController2D : MonoBehaviour
        
 
     }
-
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        {
+            fallThrough = true;
+            playerOneWayPlatform = FindOneWayPlatform();
+        }
+        else
+        {
+            fallThrough = false;
+            playerOneWayPlatform = null;
+        }
+    }
     /// <summary>
     /// Funkcja poruszająca postacią.
     /// </summary>
@@ -116,6 +131,15 @@ public class CharacterController2D : MonoBehaviour
 
             if (move != 0) isCrouchWalking = true;
             else isCrouchWalking = false;
+
+            if (playerOneWayPlatform != null && playerOneWayPlatform.IsPlayerOnPlatform() && Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                playerOneWayPlatform.AllowFallThrough(true);
+            }
+            else
+            {
+                playerOneWayPlatform?.AllowFallThrough(false); 
+            }
         }
         else
         {
@@ -135,6 +159,8 @@ public class CharacterController2D : MonoBehaviour
             }
             if (move != 0) isWalking = true;
             else isWalking = false;
+
+            playerOneWayPlatform?.AllowFallThrough(false);
         }
 
         // nadanie prędkości postaci
@@ -241,5 +267,17 @@ public class CharacterController2D : MonoBehaviour
 
             }
         }
+    }
+    private PlayerOneWayPlatform FindOneWayPlatform()
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(_groundCheck.bounds.center, _groundCheck.bounds.size, 0f, _whatIsGround);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.gameObject.layer == LayerMask.NameToLayer("OneWayPlatform"))
+            {
+                return collider.gameObject.GetComponent<PlayerOneWayPlatform>();
+            }
+        }
+        return null;
     }
 }
