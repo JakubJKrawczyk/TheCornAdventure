@@ -17,7 +17,14 @@ public class InGameCovers : MonoBehaviour
         {
             if(isPaused)
             {
-                ResumeGame();
+                if (PauseSettingsCover.activeInHierarchy)
+                {
+                    PauseSettingsCover.SetActive(false);
+                }
+                else
+                {
+                    ResumeGame();
+                }
             }
             else
             {
@@ -30,18 +37,18 @@ public class InGameCovers : MonoBehaviour
         }
     }
 
-
-
-
     private void OnApplicationFocus(bool hasFocus)
     {
-        if (!hasFocus)
+        if (!GameOverCover.activeInHierarchy)
         {
-            PauseGame();
-        }
-        else
-        {
-            ResumeGame();
+            if (!hasFocus)
+            {
+                PauseGame();
+            }
+            else
+            {
+                ResumeGame();
+            }
         }
     }
 
