@@ -21,7 +21,6 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-
         buttonsList = buttonsPanel.GetComponentsInChildren<Button>();
 
         LevelbuttonsList = LevelsPanel.GetComponentsInChildren<Button>();
