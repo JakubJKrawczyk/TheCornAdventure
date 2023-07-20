@@ -8,9 +8,14 @@ public class InGameCovers : MonoBehaviour
     [SerializeField] private GameObject GameOverCover;
     [SerializeField] private GameObject PauseCover;
     [SerializeField] private GameObject PauseSettingsCover;
-
+    private CheckpointManager checkpointManager;
 
     private bool isPaused = false;
+
+    private void Start()
+    {
+        checkpointManager = FindObjectOfType<CheckpointManager>();
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !GameOverCover.activeInHierarchy)
@@ -76,9 +81,9 @@ public class InGameCovers : MonoBehaviour
 
     public void LastCheckPoint()
     {
-        //todo: checkpoints
+        checkpointManager.LoadLastCheckpoint();
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        ResumeGame();
 
     }
     public void RestartLevel()
