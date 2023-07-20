@@ -288,8 +288,6 @@ public class CharacterController2D : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.relativeVelocity.y);
-
         //passing velocity for Threshold
         //and collided object - can be later used for enemies or blocks to be destroyed
         PlayerStompAttack.Slam(collision.relativeVelocity.y, collision.gameObject);

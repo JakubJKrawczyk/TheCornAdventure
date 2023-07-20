@@ -20,6 +20,8 @@ public class EnemyHealth : MonoBehaviour
     {
         _currentHP -= damageReceived;
 
+        Debug.Log("E Damage taken: " + damageReceived + " left: " + _currentHP);
+
         if (_currentHP <= 0)
         {
             IsAlive = false;
