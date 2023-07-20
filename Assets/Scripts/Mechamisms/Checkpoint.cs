@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
@@ -57,14 +58,40 @@ public class Checkpoint : MonoBehaviour
         }
 
         // Zapisz stan wszystkich pickupów
-        pickupStates = new bool[transform.childCount];
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            pickupStates[i] = transform.GetChild(i).gameObject.activeSelf;
-            Debug.Log("Saving pickup at index " + i + ": " + pickupStates[i]);
-        }
+        PickupStates();
+
         FindObjectOfType<CheckpointManager>().SetLastCheckpoint(this);
     }
+
+
+    public List<GameObjectState> pickupStateList = new List<GameObjectState>();
+
+    public struct GameObjectState
+    {
+        public GameObject gameObject;
+        public bool isEnabled;
+    }
+
+    public void PickupStates()
+    {
+        int pickupLayer = LayerMask.NameToLayer("Pickup");
+        GameObject[] pickupObjects = GameObject.FindObjectsOfType<GameObject>();
+
+        List<GameObjectState> pickupStateList = new List<GameObjectState>();
+
+        foreach (GameObject pickupObject in pickupObjects)
+        {
+            if (pickupObject.layer == pickupLayer)
+            {
+                pickupStateList.Add(new GameObjectState
+                {
+                    gameObject = pickupObject,
+                    isEnabled = pickupObject.activeSelf
+                });
+            }
+        }
+    }
+
 
 
     // Funkcja zwracaj¹ca pozycjê checkpointu

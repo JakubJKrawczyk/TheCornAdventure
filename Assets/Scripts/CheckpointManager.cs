@@ -18,6 +18,7 @@ public class CheckpointManager : MonoBehaviour
 
     public void LoadLastCheckpoint()
     {
+        Time.timeScale= 1.0f;
         if (lastCheckpoint != null)
         {
             // Za³aduj scenê i ustaw gracza na pozycji ostatniego aktywowanego checkpointu
@@ -76,6 +77,8 @@ public class CheckpointManager : MonoBehaviour
         }
 
         // Przywróæ stan wszystkich pickupów
+
+        /*
         PickupController[] pickups = FindObjectsOfType<PickupController>();
         foreach (PickupController pickup in pickups)
         {
@@ -97,7 +100,26 @@ public class CheckpointManager : MonoBehaviour
             {
                 Debug.LogError("Invalid pickup index: " + pickupIndex);
             }
+        }*/
+
+
+
+        foreach (var pickupState in checkpoint.pickupStateList)
+        {
+            GameObject pickupObject = pickupState.gameObject;
+            bool isEnabled = pickupState.isEnabled;
+
+            pickupObject.SetActive(isEnabled);
+            Debug.Log(pickupObject + " " + isEnabled);
         }
 
+
+
+    }
+
+    private struct GameObjectState
+    {
+        public GameObject gameObject;
+        public bool isEnabled;
     }
 }
