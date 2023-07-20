@@ -8,11 +8,13 @@ public class Checkpoint : MonoBehaviour
     private Vector3 checkpointPosition;
     public int playerHP;
     public int[] ammoCounts;
-    private bool[] pickupStates;
+    public bool[] pickupStates;
+    [SerializeField]
+    private Animator Amin;
     private void Start()
     {
         checkpointPosition = transform.position;
-        pickupStates = new bool[transform.childCount];
+        //pickupStates = new bool[transform.childCount];
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,11 +25,12 @@ public class Checkpoint : MonoBehaviour
             if (hitCount >= 3)
             {
                 ActivateCheckpoint();
+                Amin.SetTrigger("Active");
             }
         }
     }
 
-    private void ActivateCheckpoint()
+    public void ActivateCheckpoint()
     {
         activated = true;
         // Zapisz aktualny stan sceny
@@ -35,7 +38,7 @@ public class Checkpoint : MonoBehaviour
         Debug.Log("Checkpoint activated!");
     }
 
-    private void SaveGameState()
+    public void SaveGameState()
     {
         // Zapisz stan gracza
         HealthController playerHealth = FindObjectOfType<HealthController>();
@@ -54,12 +57,15 @@ public class Checkpoint : MonoBehaviour
         }
 
         // Zapisz stan wszystkich pickupów
+        pickupStates = new bool[transform.childCount];
         for (int i = 0; i < transform.childCount; i++)
         {
             pickupStates[i] = transform.GetChild(i).gameObject.activeSelf;
             Debug.Log("Saving pickup at index " + i + ": " + pickupStates[i]);
         }
+        FindObjectOfType<CheckpointManager>().SetLastCheckpoint(this);
     }
+
 
     // Funkcja zwracaj¹ca pozycjê checkpointu
     public Vector3 GetCheckpointPosition()

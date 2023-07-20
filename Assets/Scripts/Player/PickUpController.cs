@@ -40,7 +40,19 @@ public class PickupController : MonoBehaviour
             DropAllItems();
         }
     }
+    public void DeactivatePickup()
+    {
+        gameObject.SetActive(false);
+    }
 
+    public void ActivatePickup()
+    {
+        gameObject.SetActive(true);
+    }
+    public void RefreshIndex(int newIndex)
+    {
+        transform.SetSiblingIndex(newIndex);
+    }
     private void CheckForPickup()
     {
         Collider2D[] itemsInRange = Physics2D.OverlapCircleAll(_playerTransform.position, pickupDistance, itemLayer);

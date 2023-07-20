@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHP: 0
   ammoCounts: 
+  Amin: {fileID: 6231995289382435661}
 --- !u!95 &6231995289382435661
 Animator:
   serializedVersion: 5

@@ -31,6 +31,7 @@ public class CharacterController2D : MonoBehaviour
     private Vector3 _velocity = Vector3.zero;
     internal float _jumpCount = 1;
     private bool _wasCrouching = false;
+
     //public script variables
     public bool IsWPressed { get; set; }
     public bool fallThrough;
