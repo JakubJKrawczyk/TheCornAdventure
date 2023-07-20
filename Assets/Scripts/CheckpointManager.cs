@@ -26,7 +26,7 @@ public class CheckpointManager : MonoBehaviour
             {
                 player.transform.position = lastCheckpoint.GetCheckpointPosition();
             }
-
+            Debug.Log("Player position set to last checkpoint: " + lastCheckpoint.GetCheckpointPosition());
             // Przywróæ stan sceny z ostatniego aktywowanego checkpointu
             RestoreGameState(lastCheckpoint);
         }
@@ -38,14 +38,16 @@ public class CheckpointManager : MonoBehaviour
         HealthController playerHealth = FindObjectOfType<HealthController>();
         if (playerHealth != null)
         {
-            playerHealth.SetHealth(checkpoint.GetPlayerHP());
+            playerHealth.SetHealth(checkpoint.playerHP);
+            Debug.Log("Restoring player health: " + checkpoint.playerHP);
         }
 
         // Przywróæ stan amunicji gracza
         AmmoStorage ammoStorage = FindObjectOfType<AmmoStorage>();
         if (ammoStorage != null)
         {
-            ammoStorage.RestoreAmmo(checkpoint.GetAmmoCounts());
+            ammoStorage.RestoreAmmo(checkpoint.ammoCounts);
+            Debug.Log("Restoring ammo counts: " + string.Join(", ", checkpoint.ammoCounts));
         }
 
         // Przywróæ stan wszystkich pickupów
@@ -53,7 +55,10 @@ public class CheckpointManager : MonoBehaviour
         foreach (PickupController pickup in pickups)
         {
             // Aktywuj lub dezaktywuj pickupy w zale¿noœci od ich stanu w checkpointcie
-            pickup.RestorePickup(checkpoint.IsPickupActive(pickup.transform.GetSiblingIndex()));
+            bool pickupActive = checkpoint.IsPickupActive(pickup.transform.GetSiblingIndex());
+            pickup.RestorePickup(pickupActive);
+            Debug.Log("Restoring pickup at index " + pickup.transform.GetSiblingIndex() + ": " + pickupActive);
+
         }
     }
 }

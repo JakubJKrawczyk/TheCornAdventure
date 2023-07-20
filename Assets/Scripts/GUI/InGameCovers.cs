@@ -81,9 +81,11 @@ public class InGameCovers : MonoBehaviour
 
     public void LastCheckPoint()
     {
+        Debug.Log("Loading last checkpoint...");
         checkpointManager.LoadLastCheckpoint();
         Time.timeScale = 1f;
         ResumeGame();
+        
 
     }
     public void RestartLevel()

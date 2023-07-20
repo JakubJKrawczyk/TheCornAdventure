@@ -20,7 +20,7 @@ MonoBehaviour:
   <Lifetime>k__BackingField: 30
   <CollidesWith>k__BackingField:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 17024
   <EnemyMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 512

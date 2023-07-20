@@ -6,10 +6,9 @@ public class Checkpoint : MonoBehaviour
     private int hitCount = 0;
     private bool activated = false;
     private Vector3 checkpointPosition;
-    private int playerHP;
-    private int[] ammoCounts;
+    public int playerHP;
+    public int[] ammoCounts;
     private bool[] pickupStates;
-
     private void Start()
     {
         checkpointPosition = transform.position;
@@ -18,7 +17,7 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!activated && collision.CompareTag("Player"))
+        if (!activated && collision.CompareTag("Projectile"))
         {
             hitCount++;
             if (hitCount >= 3)
@@ -43,6 +42,7 @@ public class Checkpoint : MonoBehaviour
         if (playerHealth != null)
         {
             playerHP = playerHealth.GetHealth();
+            Debug.Log("Saving player health: " + playerHP);
         }
 
         // Zapisz stan amunicji gracza
@@ -50,12 +50,14 @@ public class Checkpoint : MonoBehaviour
         if (ammoStorage != null)
         {
             ammoCounts = ammoStorage.GetAmmoCounts();
+            Debug.Log("Saving ammo counts: " + string.Join(", ", ammoCounts));
         }
 
         // Zapisz stan wszystkich pickupów
         for (int i = 0; i < transform.childCount; i++)
         {
             pickupStates[i] = transform.GetChild(i).gameObject.activeSelf;
+            Debug.Log("Saving pickup at index " + i + ": " + pickupStates[i]);
         }
     }
 
