@@ -8,6 +8,7 @@ TagManager:
   - Ammo
   - Projectile
   - Fragile
+  - Checkpiont
   layers:
   - Default
   - TransparentFX

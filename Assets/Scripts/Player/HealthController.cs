@@ -80,7 +80,15 @@ public class HealthController : MonoBehaviour
             }
         }
     }
-
+    public int GetHealth()
+    {
+        return CurrentHealth;
+    }
+    public void SetHealth(int health)
+    {
+        CurrentHealth = health;
+        RefreshHealth();
+    }
 
     public void GameOver()
     {

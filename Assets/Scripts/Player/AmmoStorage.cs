@@ -201,6 +201,28 @@ public class AmmoStorage : MonoBehaviour
             DefaultGrainPanel.SetActive(false);
         }
     }
+    public int[] GetAmmoCounts()
+    {
+        int[] ammoCounts = new int[AmmoPrefabs.Length];
+        for (int i = 0; i < ammoList.Count; i++)
+        {
+            Ammo ammo = ammoList.ElementAt(i);
+            ammoCounts[ammo.type] = ammo.amount;
+        }
+        return ammoCounts;
+    }
+    public void RestoreAmmo(int[] ammoCounts)
+    {
+        for (int i = 0; i < ammoCounts.Length; i++)
+        {
+            Ammo ammo = GetAmmo(i);
+            if (ammo != null)
+            {
+                ammo.amount = ammoCounts[i];
+            }
+        }
+        RefreshAmmo();
+    }
 
 }
 

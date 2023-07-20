@@ -93,6 +93,10 @@ public class PickupController : MonoBehaviour
         }
 
     }
+    public void RestorePickup(bool isActive)
+    {
+        gameObject.SetActive(isActive);
+    }
 
     private void DropAllItems()
     {
