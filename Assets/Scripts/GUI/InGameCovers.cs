@@ -43,11 +43,11 @@ public class InGameCovers : MonoBehaviour
         {
             if (!hasFocus)
             {
-                PauseGame();
+             //   PauseGame();
             }
             else
             {
-                ResumeGame();
+             //   ResumeGame();
             }
         }
     }

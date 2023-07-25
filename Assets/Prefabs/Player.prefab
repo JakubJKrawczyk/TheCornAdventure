@@ -161,6 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4839020027420189653}
   - component: {fileID: 8028895573199399503}
+  - component: {fileID: 1942375204731485327}
   m_Layer: 8
   m_Name: GroundCheck
   m_TagString: Untagged
@@ -228,37 +229,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.56, y: 0.3}
   m_EdgeRadius: 0
---- !u!1 &325317166726197666
-GameObject:
+--- !u!114 &1942375204731485327
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4797015253521744129}
-  m_Layer: 8
-  m_Name: ShootingPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4797015253521744129
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 325317166726197666}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7290323292993523729}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 198382431388171459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b0167b4d041b1439996518de4bf093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxDamage: 50
+  SlamThreshold: 20
+  BasicSlamRadius: 2
+  SlamPushForce: 100
+  _PlayerMovement2D: {fileID: 5598706532313058006}
+  SlamParticles: {fileID: 1954406341874929133, guid: 4bc05eab527874640abea2ecd186c366, type: 3}
 --- !u!1 &1679454220150944858
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +342,7 @@ GameObject:
   - component: {fileID: 4256657238963705804}
   - component: {fileID: 7386767421123471690}
   - component: {fileID: 8558927684308871758}
-  - component: {fileID: 4328678617360873020}
+  - component: {fileID: 6516936827106265257}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -378,7 +366,7 @@ Transform:
   - {fileID: 4839020027420189653}
   - {fileID: 1085196323041589822}
   - {fileID: 6342442339496582270}
-  - {fileID: 4797015253521744129}
+  - {fileID: 5572271820501266866}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -478,7 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 565de048d0b915c44b322d2e0440306e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpForce: 1500
+  _jumpForce: 750
   _crouchSpeed: 0.36
   _movementSmoothing: 0.05
   _characterSpeed: 8
@@ -492,6 +480,7 @@ MonoBehaviour:
   _jumpWindow: 0.5
   playerOneWayPlatform: {fileID: 0}
   fallThrough: 1
+  PlayerStompAttack: {fileID: 1942375204731485327}
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -553,7 +542,7 @@ MonoBehaviour:
   projectileSO: {fileID: 11400000, guid: 394400bda32055d458047c54c10655f2, type: 2}
   riceProjectileSO: {fileID: 11400000, guid: 73b51e3ab52b7e24aaa4294410554523, type: 2}
   cornProjectileSO: {fileID: 11400000, guid: 15b164c6b942c0940b7d5d19ebdb95d9, type: 2}
-  shootingPoint: {fileID: 4797015253521744129}
+  shootingPoint: {fileID: 5572271820501266866}
 --- !u!114 &7386767421123471690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,6 +558,7 @@ MonoBehaviour:
   CurrentHealth: 5
   HealthPanel: {fileID: 0}
   ScreenEffectAnimator: {fileID: 0}
+  GameOverPanel: {fileID: 0}
 --- !u!114 &8558927684308871758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,7 +583,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
---- !u!114 &4328678617360873020
+--- !u!114 &6516936827106265257
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -608,18 +598,37 @@ MonoBehaviour:
   MinWeight: 1.75
   MaxWeight: 3
   GrainsWeight:
-  - 0.005
-  - 0.0005
-  - 0.02
---- !u!114 &7888429719871939157
-MonoBehaviour:
+  - 0.01
+  - 0.009
+  - 0.05
+--- !u!1 &2805399303410038701
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5572271820501266866}
+  m_Layer: 8
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5572271820501266866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2805399303410038701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.07, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7290323292993523729}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

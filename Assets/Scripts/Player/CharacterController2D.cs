@@ -7,6 +7,7 @@ public class CharacterController2D : MonoBehaviour
     //props
     
 
+    
     [Header("Basic Properties")]
     [SerializeField] private float _jumpForce = 400f;
     [Range(0, 1)][SerializeField] private float _crouchSpeed = .36f;
@@ -34,6 +35,9 @@ public class CharacterController2D : MonoBehaviour
     //public script variables
     public bool IsWPressed { get; set; }
     public bool fallThrough;
+
+     public PlayerStompAttack PlayerStompAttack;
+
     //stany postaci
 
     internal bool _isRolling = false;
@@ -57,6 +61,7 @@ public class CharacterController2D : MonoBehaviour
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+      //  PlayerStompAttack = GetComponent<PlayerStompAttack>();
 
         OnLandEvent ??= new UnityEvent();
         OnCrouchEvent ??= new BoolEvent();
@@ -197,7 +202,6 @@ public class CharacterController2D : MonoBehaviour
         
     }
 
-    
     // funkcja pozwalająca na toczenie postaci
     private void Roll(bool isRolling)
     {
@@ -279,5 +283,13 @@ public class CharacterController2D : MonoBehaviour
             }
         }
         return null;
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //passing velocity for Threshold
+        //and collided object - can be later used for enemies or blocks to be destroyed
+        PlayerStompAttack.Slam(collision.relativeVelocity.y, collision.gameObject);
     }
 }
