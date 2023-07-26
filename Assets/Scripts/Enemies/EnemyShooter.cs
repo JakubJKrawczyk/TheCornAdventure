@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class EnemyShooter : MonoBehaviour
 {
-    public GameObject Projectile;
-    public Transform ProjectilePos;
-    public Animator animator;
+    [SerializeField] public GameObject Projectile;
+    [SerializeField] public Transform ProjectilePos;
+    [SerializeField] public LayerMask groundLayerMask;
 
     private GameObject player;
     private bool isAttacking;
-    public LayerMask groundLayerMask;
+    
 
     private EnemyPatrolMovement EnemyPatrolMovement;
 
@@ -19,7 +19,6 @@ public class EnemyShooter : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         isAttacking = false;
-        
         EnemyPatrolMovement = GetComponent<EnemyPatrolMovement>();
     }
 
@@ -59,16 +58,11 @@ public class EnemyShooter : MonoBehaviour
     IEnumerator AttackCoroutine()
     {
         isAttacking = true;
-        animator.SetTrigger("IsAttacking");
-
-        yield return new WaitForSeconds(1f); 
-
-        ThrowProjectile();
-
         yield return new WaitForSeconds(0.5f); 
-
-        animator.ResetTrigger("IsAttacking");
+        ThrowProjectile();
+        yield return new WaitForSeconds(1f); 
         isAttacking = false;
+
     }
     public void SetProjectilePos(Transform pos)
     {
