@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyShooter : MonoBehaviour
@@ -11,13 +12,15 @@ public class EnemyShooter : MonoBehaviour
     private GameObject player;
     private bool isAttacking;
     public LayerMask groundLayerMask;
-    
+
+    private EnemyPatrolMovement EnemyPatrolMovement;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         isAttacking = false;
         
+        EnemyPatrolMovement = GetComponent<EnemyPatrolMovement>();
     }
 
 
@@ -29,6 +32,12 @@ public class EnemyShooter : MonoBehaviour
 
         // Check if the player is in front of the enemy
         float dotProduct = Vector2.Dot(transform.right, directionToPlayer.normalized);
+
+        if (!EnemyPatrolMovement.isFacingLeft)
+        {
+            dotProduct = Vector2.Dot(transform.right * -1, directionToPlayer.normalized);
+        }
+
         bool playerInFront = dotProduct > 0f;
 
         // Check if the player is within attack range and in front of the enemy

@@ -21,6 +21,8 @@ public class EnemyPatrolMovement : MonoBehaviour
 
     private EnemyAnimationState _animationState;
 
+    public bool isFacingLeft = true;
+
     private enum EnemyAnimationState
     {
         Moving,
@@ -149,5 +151,14 @@ public class EnemyPatrolMovement : MonoBehaviour
 
         visualScale.x *= -1;
         _visual.localScale = visualScale;
+
+        if (visualScale.x < 0)
+        {
+            isFacingLeft = false;
+        }
+        else
+        {
+            isFacingLeft = true;
+        }
     }
 }
