@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyForkProjectile : MonoBehaviour
 {
-
-    [SerializeField] public float force;   
-    [SerializeField] public int damageAmount = 1;
+     private GameObject player;
+     private Rigidbody2D rb;
+     public float force;
     private float timer;
-    private GameObject player;
-    private Rigidbody2D rb;
+    public int damageAmount = 1;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

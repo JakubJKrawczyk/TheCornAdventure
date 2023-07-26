@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class EnemyShooter : MonoBehaviour
 {
-    [SerializeField] public GameObject Projectile;
-    [SerializeField] public Transform ProjectilePos;
-    [SerializeField] public LayerMask groundLayerMask;
+    public GameObject Projectile;
+    public Transform ProjectilePos;
+    public Animator animator;
 
     private GameObject player;
     private bool isAttacking;
-    
+    public LayerMask groundLayerMask;
 
     private EnemyPatrolMovement EnemyPatrolMovement;
 
@@ -19,6 +19,7 @@ public class EnemyShooter : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         isAttacking = false;
+        
         EnemyPatrolMovement = GetComponent<EnemyPatrolMovement>();
     }
 
@@ -40,7 +41,7 @@ public class EnemyShooter : MonoBehaviour
         bool playerInFront = dotProduct > 0f;
 
         // Check if the player is within attack range and in front of the enemy
-        if (distance < 20f && playerInFront)
+        if (distance < 10f && playerInFront)
         {
             // Check if there are no obstacles (ground) between the enemy and the player
             RaycastHit2D[] hits = new RaycastHit2D[1];
@@ -58,11 +59,16 @@ public class EnemyShooter : MonoBehaviour
     IEnumerator AttackCoroutine()
     {
         isAttacking = true;
-        yield return new WaitForSeconds(0.5f); 
-        ThrowProjectile();
-        yield return new WaitForSeconds(1f); 
-        isAttacking = false;
+        animator.SetTrigger("IsAttacking");
 
+        yield return new WaitForSeconds(1f); 
+
+        ThrowProjectile();
+
+        yield return new WaitForSeconds(0.5f); 
+
+        animator.ResetTrigger("IsAttacking");
+        isAttacking = false;
     }
     public void SetProjectilePos(Transform pos)
     {
