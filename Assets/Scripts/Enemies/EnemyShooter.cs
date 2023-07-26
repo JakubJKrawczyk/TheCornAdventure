@@ -10,25 +10,39 @@ public class EnemyShooter : MonoBehaviour
 
     private GameObject player;
     private bool isAttacking;
-
+    public LayerMask groundLayerMask;
     
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         isAttacking = false;
+        
     }
 
-    
+
     void Update()
     {
-        float distance = Vector2.Distance(transform.position, player.transform.position);
-        Debug.Log(distance);
+        // Calculate direction towards the player
+        Vector2 directionToPlayer = player.transform.position - transform.position;
+        float distance = directionToPlayer.magnitude;
 
-        if (distance < 10)
+        // Check if the player is in front of the enemy
+        float dotProduct = Vector2.Dot(transform.right, directionToPlayer.normalized);
+        bool playerInFront = dotProduct > 0f;
+
+        // Check if the player is within attack range and in front of the enemy
+        if (distance < 10f && playerInFront)
         {
-            if (!isAttacking)
+            // Check if there are no obstacles (ground) between the enemy and the player
+            RaycastHit2D[] hits = new RaycastHit2D[1];
+            int hitCount = Physics2D.RaycastNonAlloc(transform.position, directionToPlayer.normalized, hits, distance, groundLayerMask);
+            if (hitCount == 0)
             {
-                StartCoroutine(AttackCoroutine());
+                if (!isAttacking)
+                {
+                    StartCoroutine(AttackCoroutine());
+                }
             }
         }
     }
@@ -47,9 +61,13 @@ public class EnemyShooter : MonoBehaviour
         animator.ResetTrigger("IsAttacking");
         isAttacking = false;
     }
-
+    public void SetProjectilePos(Transform pos)
+    {
+        ProjectilePos = pos;
+    }
     void ThrowProjectile()
     {
         Instantiate(Projectile, ProjectilePos.position, Quaternion.identity);
     }
+
 }

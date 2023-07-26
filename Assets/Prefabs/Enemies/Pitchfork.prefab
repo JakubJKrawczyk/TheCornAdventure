@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7959876113247510877}
+  - component: {fileID: 6509923915294621865}
   - component: {fileID: 2519744745857335145}
   - component: {fileID: 7046573207081940171}
   - component: {fileID: 1390622883397625756}
-  - component: {fileID: 6509923915294621865}
   - component: {fileID: 2580535876301827179}
   m_Layer: 0
   m_Name: Pitchfork
@@ -36,6 +36,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6509923915294621865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8212725890017150440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0636f455d8df2946826014a48d5e865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: 10
+  damageAmount: 1
 --- !u!212 &2519744745857335145
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -136,20 +150,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &6509923915294621865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8212725890017150440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0636f455d8df2946826014a48d5e865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  force: 5
-  damageAmount: 1
 --- !u!61 &2580535876301827179
 BoxCollider2D:
   m_ObjectHideFlags: 0
