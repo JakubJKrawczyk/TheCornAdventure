@@ -167,9 +167,9 @@ GameObject:
   - component: {fileID: 19046913}
   - component: {fileID: 19046917}
   - component: {fileID: 19046920}
-  - component: {fileID: 19046923}
   - component: {fileID: 19046921}
   - component: {fileID: 19046924}
+  - component: {fileID: 19046925}
   m_Layer: 9
   m_Name: BatEnemy
   m_TagString: Untagged
@@ -226,7 +226,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0068325996, y: -0.09337616}
+  m_Offset: {x: -0.0033154488, y: -0.09337616}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -237,7 +237,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7151289, y: 0.36686134}
+  m_Size: {x: 2.3172312, y: 0.36686134}
   m_EdgeRadius: 0
 --- !u!50 &19046920
 Rigidbody2D:
@@ -295,20 +295,7 @@ MonoBehaviour:
   flyForce: 125000
   BaseGroundDetectionDistance: 1
   player: {fileID: 393477010}
-  playerDetectionDistance: 4
---- !u!114 &19046923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19046912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64d31455c18a9064e91ac6db8d746bd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damageAmount: 0
+  playerDetectionDistance: 6
 --- !u!114 &19046924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,6 +309,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialHP: 25
+--- !u!114 &19046925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19046912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40f375520d08b574c9c88db60e296f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageAmount: 1
 --- !u!1 &37355048
 GameObject:
   m_ObjectHideFlags: 0
@@ -11664,7 +11664,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863640997}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.51, y: 0, z: 0}
+  m_LocalPosition: {x: -5.94, y: 0, z: 0}
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11903,11 +11903,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581562269240074871, guid: 1cfe92af765667c48b2d8618297ca8b9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -4.300491e-25
+      value: -4.443622e-25
       objectReference: {fileID: 0}
     - target: {fileID: 3581562269240074871, guid: 1cfe92af765667c48b2d8618297ca8b9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -3.183e-41
+      value: -3.289e-41
       objectReference: {fileID: 0}
     - target: {fileID: 3581562269240074871, guid: 1cfe92af765667c48b2d8618297ca8b9, type: 3}
       propertyPath: m_LocalRotation.z

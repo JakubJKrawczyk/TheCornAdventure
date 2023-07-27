@@ -134,7 +134,7 @@ public class EnemyPatrolMovementBat : MonoBehaviour
         Vector2 normalizedDirection = directionToPlayer.normalized;
 
         // Set the velocity of the bat to move towards the player
-        _rigidBody.velocity = new Vector2(_speed * normalizedDirection.x, _speed * normalizedDirection.y*2);
+        _rigidBody.velocity = new Vector2(_speed * normalizedDirection.x * 1.25f, _speed * normalizedDirection.y * 3);
 
         // Flip the bat's visual based on the movement direction
         Vector3 visualScale = _visual.localScale;
@@ -232,15 +232,12 @@ public class EnemyPatrolMovementBat : MonoBehaviour
         ResumeMovementAfterWait();
     }
 
-
     private void ResumeMovementAfterWait()
     {
-        isMoving = true;            // Set the isMoving flag to true when resuming movement
+        isMoving = true;
         ChangeDestination();
         MoveTowardsDestination();
     }
-
-
 
     private void FlipToFaceDirection()
     {
