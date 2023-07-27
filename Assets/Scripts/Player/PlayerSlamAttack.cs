@@ -10,10 +10,11 @@ public class PlayerStompAttack : MonoBehaviour
 {
     [Header("Basic Properties")]
     [Space]
-    public float MaxDamage = 50;
-    [Range(15, 50)] public int SlamThreshold = 20; // minimum speed to begin slam
-    [Range(0.5f, 10)] public float BasicSlamRadius = 2f;
-    [Range(10, 150)] public int SlamPushForce = 100;
+    [SerializeField] private float MaxDamage = 50;
+    [Range(15, 50)][SerializeField] private int SlamThreshold = 20; // minimum speed to begin slam
+    [Range(0.5f, 10)][SerializeField] private float BasicSlamRadius = 2f;
+    [Range(10, 150)][SerializeField] private int SlamPushForce = 100;
+    [SerializeField] private double MinimumSlamWeight;
 
     [Header("Events")]
     [Space]
@@ -42,7 +43,7 @@ public class PlayerStompAttack : MonoBehaviour
     //Called from CharacterController
     public void Slam(float speed, GameObject CollidedObject)
     {
-
+        if (MinimumSlamWeight > transform.parent.gameObject.GetComponent<Rigidbody2D>().mass) return;
         if (speed >= SlamThreshold)
         {
             bool CanSlam = _PlayerMovement2D.SlamAnimation();// Particles won't be spawned multiple times

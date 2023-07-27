@@ -101,7 +101,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0033154488, y: -0.09337616}
+  m_Offset: {x: -0.0033154488, y: -0.107430935}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -112,7 +112,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.3172312, y: 0.36686134}
+  m_Size: {x: 2.3172312, y: 0.3387518}
   m_EdgeRadius: 0
 --- !u!50 &6435171440869751788
 Rigidbody2D:
@@ -169,7 +169,7 @@ MonoBehaviour:
     m_Bits: 0
   flyForce: 125000
   BaseGroundDetectionDistance: 1
-  player: {fileID: 0}
+  player: {fileID: 2106260398155233916, guid: 4eb99276e439e744ea564aaa8a85343a, type: 3}
   playerDetectionDistance: 6
 --- !u!114 &7945812050862517532
 MonoBehaviour:

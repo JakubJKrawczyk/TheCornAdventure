@@ -6,11 +6,19 @@ public class Gate : MonoBehaviour
 {
 
      private Animator animator;
-
+    [SerializeField] private bool isGateUp;
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        CloseGate();
+        if(isGateUp )
+        {
+            OpenGate();
+        }
+        else
+        {
+
+            CloseGate();
+        }
     }
     public void OpenGate()
     {

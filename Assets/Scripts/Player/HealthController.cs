@@ -9,7 +9,6 @@ public class HealthController : MonoBehaviour
     [SerializeField] private int CurrentHealth = 5;
     [Header("Dependencies")]
     [SerializeField] private GameObject HealthPanel;
-    [SerializeField] private Animator ScreenEffectAnimator;
     [SerializeField] private GameObject GameOverPanel;
 
     //private script variables
@@ -41,14 +40,7 @@ public class HealthController : MonoBehaviour
             {
                 CurrentHealth = 5;
             }
-             if (health > 0)
-             {
-                 ScreenEffectAnimator.SetTrigger("Healing");
-             }
-             else
-             {
-                 ScreenEffectAnimator.SetTrigger("Damage");
-             }
+            
             RefreshHealth();
             return true;
         }
@@ -57,7 +49,7 @@ public class HealthController : MonoBehaviour
     {
         CurrentHealth -= health;
         Debug.Log("Player took " + health + " damage.");
-         ScreenEffectAnimator.SetTrigger("Damage");
+        
         if (CurrentHealth <= 0)
         {
             CurrentHealth = 0;
