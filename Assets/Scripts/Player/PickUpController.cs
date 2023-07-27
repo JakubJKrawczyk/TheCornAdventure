@@ -91,7 +91,7 @@ public class PickupController : MonoBehaviour
             bool AmmoAdded = _ammoStorage.AddAmmo(AmmoType, AmmoAmount); // Check if ammo can be added
             if (AmmoAdded)
             {
-                Destroy(item);
+                item.SetActive(false);
             }
         }
         else if (item.CompareTag("Health"))
