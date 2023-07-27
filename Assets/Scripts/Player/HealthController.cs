@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class HealthController : MonoBehaviour
 {
     [Header("Properties")]
-    [SerializeField] private int CurrentHealth = 5;
+    [SerializeField] public int CurrentHealth = 5;
     [Header("Dependencies")]
     [SerializeField] private GameObject HealthPanel;
     [SerializeField] private GameObject GameOverPanel;
