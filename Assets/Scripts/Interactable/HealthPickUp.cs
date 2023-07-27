@@ -25,7 +25,7 @@ public class HealthPickUp : PickUp
                 {
                     isPickedUp = true;
                     gameObject.SetActive(false); // Deactivate the health pickup object
-                    //Destroy(gameObject); // Destroy the health pickup object
+                    Destroy(gameObject); // Destroy the health pickup object
                 }
             }
         }

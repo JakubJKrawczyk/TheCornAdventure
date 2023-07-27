@@ -30,7 +30,6 @@ public class CheckpointManager : MonoBehaviour
 
                 // Przywróæ stan sceny z ostatniego aktywowanego checkpointu
                 RestoreGameState(lastCheckpoint);
-                lastCheckpoint.ResetPickupStates();
             }
         }
     }

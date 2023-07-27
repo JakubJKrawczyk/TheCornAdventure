@@ -17,7 +17,6 @@ public class Checkpoint : MonoBehaviour
         checkpointPosition = transform.position;
         
     }
-    private List<GameObjectState> initialPickupStates = new List<GameObjectState>();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -26,7 +25,6 @@ public class Checkpoint : MonoBehaviour
             hitCount++;
             if (hitCount >= 3)
             {
-                StoreInitialPickupStates();
                 ActivateCheckpoint();
                 Amin.SetTrigger("Active");
             }
@@ -97,39 +95,9 @@ public class Checkpoint : MonoBehaviour
         }
         
     }
-    private void StoreInitialPickupStates()
-    {
-        int pickupLayer = LayerMask.NameToLayer("Pickup");
-        GameObject[] pickupObjects = GameObject.FindObjectsOfType<GameObject>();
 
-        initialPickupStates.Clear();
 
-        foreach (GameObject pickupObject in pickupObjects)
-        {
-            if (pickupObject.layer == pickupLayer)
-            {
-                initialPickupStates.Add(new GameObjectState
-                {
-                    gameObject = pickupObject,
-                    isEnabled = pickupObject.activeSelf,
-                    initialPosition = pickupObject.transform.position
-                });
-            }
-        }
-    }
 
-    public void ResetPickupStates()
-    {
-        foreach (var pickupState in initialPickupStates)
-        {
-            GameObject pickupObject = pickupState.gameObject;
-            bool isEnabled = pickupState.isEnabled;
-            Vector3 initialPosition = pickupState.initialPosition;
-
-            pickupObject.SetActive(isEnabled);
-            pickupObject.transform.position = initialPosition;
-        }
-    }
     // Funkcja zwracaj¹ca pozycjê checkpointu
     public Vector3 GetCheckpointPosition()
     {
