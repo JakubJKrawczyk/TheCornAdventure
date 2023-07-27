@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class CheckpointManager : MonoBehaviour
 {
     private Checkpoint lastCheckpoint;
-    private bool activated = false;
+    
 
     // Przyciski do menu pauzy lub œmierci, które umo¿liwi¹ powrót do ostatniego aktywowanego checkpointu
 
@@ -21,41 +21,23 @@ public class CheckpointManager : MonoBehaviour
         Time.timeScale= 1.0f;
         if (lastCheckpoint != null)
         {
-            // Za³aduj scenê i ustaw gracza na pozycji ostatniego aktywowanego checkpointu
-            string sceneName = SceneManager.GetActiveScene().name;
-            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+            
             CharacterController2D player = FindObjectOfType<CharacterController2D>();
             if (player != null)
             {
+                // Set the player position to the last activated checkpoint position
                 player.transform.position = lastCheckpoint.GetCheckpointPosition();
+                Debug.Log("Player position set to last checkpoint: " + lastCheckpoint.GetCheckpointPosition());
+
+                // Przywróæ stan sceny z ostatniego aktywowanego checkpointu
+                RestoreGameState(lastCheckpoint);
             }
-            Debug.Log("Player position set to last checkpoint: " + lastCheckpoint.GetCheckpointPosition());
-            // Przywróæ stan sceny z ostatniego aktywowanego checkpointu
-            RestoreGameState(lastCheckpoint);
         }
     }
-    /*private void ActivateCheckpoint()
-    {
-        activated = true;
-        // Zapisz aktualny stan sceny
-        SaveGameState();
 
-        // Odœwie¿ indeksy pickupów
-        RefreshPickupIndexes();
-
-        Debug.Log("Checkpoint activated!");
-    }*/
     public void RefreshIndex(int newIndex)
     {
         transform.SetSiblingIndex(newIndex);
-    }
-    private void RefreshPickupIndexes()
-    {
-        PickupController[] pickups = FindObjectsOfType<PickupController>();
-        for (int i = 0; i < pickups.Length; i++)
-        {
-            pickups[i].RefreshIndex(i);
-        }
     }
 
     private void RestoreGameState(Checkpoint checkpoint)
@@ -77,40 +59,24 @@ public class CheckpointManager : MonoBehaviour
         }
 
         // Przywróæ stan wszystkich pickupów
-
-        /*
-        PickupController[] pickups = FindObjectsOfType<PickupController>();
-        foreach (PickupController pickup in pickups)
-        {
-            int pickupIndex = pickup.transform.GetSiblingIndex();
-            if (pickupIndex >= 0 && pickupIndex < checkpoint.pickupStates.Length) // SprawdŸ, czy indeks jest prawid³owy
-            {
-                bool pickupActive = checkpoint.IsPickupActive(pickupIndex);
-                if (pickupActive)
-                {
-                    pickup.ActivatePickup(); // W³¹cz pickup, jeœli by³ aktywny w momencie zapisu checkpointu
-                }
-                else
-                {
-                    pickup.DeactivatePickup(); // Wy³¹cz pickup, jeœli nie by³ aktywny w momencie zapisu checkpointu
-                }
-                Debug.Log("Restoring pickup at index " + pickupIndex + ": " + pickupActive);
-            }
-            else
-            {
-                Debug.LogError("Invalid pickup index: " + pickupIndex);
-            }
-        }*/
-
-
-
+        int pickupLayer = LayerMask.NameToLayer("Pickup");
+        GameObject[] allPickups = GameObject.FindObjectsOfType<GameObject>();
         foreach (var pickupState in checkpoint.pickupStateList)
         {
             GameObject pickupObject = pickupState.gameObject;
             bool isEnabled = pickupState.isEnabled;
+            Vector3 initialPosition = pickupState.initialPosition;
 
-            pickupObject.SetActive(isEnabled);
-            Debug.Log(pickupObject + " " + isEnabled);
+            string pickupName = pickupObject.name;
+            GameObject pickupInScene = Array.Find(allPickups, obj => obj.name == pickupName);
+
+            // If the pickup is found in the scene, set its active state based on the checkpoint's stored state.
+            if (pickupInScene != null)
+            {
+                pickupInScene.SetActive(isEnabled);
+                pickupInScene.transform.position = initialPosition;
+                Debug.Log(pickupInScene + " " + isEnabled);
+            }
         }
 
 
@@ -121,5 +87,6 @@ public class CheckpointManager : MonoBehaviour
     {
         public GameObject gameObject;
         public bool isEnabled;
+        public Vector3 initialPosition;
     }
 }

@@ -15,7 +15,7 @@ public class Checkpoint : MonoBehaviour
     private void Start()
     {
         checkpointPosition = transform.position;
-        //pickupStates = new bool[transform.childCount];
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -70,6 +70,7 @@ public class Checkpoint : MonoBehaviour
     {
         public GameObject gameObject;
         public bool isEnabled;
+        public Vector3 initialPosition;
     }
 
     public void PickupStates()
@@ -86,10 +87,12 @@ public class Checkpoint : MonoBehaviour
                 pickupStateList.Add(new GameObjectState
                 {
                     gameObject = pickupObject,
-                    isEnabled = pickupObject.activeSelf
+                    isEnabled = pickupObject.activeSelf,
+                    initialPosition = pickupObject.transform.position
                 });
             }
         }
+        
     }
 
 
