@@ -168,7 +168,6 @@ public class EnemyPatrolMovementBat : MonoBehaviour
             {
                 groundDetectionDistance = 0.5f;
             }
-            Debug.Log(groundDetectionDistance);
         }
     }
 

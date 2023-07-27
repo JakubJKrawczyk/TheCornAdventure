@@ -29,6 +29,7 @@ public class MainMenu : MonoBehaviour
         for (int i = 0; i <= LevelsUnlocked; i++)
         {
             LevelbuttonsList[i].interactable = true;
+            LevelbuttonsList[i].image.color= Color.white;
         }
     }
 

@@ -52,16 +52,6 @@ public class PlayerStompAttack : MonoBehaviour
                 particles = Instantiate(SlamParticles, transform.position + new Vector3(0f, 0f), Quaternion.identity);
                 Invoke("DestroyParticles", 0.5f);
 
-                if (CollidedObject.tag == "Fragile")
-                {
-                    CollidedObject.GetComponent<FragileBlock>().BlockDestroyed();
-                    return;
-                }
-
-
-                // ============ Enemy damage handling ============
-
-
                 float finalradius = BasicSlamRadius;
 
                 if (speed > 35) // makes radius bigger if player is falling really fast
@@ -69,8 +59,18 @@ public class PlayerStompAttack : MonoBehaviour
                     finalradius += 0.75f;
                 }
 
-                // Check for objects with Enemy layer in radius
+                // Check for objects with layer in radius
                 Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, finalradius, LayerMask.GetMask("Enemy"));
+
+                Collider2D[] groundColliders = Physics2D.OverlapCircleAll(transform.position, finalradius, LayerMask.GetMask("Ground"));
+
+                foreach (Collider2D groundCollider in groundColliders)
+                {
+                    if(groundCollider.tag == "Fragile")
+                    {
+                        groundCollider.GetComponent<FragileBlock>().BlockDestroyed();
+                    }
+                }
 
                 // Loop through found objects and apply damage if they have EnemyStompWeakPoint
                 foreach (Collider2D enemyCollider in enemyColliders)
