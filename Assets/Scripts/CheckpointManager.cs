@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class CheckpointManager : MonoBehaviour
 {
     private Checkpoint lastCheckpoint;
-    
 
     // Przyciski do menu pauzy lub œmierci, które umo¿liwi¹ powrót do ostatniego aktywowanego checkpointu
 
@@ -77,7 +76,15 @@ public class CheckpointManager : MonoBehaviour
                 pickupInScene.SetActive(isEnabled);
                 pickupInScene.transform.position = initialPosition;
                 Debug.Log(pickupInScene + " " + isEnabled);
+                if (pickupInScene.CompareTag("Ammo"))
+                {
+                    if (pickupInScene.transform.position != initialPosition)
+                    {
+                        Destroy(pickupInScene);
+                    }
+                }
             }
+
         }
 
 

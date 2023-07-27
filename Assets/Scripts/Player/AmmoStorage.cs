@@ -22,8 +22,15 @@ public class AmmoStorage : MonoBehaviour
     private List<GameObject> AmmoPanelSlots;
     private GameObject DefaultGrainPanel;
     private WeightController WeightController;
+    private List<DiscardedAmmoData> discardedAmmoDataList;
 
     //TODO: Zamienić Listę na Stos i pozmieniać funkcję pod stos
+    private struct DiscardedAmmoData
+    {
+        public int type;
+        public int amount;
+        public Vector3 position;
+    }
     public void Start()
     {
         ammoList = new Stack<Ammo>();
@@ -37,10 +44,8 @@ public class AmmoStorage : MonoBehaviour
         DefaultGrainPanel = AmmoPanelSlots[^1];
         AmmoPanelSlots.RemoveAt(AmmoPanelSlots.Count - 1);
         WeightController = GetComponent<WeightController>();
+        discardedAmmoDataList = new List<DiscardedAmmoData>();
     }
-
-
-
     public void DiscardFirstAmmo()
     {
 
@@ -82,14 +87,41 @@ public class AmmoStorage : MonoBehaviour
 
                     spawnedAmmo.GetComponent<PolygonCollider2D>().enabled = true;
                 }
-
+                DiscardedAmmoData ammoData = new DiscardedAmmoData
+                {
+                    type = discardedAmmo.type,
+                    amount = discardedAmmo.amount,
+                    position = spawnedAmmo.transform.position
+                };
+                discardedAmmoDataList.Add(ammoData);
                 WeightController.RemoveAmmoWeight(discardedAmmo.type, discardedAmmo.amount);
 
 
             }
         }
     }
-
+    public void RestoreAmmoPositions()
+    {
+        foreach (var ammoData in discardedAmmoDataList)
+        {
+            Ammo ammo = GetAmmo(ammoData.type);
+            if (ammo != null)
+            {
+                GameObject ammoObject = AmmoPrefabs[ammo.type];
+                GameObject[] spawnedAmmoObjects = GameObject.FindGameObjectsWithTag("Ammo");
+                foreach (var spawnedAmmoObject in spawnedAmmoObjects)
+                {
+                    AmmoPickUp ammoPickup = spawnedAmmoObject.GetComponent<AmmoPickUp>();
+                    if (ammoPickup != null && ammoPickup.AmmoType == ammo.type)
+                    {
+                        spawnedAmmoObject.transform.position = ammoData.position;
+                        break;
+                    }
+                }
+            }
+        }
+        discardedAmmoDataList.Clear();
+    }
 
     public int UseFirstAmmo()
     {
@@ -148,8 +180,14 @@ public class AmmoStorage : MonoBehaviour
             WeightController.AddAmmoWeight(type, amount);
         }
     }
+    public void RemoveAmmoFromGround(GameObject ammoObject)
+    {
+        if (ammoObject != null && ammoObject.CompareTag("Ammo"))
+        {
+            Destroy(ammoObject);
+        }
+    }
 
-    
     public void RefreshAmmo()
     {
         for (int i = 0; i < AmmoPanelSlots.Count; i++)

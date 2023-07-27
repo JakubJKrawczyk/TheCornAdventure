@@ -60,7 +60,7 @@ public class Checkpoint : MonoBehaviour
         }
 
         // Zapisz stan wszystkich pickupów
-        PickupStates();
+        pickupStateList = new List<GameObjectState>();
 
         FindObjectOfType<CheckpointManager>().SetLastCheckpoint(this);
     }
@@ -77,6 +77,7 @@ public class Checkpoint : MonoBehaviour
 
     public void PickupStates()
     {
+        
         int pickupLayer = LayerMask.NameToLayer("Pickup");
         GameObject[] pickupObjects = GameObject.FindObjectsOfType<GameObject>();
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class InGameCovers : MonoBehaviour
 {
@@ -9,13 +10,14 @@ public class InGameCovers : MonoBehaviour
     [SerializeField] private GameObject PauseCover;
     [SerializeField] private GameObject PauseSettingsCover;
     private CheckpointManager checkpointManager;
-
+    private AmmoStorage _ammoStorage;
     private bool isPaused = false;
 
     private void Start()
     {
         checkpointManager = FindObjectOfType<CheckpointManager>();
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !GameOverCover.activeInHierarchy)
@@ -85,7 +87,8 @@ public class InGameCovers : MonoBehaviour
         checkpointManager.LoadLastCheckpoint();
         Time.timeScale = 1f;
         ResumeGame();
-        
+        GameOverCover.SetActive(false);
+        _ammoStorage.RestoreAmmoPositions();
 
     }
     public void RestartLevel()
