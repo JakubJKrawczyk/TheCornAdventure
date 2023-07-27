@@ -136,11 +136,32 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Monka1testy_3
+      name: Monka1testy_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 136
+        y: 145
+        width: 72
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64b714abd9c83de44b4bd77051b77d33
+      internalID: -530603837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monka1testy_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 112
         width: 32
         height: 32
       alignment: 0
@@ -150,8 +171,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89ffff52224b9534db5577f67e6807c2
-      internalID: -170628156
+      spriteID: ef039dc45da091d41a579c960e55c262
+      internalID: -1145791748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monka1testy_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 96
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e806801ba6459bc43b0cc16f5686330d
+      internalID: 1501360564
       vertices: []
       indices: 
       edges: []
@@ -170,9 +212,6 @@ TextureImporter:
       Monka1testy_0: -530603837
       Monka1testy_1: -1145791748
       Monka1testy_2: 1501360564
-      Monka1testy_3: 356212844
-      Monka1testy_4: -1014660322
-      Monka1testy_5: 665097662
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
