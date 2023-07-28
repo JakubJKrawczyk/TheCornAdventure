@@ -23,6 +23,18 @@ public class Dialogue : MonoBehaviour
             "God_Now you are probably thinking to yourself what are you doing here and who are you... Well my friend before you start asking questions you must first learn to crawl." ,
             "PlayerA_..?" ,
             "God_Let me take you to the place where your adventure will begin. And so it's time to start learning."
+        },
+        new List<string>
+        {
+            "God_Everything is already prepared. I will be waiting for you at the end of this mill. So good luck!",
+            "PlayerA_..."
+
+        },
+        new List<string>
+        {
+            "God_So you were able to complete my trial! Maybe there will be something from you after all. Therefore, if so, follow me. Jump down!",
+            "PlayerA_..?",
+            "PlayerA_!!!!!!!!!!!"
         }
 
     };

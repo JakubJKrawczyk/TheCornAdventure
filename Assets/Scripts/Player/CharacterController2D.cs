@@ -253,6 +253,8 @@ public class CharacterController2D : MonoBehaviour
         //Obsługa skakania
         if (jump && (_jumpCount > 0))
         {
+            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0f);
+            _jumpForce = 1500f;
             _grounded = false;
             _rigidbody2D.AddForce(new Vector2(0f, _jumpForce));
             _jumpCount--;

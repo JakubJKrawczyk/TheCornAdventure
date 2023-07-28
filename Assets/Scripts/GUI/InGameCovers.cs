@@ -9,8 +9,16 @@ public class InGameCovers : MonoBehaviour
     [SerializeField] private GameObject PauseCover;
     [SerializeField] private GameObject PauseSettingsCover;
 
-
+    private string nextSceneName;
     private bool isPaused = false;
+    private AsyncOperation _asyncO;
+    private Scene activeScene;
+    private void Awake()
+    {
+        activeScene = SceneManager.GetActiveScene();
+    }
+
+    [System.Obsolete]
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !GameOverCover.activeInHierarchy)
@@ -35,6 +43,27 @@ public class InGameCovers : MonoBehaviour
         {
             Time.timeScale = 0;
         }
+
+
+        if (_asyncO != null)
+        {
+            Debug.Log(_asyncO.progress);
+        }
+        if (_asyncO is not null && _asyncO.isDone)
+        {
+            Debug.Log("Skoñczy³em ³adowaæ scenê");
+            Scene nextScene = SceneManager.GetSceneByName(nextSceneName);
+            if (nextScene.IsValid())
+            {
+                Debug.Log("Zmieniam scenê");
+                SceneManager.SetActiveScene(nextScene);
+                _asyncO.allowSceneActivation = true;
+                SceneManager.UnloadScene(activeScene.buildIndex);
+                nextSceneName = null;
+
+            }
+        }
+
     }
 
     private void OnApplicationFocus(bool hasFocus)
@@ -78,17 +107,28 @@ public class InGameCovers : MonoBehaviour
     {
         //todo: checkpoints
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
+        
 
     }
+
+   
+       
+    
     public void RestartLevel()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("Wywo³ano Load next scene");
+        nextSceneName = SceneManager.GetActiveScene().name;
+        _asyncO = SceneManager.LoadSceneAsync(nextSceneName, LoadSceneMode.Additive);
+        _asyncO.allowSceneActivation = false;
     }
     public void MainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        Debug.Log("Wywo³ano Load next scene");
+        nextSceneName = "MainMenu";
+        _asyncO = SceneManager.LoadSceneAsync(nextSceneName, LoadSceneMode.Additive);
+        _asyncO.allowSceneActivation = false;
     }
 }

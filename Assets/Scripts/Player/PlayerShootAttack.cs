@@ -17,11 +17,12 @@ public class PlayerShootAttack : MonoBehaviour
     private float _timeToWait;
     private CharacterController2D _movement;
     private Animator _animator;
-
+    private PlayerMovement2D _movement2d;
     private void Start()
     {
         ammoStorage = GetComponent<AmmoStorage>();
         _movement = GetComponent<CharacterController2D>();
+        _movement2d = GetComponent<PlayerMovement2D>();
     }
 
     private void Update()
@@ -37,7 +38,7 @@ public class PlayerShootAttack : MonoBehaviour
 
     private void TryShoot()
     {
-        if (Time.time > _timeToWait && !_shootingProgress)
+        if (Time.time > _timeToWait && !_shootingProgress && _movement2d.GetMovementStatus())
         {
             _shootingProgress = true;
             Shoot();

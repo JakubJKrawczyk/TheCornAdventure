@@ -9,7 +9,7 @@ public class EnemyShooter : MonoBehaviour
     [SerializeField] public Transform ProjectilePos;
     [SerializeField] public LayerMask groundLayerMask;
 
-    private GameObject player;
+    [SerializeField] private GameObject player;
     private bool isAttacking;
     
 
@@ -17,7 +17,6 @@ public class EnemyShooter : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         isAttacking = false;
         EnemyPatrolMovement = GetComponent<EnemyPatrolMovement>();
     }
@@ -25,33 +24,37 @@ public class EnemyShooter : MonoBehaviour
 
     void Update()
     {
-        // Calculate direction towards the player
-        Vector2 directionToPlayer = player.transform.position - transform.position;
-        float distance = directionToPlayer.magnitude;
-
-        // Check if the player is in front of the enemy
-        float dotProduct = Vector2.Dot(transform.right, directionToPlayer.normalized);
-
-        if (!EnemyPatrolMovement.isFacingLeft)
+        if(player.activeSelf)
         {
-            dotProduct = Vector2.Dot(transform.right * -1, directionToPlayer.normalized);
-        }
+            // Calculate direction towards the player
+            Vector2 directionToPlayer = player.transform.position - transform.position;
+            float distance = directionToPlayer.magnitude;
 
-        bool playerInFront = dotProduct > 0f;
+            // Check if the player is in front of the enemy
+            float dotProduct = Vector2.Dot(transform.right, directionToPlayer.normalized);
 
-        // Check if the player is within attack range and in front of the enemy
-        if (distance < 10f && playerInFront)
-        {
-            // Check if there are no obstacles (ground) between the enemy and the player
-            RaycastHit2D[] hits = new RaycastHit2D[1];
-            int hitCount = Physics2D.RaycastNonAlloc(transform.position, directionToPlayer.normalized, hits, distance, groundLayerMask);
-            if (hitCount == 0)
+            if (!EnemyPatrolMovement.isFacingLeft)
             {
-                if (!isAttacking)
+                dotProduct = Vector2.Dot(transform.right * -1, directionToPlayer.normalized);
+            }
+
+            bool playerInFront = dotProduct > 0f;
+
+            // Check if the player is within attack range and in front of the enemy
+            if (distance < 10f && playerInFront)
+            {
+                // Check if there are no obstacles (ground) between the enemy and the player
+                RaycastHit2D[] hits = new RaycastHit2D[1];
+                int hitCount = Physics2D.RaycastNonAlloc(transform.position, directionToPlayer.normalized, hits, distance, groundLayerMask);
+                if (hitCount == 0)
                 {
-                    StartCoroutine(AttackCoroutine());
+                    if (!isAttacking)
+                    {
+                        StartCoroutine(AttackCoroutine());
+                    }
                 }
             }
+
         }
     }
 

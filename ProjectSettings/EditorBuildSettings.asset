@@ -9,7 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 2db4935eb77b2414ab132f237e5f746a
   - enabled: 1
-    path: Assets/Scenes/SlamTesting.unity
-    guid: 2f231537bb807d44494a568593d80fb8
+    path: Assets/Scenes/Level 0 - Intro Scene.unity
+    guid: 4d6588a582d8d93409cd79446ad83384
+  - enabled: 1
+    path: Assets/Scenes/Level 0  - Main Gameplay Scene.unity
+    guid: 19d1f5c3da29f074f9262cba9c596cd0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: da906fa6bc561cc49b2466d35aa3ed65, type: 2}
