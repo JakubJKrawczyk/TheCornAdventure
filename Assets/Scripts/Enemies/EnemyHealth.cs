@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -11,6 +12,8 @@ public class EnemyHealth : MonoBehaviour
 
     internal float _currentHP;
 
+    [SerializeField] private SpriteRenderer sprite;
+
     private void Start()
     {
         _currentHP = _initialHP;
@@ -20,6 +23,13 @@ public class EnemyHealth : MonoBehaviour
     {
         _currentHP -= damageReceived;
 
+        if (sprite != null)
+        {
+            sprite.color = Color.red;
+            Invoke("ResetColor", 0.25f);
+        }
+
+
         Debug.Log("E Damage taken: " + damageReceived + " left: " + _currentHP);
 
         if (_currentHP <= 0)
@@ -27,5 +37,11 @@ public class EnemyHealth : MonoBehaviour
             IsAlive = false;
             Destroy(gameObject);
         }
+
+    }
+
+    private void ResetColor()
+    {
+        sprite.color = Color.white;
     }
 }

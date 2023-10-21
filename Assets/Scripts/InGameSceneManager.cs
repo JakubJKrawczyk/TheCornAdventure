@@ -70,7 +70,7 @@ public class InGameSceneManager : MonoBehaviour
         {
             Debug.Log(_asyncO.progress);
         }
-        if (_asyncO is not null && _asyncO.isDone)
+        if (_asyncO is not null && _asyncO.progress == 0.9)
         {
             Debug.Log("Skoñczy³em ³adowaæ scenê");
             Scene nextScene = SceneManager.GetSceneByName(nextSceneName);

@@ -137,7 +137,7 @@ public class CharacterController2D : MonoBehaviour
             if (move != 0) isCrouchWalking = true;
             else isCrouchWalking = false;
 
-            if (playerOneWayPlatform != null && playerOneWayPlatform.IsPlayerOnPlatform() && Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            if (playerOneWayPlatform != null && playerOneWayPlatform.IsPlayerOnPlatform() && (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)))
             {
                 playerOneWayPlatform.AllowFallThrough(true);
             }

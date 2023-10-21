@@ -19,7 +19,7 @@ public class PlayerMovement2D : MonoBehaviour
         shoot_controller = GetComponent<PlayerShootAttack>();
     }
     private bool slamming = false;
-    private bool CanMove = false;
+    public bool CanMove = false;
 
     public void AllowMovement()
     {
